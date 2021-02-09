@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<head>
+		<title> Ёжик</title>
+	</head>
+	<body bgcolor="silver">
+		<br>
+		<center><h2> Добро пожаловать на сайт по лайкам ежа </h2>
+			<img src="egikG.jpg" alt="Альтернативный текст" width="750" height="480" />
+			<div id='like_button'></div>
+		<br>
+		<p> Сделал Максимов Матвей ПИ18-2</p>
+		</center>
+		
+		<script>
+			for (i=0; i<3; i++){
+				$('#like_button').html($('#like_button').html() + '<div class="like_button" data-commentid="'+i+'">');
+			}
+		</script>
+		
+		<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+		<script src="like_button.js"></script> 
+	</body>
+</html>
