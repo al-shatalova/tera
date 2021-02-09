@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<title>Лаба 1 Горбунов</title>
+<head>
+<pre> 
+В HTML-документе определены 2 формы. 
+На первой управляющие кнопки и поля ввода, вторая  - пустая.
+При нажатии на кнопки первой формы на второй форме генерируются элементы (а).
+Параметры и количество элементов определяются в элементах 1-й формы(б),
+а также заданы в виде массивов на JavaScript.
+После построения элементов на второй форме по некоторым кнопкам/элементам
+можно произвести некоторые действия (в), результаты которых отображаются на 2-форме.
+Для генерации элементов и вывода результатов использовать свойство innerHTML.
+Примечание. Уточнения постановки производить самостоятельно. 
+</pre>
+</head>
+
+
+<div class="like_button_container" data-commentid = "1">	</div>
+<div class="like_button_container" data-commentid = "2">	</div>
+<div class="like_button_container" data-commentid = "3">	</div>
+
+<body>
+	<img src="Mem.jpg">
+	
+	<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script> 
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+	<script src="like_button.js"></script>
+</body>
