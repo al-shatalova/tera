@@ -1,0 +1,25 @@
+<html>
+ 	<script src="http://code.jquery.com/jquery-latest.js"></script>
+ <head>
+    <title>Лаб-1. Коломенская ПИ18-1</title>
+ </head>
+
+ <body>
+
+	<h3>Коломенская Александра ПИ18-1</h3>
+ 	<div id='like_button_container'></div>
+ 
+
+ 	<!-- Внимание: во время развертывания, замените "development.js" на "production.min.js". --> 
+ 	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+ 	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+ 	<!-- Загрузка нашего компонента React. -->
+ 	<script>
+ 		for (i=0; i<10; i++){
+ 			$('#like_button_container').html($('#like_button_container').html() + '<div class="like_button_container" data-commentid="'+i+'">');
+ 		}
+ 	</script>
+ 	<script src="lab1.js"></script>
+ </body>
+ </html> 
