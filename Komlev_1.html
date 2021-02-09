@@ -1,0 +1,31 @@
+<html>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+<head>
+	<h1>Комлев Никита. ПИ18-3.</h1>
+</head>
+
+<body>
+	
+
+	<div id='syuda'></div>
+	<!-- <div class="like_button_container" data-commentid="1"> -->
+	<!-- </div> -->
+	<!-- <div class="like_button_container" data-commentid="2"> -->
+	<!-- </div> -->
+	<!-- ... какой-то HTML ... -->
+
+	<!-- Загрузка React. -->
+
+	<!-- Внимание: во время развертывания, замените "development.js" на "production.min.js". --> 
+	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+	<!-- Загрузка нашего компонента React. -->
+	<script>
+		for (i=0; i<20; i++){
+			$('#syuda').html($('#syuda').html() + '<div class="like_button_container" data-commentid="'+i+'">');
+		}
+	</script>
+	<script src="Komlev_1_like_button.js"></script>
+</body>
+</html>
