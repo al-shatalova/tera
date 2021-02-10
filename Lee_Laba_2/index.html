@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lee 2</title>
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8">
+    <!-- Настройка viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Подключаем Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+  </head>
+  <body>
+    <center><h1>Угадай что это</h1></center>
+    
+    <img src="https://kubik.in.ua/upload/iblock/964/Без%20названия%20(8).png" alt="альтернативный текст">
+    <!-- We will put our React component inside this div. -->
+    <div type="button" class="btn btn-outline-danger" id="like_button_container"></div>
+    <a class="btn btn-primary" href="https://kubik.in.ua/upload/iblock/964/Без%20названия%20(8).png" role="button">Ссылка на картинку</a>
+    <div id="example"> </div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    
+    <script type = "text">
+        ReactDOM.render (
+        <div><h3>Hi!</h3></div>,
+        document.getElementById("example"));
+    </script>
+    <!-- Подключаем jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Подключаем плагин Popper (необходим для работы компонента Dropdown и др.) -->
+    <script src="js/popper.min.js"></script>
+    <!-- Подключаем Bootstrap JS -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <script src="like_button.js"></script>
+
+  </body>
+</html>
