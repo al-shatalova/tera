@@ -1,0 +1,25 @@
+<html>
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+  <head>
+     <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8"/>
+     <title>Lab 1</title>
+  </head>
+
+  <body bgcolor="black">
+  <div align="center">
+ 	  <font color="white"><h3 >Tavrovskiy PI18-2</h3></font>
+ 	  <img src="Tavrovskiy.png" alt="Tavrovskiy" width="500" height="270" align="center">
+ 	  <font color="white"><div id='like_button_container'></div></font>
+  </div>
+  	<!-- Внимание: во время развертывания, замените "development.js" на "production.min.js". --> 
+  	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+  	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+  	<!-- Загрузка нашего компонента React. -->
+  	<script>
+  		for (i=0; i<5; i++){
+  			$('#like_button_container').html($('#like_button_container').html() + '<div bgcolor="white" class="like_button_container" data-commentid="'+i+'">');
+  		}
+  	</script>
+  	<script src="lab1.js"></script>
+  </body>
