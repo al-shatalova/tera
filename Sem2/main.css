@@ -1,0 +1,24 @@
+
+.header {
+ background-image: url('background.png');
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+ height: 100vh;
+}
+
+
+.description h1 {
+	color: #fff;
+	font-size: 60px;
+}
+
+.boot {
+	height: 50vh;
+	margin: 50px 0;
+}
+
+.boot .col-md-4 {
+	border: 1px solid #000;
+}
+
