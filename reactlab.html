@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="utf-8">
+     <title>react lab</title>
+     <style type="text/css">
+		table {
+		  border: 1px solid #69c;
+			}
+		th {
+		  font-weight: normal;
+		  color: #039;
+		  border-bottom: 1px dashed #69c;
+		  padding: 12px 17px;
+		}
+		td {
+		  color: #669;
+		  padding: 7px 17px;
+		}
+		tr:hover td {
+		  background: #ccddff;
+		}
+
+		button {
+		  font-weight: 700;
+		  color: white;
+		  text-decoration: none;
+		  padding: .8em 1em calc(.8em + 3px);
+		  border-radius: 3px;
+		  background: rgb(121, 189, 252);
+		  transition: 0.2s;
+		} 
+		button:hover { background: rgb(252, 143, 121); }
+		button:active {
+		  background: rgb(252, 143, 121);		}
+	 </style>
+	 <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+   </head>
+   <body> 
+		Справочник на Local Storage:
+	 	<ol>
+	 		<li> Отображаться в виде таблицы </li>
+	 		<li> Содержать 5 полей </li>
+	 		<li> Добавление элемента справочника по нажатию Enter в одном поле, где значения отделяются запятой </li>
+	 	</ol>
+		<br>
+		<br><b>Красотская Елизавета,
+		<br>Вариант 14</b>
+
+		<br>
+		<br>
+		<input type="text" id="field" value="Enter something..." style='width: 500px;' onkeypress="runScript(event)"> 
+		<!--<input type="button" id="btn" value="Добавить" onclick="addRow()">-->
+		<br> 
+		<br>	
+		<table id = "tbl" width="1000px">  
+			<caption> Список группы	
+			<tr>
+				<th width="7%">ID</th>
+				<th width="25%">Имя</th>
+				<th width="35%">Фамилия</th>
+				<th width="20%">Группа</th>
+				<th width="7%">Возраст</th>
+			</tr>
+
+
+		</table>	
+
+		<br>
+		<br>
+		<input type="button" id = 'b1' width="100px" height="20" onclick='fclick()' value="Delete all">
+		<br><br>
+		<br>
+		<div class="like_button_container" data-commentid="1"></div>
+		<br>
+		<br>
+		<div class="like_button_container" data-commentid="2"></div>
+		<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>  
+		<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+		<script src="like_button.js"></script>
+
+	</body>
+   <script>
+
+   	let tableArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+	localStorage.setItem('items', JSON.stringify(tableArray))
+	const data = JSON.parse(localStorage.getItem('items'))
+	let button = document.getElementById("b1")
+	data.forEach(item => {
+  				addRow(item)})
+   		//gen_tbl = [];
+   		function runScript(e) {
+    	//See notes about 'which' and 'key'
+    		if (e.keyCode == 13) {
+        		var str = document.getElementById("field").value;
+        		console.log(str);
+        		document.getElementById('field').value = '';
+        		str = str + '';
+        		tableArray.push(str)
+				localStorage.setItem('items', JSON.stringify(tableArray))
+        		addRow(str);
+    		}
+		}
+
+   		function addRow(str) {
+			arr = str.split(',');
+			//for (i in )
+			tbl = document.getElementById('tbl').getElementsByTagName('TBODY')[0];
+			row = document.createElement("TR");
+			tbl.appendChild(row);
+
+			td1 = document.createElement("TD");
+			td2 = document.createElement("TD");
+			td3 = document.createElement("TD");
+			td4 = document.createElement("TD");
+			td5 = document.createElement("TD");
+
+			row.appendChild(td1);
+			row.appendChild(td2);
+			row.appendChild(td3);
+			row.appendChild(td4);
+			row.appendChild(td5);
+
+
+			td1.innerHTML = arr[0];
+			td2.innerHTML = arr[1];
+			td3.innerHTML = arr[2];
+			td4.innerHTML = arr[3];
+			td5.innerHTML = arr[4];
+			}
+
+		function fclick() {
+			localStorage.clear()
+			tbl = document.getElementById('tbl')
+			console.log(tbl.rows[0])
+			i = tbl.rows.length;
+			tbl_rows = tbl.rows
+			console.log('cerf')
+			while (i>1)
+			    //tbl.deleteRow(tbl.rows[0]);
+			{
+			    tbl.deleteRow(i-1);
+			    i -= 1;
+			}
+		}
+
+
+			
+
+			//gen_tbl.push({'ID':arr[0], 'Имя':arr[1], 'Фамилия':arr[2], 'Группа':arr[3], 'Возраст':arr[4]});
+			
+	 </script>
+   
+</html>
