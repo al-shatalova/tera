@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Максимов ПИ18-2</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<!-- Настройка viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Подключаем Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+	<link rel="stylesheet" href="st.css" >
+  </head>
+  <body>
+  
+    <div id="root">	</div>
+    <script type="text/babel">
+
+      ReactDOM.render(
+        <center><h1 class="text">Текст с помощью реакта.</h1></center>,
+        document.getElementById('root')
+      );
+	  
+	  function f1(){
+	  ReactDOM.render(
+        <center><p class='text'>Текст, также выведенный с помощью Реакта</p></center>,
+        document.getElementById('output')
+      );
+	  ReactDOM.render(
+		<center><img src="egikG.jpg" alt="Альтернативный текст" width="750" height="480" /></center>,
+        document.getElementById('LOGO')
+      );
+	  }
+
+    </script>
+	<div id="LOGO"></div>
+	<div id='output' class='root2'></div>
+	<div class="root2">
+		<center><button type="button" class="btn btn-primary" data-toggle="popover" title="Сообщение" data-content="Ура, Bootstrap 4 работает" onclick="f1()">Красивая кнопка</button></center>
+	</div>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+	
+	<!-- Подключаем jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Подключаем Bootstrap JS -->
+    <script src="js/bootstrap.min.js"></script>
+	<script>	
+		  $("button").hover(function(){
+			$(this).css("background-color", "black");
+			}, function(){
+			$(this).css("background-color", "blue");
+		  });
+	</script>
+  </body>
+</html>
