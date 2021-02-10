@@ -1,0 +1,23 @@
+.sss{
+	text-align: center;
+	position: absolute;
+	height: 28px;
+	left: 327px;
+	top: 76px;
+	color: #000000;
+
+	
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.rr{
+	text-align: center;
+	position: absolute;
+	height: 28px;
+	width: 1200px;
+	left: 327px;
+	top: 150px;
+}
+.image{
+	background-image: url("image.jpg");
+}
