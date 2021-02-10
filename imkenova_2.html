@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Имкенова Елена ПИ18-2</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="ex"></div>
+    <script type="text/babel">
+    ReactDOM.render(
+		<h2>Имкенова Елена ПИ18-2</h2>,
+        document.getElementById('ex')
+	);  
+	</script>
+    
+	<div id="exa"></div>
+    <script type="text/babel">
+    ReactDOM.render(
+		<p>Надите 5 отличий</p>,
+        document.getElementById('exa')
+	);  
+	</script>
+	
+	<img src="2.jpg"><br><br>
+	
+	<div class="root2">
+	<button type="button" onclick="f1()">Я справился!</button><br><br>
+	</div>
+	<div id='output' class='root2'><div>
+	</script>
+
+	<div id="output"></div>
+	
+	<script type="text/babel">
+
+
+	function f1(){
+		ReactDOM.render(
+			<p class='text'>Вы молодец!</p>,
+			document.getElementById('output')
+		);
+	}
+	
+	</script>
+  </body>
+</html>
