@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TOP 10 интересных фактов об Адель</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css" >
+	
+	<style type="text/css"> 
+	body{
+		position: relative;
+width: 1440px;
+height: 1024px;
+background: #FFFFFF;
+		}
+
+div{
+position: absolute;
+width: 1287px;
+height: 901px;
+left: 57px;
+top: 63px;
+fill: Solid;
+border: 4px double black; 
+padding: 10px; /
+background: #FFFFFF;
+}
+	</style>
+  </head>
+  <body>
+    <div id="root"></div>
+	
+	<!-- Подключаем jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<!-- Подключаем Bootstrap JS -->
+    <script src="js/bootstrap.min.js"></script>
+	
+    <script type="text/babel">
+
+      ReactDOM.render(
+
+        <h1>Текст</h1>,
+        document.getElementById('root')
+      );
+
+    </script>
+	<button type="button" class="btn btn-primary" data-toggle="popover" title="Сообщение" data-content="Ура, Bootstrap 4 работает">Поднеси ко мне курсор</button>
+    <script>
+  $(function () {
+    $('[data-toggle="popover"]').popover({trigger:'hover'});
+  });
+</script>
+	
+  </body>
+  
+</html>
