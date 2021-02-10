@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+      body {
+        background-image: linear-gradient(
+          90deg,
+          #a50026,
+          #d3322b,
+          #f16d43,
+          #fcab64,
+          #fedc90,
+          #faf8c0,
+          #dcf1ec,
+          #abd6e8,
+          #76abd0,
+          #4a74b4,
+          #4a74b4
+        );
+        padding: 20px;
+      }
+      .outer {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .transparent-text {
+        font-family: "Lobster", cursive;
+        font-size: 50px;
+        text-transform: uppercase;
+        background: #2e2f45;
+        display: table;
+        color: white;
+        border-radius: 5px;
+        mix-blend-mode: multiply;
+        padding: 15px 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      ReactDOM.render(
+        <div className="outer">
+          <h1 className="transparent-text" contenteditable="true">Hello, world!</h1>
+        </div>,
+
+        document.getElementById("root")
+      );
+    </script>
+  </body>
+</html>
