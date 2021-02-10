@@ -7,7 +7,7 @@ class LikeButton extends React.Component {
         super(props);
         this.state = { liked: false };
     }
-    
+
     render() {
         if (this.state.liked) {
             return 'You liked this.' + this.props.commentID;
@@ -17,7 +17,7 @@ class LikeButton extends React.Component {
             { onClick: () => this.setState({ liked: true}) },
             'Like'
         );
-    
+
     }
 }
 
