@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+    <style>
+        .user-info{
+            padding: 15px;
+            border: 5px #ccc green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"> </div>
+      
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+     
+   <script type="text/babel">
+    const user = {
+        id : 5,
+        age: 33,
+        firstName: 'Влад',
+        lastName: 'Балабанов',
+        getFullName: function(){ 
+            return `${this.firstName} ${this.lastName}`;
+        }
+    };
+    const userClassName = "user-info";
+    const styleObj = {
+        color:'green', 
+        fontFamily:'Verdana'
+    };
+    ReactDOM.render(
+        <div className={userClassName}  style={styleObj}>
+                <p>Полное имя: {user.getFullName()}</p>
+                <p>Возраст: {user.age}</p>
+        </div>,
+        document.getElementById("app")
+    )
+   </script>
+</body>
+</html>
