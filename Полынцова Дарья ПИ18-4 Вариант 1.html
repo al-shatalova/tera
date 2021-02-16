@@ -1,0 +1,46 @@
+<!-- Полынцова Дарья ПИ18-4 вариант 1 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Add React in One Minute</title>
+</head>
+<body>
+
+<script>
+function f1(){
+	//x = prompt('x=');alert(x*x)
+a = +document.getElementById('a').value
+z = a*a
+document.getElementById('a').value = z
+//document.write(z)
+//alert('z='+z)
+}
+</script>
+<input size='3'
+id='a'
+type = 'number'>
+<input type='button'
+	onclick='f1()'
+	
+	value='Возведение в квадрат'>
+
+
+
+
+<p>Greetings from React!</p>
+<!-- We will put our React component inside this div. -->
+<div class="like_button_container" data-commentid="1"></div>
+<div class="like_button_container" data-commentid="2"></div>
+<div class="like_button_container" data-commentid="3"></div>
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="like_button.js"></script>
+
+</body>
+</html>

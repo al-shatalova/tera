@@ -32,3 +32,4 @@ e(LikeButton, { commentID: commentID}),
 domContainer
 );
 });
+Закрыть
