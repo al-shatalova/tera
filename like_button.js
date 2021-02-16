@@ -29,6 +29,31 @@ class LikeButton extends React.Component {
   }
 
 }
+document.querySelectorAll('.like_button_container')
+<<<<<<< master
+.forEach(domContainer => {
+const commentID = parseInt(domContainer.dataset.commentid, 10);
+ReactDOM.render(
+e(LikeButton, { commentID: commentID}),
+domContainer
+);
+});
+
+=======
+
+  .forEach(domContainer => {
+
+    const commentID = parseInt(domContainer.dataset.commentid, 10);
+
+    ReactDOM.render(
+
+      e(LikeButton, { commentID: commentID }),
+
+      domContainer
+
+    );
+  });
+>>>>>>> master
 
 
 
