@@ -1,30 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-	<title>Котик прогружается</title>
-	<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-	<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<meta charset="utf-8" />
+<title>My name</title>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-
+dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-
+standalone/6.25.0/babel.min.js"></script>
 </head>
-<body class="text-center" style="margin: 100px;">
-	<div id="root"></div>
-	
-	<script type="text/babel">
-		ReactDOM.render(
-		<h1>Котик прогружается</h1>,
-		document.getElementById('root')
-		);
-	</script>
-	
-    <button type="button" class="btn btn-primary" onclick = 'cl()'>Нажми на меня</button>
-	<br></br>
-	<div id = 'img' width = "100" height="100"></div>
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="text.js"> </script>
+<body>
+<!--опишем объект-->
+<script type="text/babel">
+	const userClassName = "user-info";
+	const styleObj = {
+	color:'#38153d',
+	fontFamily:'Verdana',
+	textAlign: "center",
+	fontSize: "25px",
+	backgroundColor:"#ED96FA"
+	};
+	const user = {
+	id : 5,
+	age: 20,
+	firstName: 'Лилия',
+	lastName: 'Рачкова',
+	getFullName: function(){
+	return `${this.firstName} ${this.lastName}`;
+	}};
+	ReactDOM.render(
+	<div className={userClassName} style={styleObj}>
+	<p>Полное имя: {user.getFullName()}</p>
+	<p>Возраст: {user.age}</p>
+	</div>,
+	document.getElementById("app"))
+</script>
+<!--поместим описанный объект-->
+<div id="app"> </div>
+
 </body>
 </html>
