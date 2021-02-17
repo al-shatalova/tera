@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ПИ18-2 Степанов</title>
+    <link rel="stylesheet" href="https://difres.ru/css/materialize.min.css">
+    <link rel="stylesheet" href="https://difres.ru/css/icon.css">
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m12 l12" id="header">
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m12 l12" id="content">
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://stepigor.ru/cdn/react.js"></script>
+    <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+    <script src="https://stepigor.ru/cdn/babel.js"></script>
+    <!-- код на реакте -->
+    <script type="text/babel">
+      let header_style = {
+        background:'purple',
+        padding:'15px',
+        color:'white',
+        fontSize:'24px',
+        fontFamily:'calibri light'
+      }
+
+      let content_style = {
+        padding:'15px',
+        background:'#F2F2F2',
+        color:'black',
+        fontSize:'18px',
+        fontFamily:'calibri'
+      }
+
+      const User = {
+        name: 'Игорь',
+        surname: 'Степанов',
+        age: 20,
+        getFullInfo(){
+          return `Это ${this.name} ${this.surname}. Мой возраст - ${this.age}`;
+        }
+      }
+
+      let iconsclass = 'material-icons left'
+      let iconstyle = {
+        fontSize: '36px'
+      }
+
+      ReactDOM.render(
+        <div style={header_style}>
+          <i className={iconsclass} style={iconstyle}>account_box</i>Персональная страница - пример
+        </div>,
+         document.getElementById('header'));
+
+      ReactDOM.render(
+        <div>
+          <b>Имя:</b> {User.name}<br/>
+          <b>Фамилия:</b> {User.surname}<br/>
+          <b>Возраст:</b> {User.age}<br/>
+          <b>Использование метода:</b> {User.getFullInfo()}
+        </div>
+        ,
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
