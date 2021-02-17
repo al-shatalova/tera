@@ -1,0 +1,10 @@
+.header{
+	height:60px;
+	margin-bottom: 8em;
+	background-color: #fce2c2;
+
+}
+.header h2 {
+	line-height: 60px;
+	letter-spacing: 5px;
+}
