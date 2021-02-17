@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Hello React</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+<!--опишем объект-->
+<script type="text/babel">
+
+const userClassName = "user-info";
+const styleObj = {
+	color:'green',
+	fontFamily:'Verdana',
+	border: '2px solid #78788c',
+    margin: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+};
+const styleObjUnderline = {
+	textDecoration: 'underline',
+	border: '2px solid #78788c',
+    margin: '10px',
+	padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+};
+const user = {
+	id : 5,
+	age: 20,
+	firstName: 'Никита',
+	lastName: 'Комлев',
+	getFullName: function(){
+		return `${this.firstName} ${this.lastName}`;
+		}
+	};
+
+ReactDOM.render(
+	<h2 style={styleObjUnderline}>27 + 32 = {27 + 32}</h2>,
+	document.getElementById("app")
+	);
+
+ReactDOM.render(
+	<div className={userClassName} style={styleObj}>
+	<p>Полное имя: {user.getFullName()}</p>
+	<p>Возраст: {user.age}</p>
+	</div>,
+	document.getElementById("app2")
+	);
+
+</script>
+
+<!--поместим описанный объект-->
+<div id="app"> </div>
+<div id="app2"> </div>
+
+</body>
+</html>
