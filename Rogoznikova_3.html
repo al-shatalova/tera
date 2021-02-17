@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Lexend+Mega&family=Permanent+Marker&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body style="background-color: lightslategray">
+<div id="app"></div>
+
+<script type="text/babel">
+    const userClassName = "user-info";
+    const styleObj = {
+        color:'Maroon',
+        fontFamily:'Roboto Mono',
+        textAlign: 'center',
+        fontSize: '40px',
+        backgroundColor: 'Violet'
+
+    };
+
+    const user = {
+        id : 12,
+        age: 20,
+        firstName: 'Софья',
+        lastName: 'Рогозникова',
+        getFullName: function(){
+            return `${this.firstName} ${this.lastName}`;
+        }
+    };
+
+    ReactDOM.render(
+        <div className={userClassName} style={styleObj}>
+            <p>Полное имя: {user.getFullName()}</p>
+            <p>Возраст: {user.age}</p>
+        </div>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
