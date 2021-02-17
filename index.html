@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    </head>
+
+    <body>
+
+        <div id="app"></div>
+
+    </body>
+
+    <script type="text/babel">
+
+        const userClass = "user-info col-md-8 mx-auto " +
+            "d-flex flex-row bd-highlight mb-3";
+        const userFieldsClass = "p-2 bd-highlight"
+        const styleDiv = {
+            fontFamily:'Verdana',
+            borderRadius: '50px',
+            boxShadow: '0 0 5px rgba(122,122,122,0.5)'
+        };
+
+
+        const menu = {
+            homePage : "Home page",
+            guidelines: "Guidelines",
+            about: "About",
+        };
+
+        ReactDOM.render(
+            <div className={userClass}  style={styleDiv}>
+                <div className={userFieldsClass}>{menu.homePage}</div>
+                <div className={userFieldsClass}>{menu.guidelines}</div>
+                <div className={userFieldsClass}>{menu.about}</div>
+            </div>,
+            document.getElementById("app")
+        );
+
+    </script>
+
+</html>
