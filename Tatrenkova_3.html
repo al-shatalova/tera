@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8" />
+	    <title>Hello React</title>
+	    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+
+
+	</head>
+
+	<body>
+		
+		<script type="text/babel">
+   		const userClassName = "user-info";
+    	const styleObj = {
+        color:'#800080', 
+        fontFamily:'Verdana',
+    	width: '100%',
+        fontSize: "22px",
+        textAlign: 'center',
+        textShadowColor:'#585858',
+    	textShadowOffset:{width: 5, height: 5},
+    	textShadowRadius:10,
+    	};
+    	</script>
+    	
+		<!--опишем объект-->
+   		<script type="text/babel"> 
+    	ReactDOM.render(
+        <h2 style={{ padding: "10px 20px", textAlign: "center", color: "#483D8B", fontFamily:'Verdana'}}>
+        5 + 2 = {5 + 2}</h2>,
+        document.getElementById("app1")
+    	)
+
+   		</script>
+   <!--поместим описанный объект-->
+   		
+   		<div id="app1"> </div>
+    	<!--<div className={userClassName}  style={{color:'red', fontFamily:'Verdana'}}> -->
+    	
+    	<script type="text/babel">
+	    	const user = {
+	        id : 5,
+	        age: 20,
+	        grup: 'ПИ18-3',
+	        firstName: 'Алена',
+	        lastName: 'Татаренкова',
+	        getFullName: function(){ 
+	            return `${this.firstName} ${this.lastName}`;
+	        }
+	    	};
+	    </script>
+
+	    <script type="text/babel">
+	    	ReactDOM.render(
+	        	<div className={userClassName}  style={styleObj}>
+	                <p>Полное имя: {user.getFullName()}</p>
+	                <p>Группа: {user.grup}</p>
+	                <p>Возраст: {user.age}</p>
+	        	</div>,
+	        document.getElementById("app")
+	    	)
+    	</script>
+
+    	<div id="app"> </div>
+    	
+	</body>
+	<script>
+		function tick() {
+  		const element = (
+    	<div>
+      	<h1>Hello, world!</h1>
+      	<h2>It is {new Date().toLocaleTimeString()}.</h2>
+    	</div>
+  		);
+ 	 	ReactDOM.render(element, document.getElementById('root'));
+		}
+		setInterval(tick, 1000);
+	</script>
+</html> 
