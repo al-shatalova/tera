@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Лабораторная работа 3</title>
+<style>
+body{
+  background:#1E90FF;
+  max-width: 500px;
+}
+
+
+#app1{
+color: #FA8072;
+fontFamily: Biome;
+font-size: 25pt;
+}
+</style>
+</head>
+<body>
+
+<!--поместим описанный объект-->
+<div id="app"> </div>
+<div id="app1"> </div>
+   
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+
+<!--опишем объект-->
+<script type="text/babel"> 
+ReactDOM.render(
+<h2>2 * 14 = {2 * 14}</h2>,
+document.getElementById("app1")
+)
+</script>
+<script type="text/babel"> 
+const user = {
+id : 17,
+age: 21,
+firstName: 'Alexander',
+lastName: 'Komissarov',
+getFullName: function(){
+return `${this.firstName} ${this.lastName}`;
+}
+};
+
+const userClassName = "user-info";
+const styleObj = {
+color:'White',
+fontFamily:'Biome'
+};
+
+ReactDOM.render(
+<div className={userClassName} style={styleObj}>
+<p>Полное имя: {user.getFullName()}</p>
+<p>Возраст: {user.age}</p>
+</div>,
+document.getElementById("app")
+)
+
+</script>
+</body>
+</html>
