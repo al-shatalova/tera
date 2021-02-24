@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+	<html>
+
+		<head>
+
+			<meta charset="utf-8" />
+
+			<title>Hello React</title>
+
+			<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+
+			<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+		</head>
+
+		<body>
+
+			<!--опишем объект-->
+
+			<div id="app"> </div>
+
+			<script type="text/babel">
+				ReactDOM.render(
+					<h2>Hello React</h2>,
+					document.getElementById("app"))
+			</script>
+
+
+			<div id="container"> </div>
+
+			<script type="text/babel">
+
+				class Hello extends React.Component {
+					render()
+					{
+						return <h1>Таймер</h1>;
+					}
+				}
+
+				ReactDOM.render(
+					<Hello />, 
+					document.getElementById("container")
+				)
+			</script>
+
+			<div id="timer-example"> </div>
+
+			<script type="text/babel">
+
+				class Timer extends React.Component {
+					constructor(props) {
+						super(props);
+						this.state = { seconds: 0, minutes: 0 };
+					}
+
+					tick() {
+
+						this.setState(state => ({
+							minutes: state.minutes + parseInt((state.seconds + 1) / 60)
+						}));
+
+						this.setState(state => ({
+							seconds: (state.seconds + 1) % 60
+						}));
+
+					}
+
+					componentDidMount() {
+						this.interval = setInterval(() => this.tick(), 1000);
+					}
+
+					componentWillUnmount() {
+						clearInterval(this.interval);
+					}
+
+					render() {
+						return (
+							<div>
+								Прошло минут: {this.state.minutes}
+								<p>
+								Прошло секунд: {this.state.seconds}
+								</p>
+							</div>
+						);
+					}
+				}
+
+				ReactDOM.render(
+					<Timer />,
+					document.getElementById("timer-example")
+				);
+
+			</script>
+		</body>
+
+	</html>
