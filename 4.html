@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>СОРОКИН ПИ18-2</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script> 
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="func"></div>
+    <div id="strel"></div>
+    <div id="container"></div>
+    <div id="timer-example"></div>
+    
+    <br>
+</body>
+
+<script type="text/babel">
+	
+	
+	
+    function Hello() {
+         return <p>Это функциональный метод</p>;
+     };
+
+    
+	 
+	 
+
+    var helloObj =() => {
+        return (<p>Это стрелочная функция</p>);
+    }
+    
+	 
+    
+     class HelloClass extends React.Component {
+            render() {
+                return <p>А это вот класс!</p>;
+            }
+        }
+		
+	ReactDOM.render(
+         helloObj(),
+         document.getElementById("strel")
+     );
+	 ReactDOM.render(
+         Hello(),
+         document.getElementById("func")
+     );
+
+    ReactDOM.render(
+            <HelloClass/>,
+            document.getElementById("container")
+        );
+    
+
+    class Timer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { seconds: 0 };
+        }
+        tick() {
+            this.setState(state => ({
+            seconds: state.seconds + 1
+            }));
+        }
+        componentDidMount() {
+            this.interval = setInterval(() => this.tick(), 1000);
+        }
+        componentWillUnmount() {
+            clearInterval(this.interval);
+        }
+        render() {
+            return (
+            <div>
+                Seconds: {this.state.seconds}
+            </div>
+            );
+        }
+    };
+       
+
+    ReactDOM.render(
+        <Timer />,
+        document.getElementById('timer-example')
+    );
+
+</script>
+</html> 
