@@ -12,43 +12,78 @@
       src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <script type="text/babel">
+      ReactDOM.render(
+          <h1>Hello React</h1>,
+          document.getElementById("app")
+      )
+  </script>
+  
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="app"></div>
+    <header class="header"></header>
+    <nav>
+      <ul class="main-menu">
+          <li class="menu-item"><a href="#1"><div id="container"></div></a></li>
+          <li class="menu-item"><a href="#2"><div id="timer-example"></div></a></li>
+      </ul>
+  </nav>
+</header>
+
     <script type="text/babel">
-      const userClassName = "user-info";
-      const styleObj = {
-        color: "green",
-        fontFamily: "Verdana",
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-        FontSize: "18px"
-      };
-      const user = {
-        id : 1,
-        age: 19,
-        firstName: 'Andrey',
-        lastName: 'Baranyuk',
-        getFullName: function(){ 
-            return `${this.firstName} ${this.lastName}`;
+      class Timer extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { seconds: 0 };
+       }   
+
+        tick() {
+          this.setState(state => ({
+            seconds: state.seconds + 1
+          }));
         }
-    };
 
-      ReactDOM.render(
-        <div style={{display: 'flex'}}>
-          <div
-            className={userClassName}
-            style={styleObj}
-          >
-          <p>Полное имя: {user.getFullName()}</p>
-                <p>Возраст: {user.age}</p>
+        componentDidMount() {
+          this.interval = setInterval(() => this.tick(), 1000);
+        }
 
-          </div>
-          </div>,
-        document.getElementById("app")
-      );
+        componentWillUnmount() {
+          clearInterval(this.interval);
+        }
+
+        render() {
+          return (
+            <div>
+              Вы запустли этот сайт {this.state.seconds} секунд назад
+            </div>
+          );
+        }
+}
+
+    function Hello() {
+      return <h1>Я Баранюк</h1>;
+    }
+
+    // var Hello =() => {
+    //   return (<h1>Привет</h1>);
+    // }
+
+    // class Hello extends React.Component {
+    //   render() {
+    //     return <h1>Привет</h1>;
+    //   }
+    // }
+
+
+    ReactDOM.render(
+      <Hello />,
+            document.getElementById("container")
+    );
+    ReactDOM.render(
+      <Timer />,
+      document.getElementById('timer-example')
+    );
 
     </script>
   </body>
