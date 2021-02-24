@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Имкенова ПИ18-2</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+</head>
+<style>
+	body{
+		background-color:#e6f4ff;
+		}
+</style>
+<body>
+<script type="text/babel">
+    ReactDOM.render(
+        <h1>Hello React</h1>,
+        document.getElementById("app")
+    )
+	
+	function Hello() {
+	  return <h2>Привет!</h2>;
+	  document.getElementById("hello")
+	}
+
+	ReactDOM.render(
+        <Hello />,
+        document.getElementById("hello")
+    )
+	
+	var Hello2 =() => {
+		return (<h2>Привет!!</h2>);
+	}
+	
+	ReactDOM.render(
+        <Hello2 />,
+        document.getElementById("hello2")
+    )
+	
+	class Hello3 extends React.Component {
+	  render() {
+		return <h2>Привет!!!</h2>;
+	  }
+	}
+	
+	ReactDOM.render(
+        <Hello3 />,
+        document.getElementById("hello3")
+    )
+	
+	class Timer extends React.Component {
+	  constructor(props) {
+		super(props);
+		this.state = { seconds: 0 };
+	  }
+
+	  tick() {
+		this.setState(state => ({
+		  seconds: state.seconds + 1
+		}));
+	  }
+
+	  componentDidMount() {
+		this.interval = setInterval(() => this.tick(), 1000);
+	  }
+
+	  componentWillUnmount() {
+		clearInterval(this.interval);
+	  }
+
+	  render() {
+		return (
+		  <div>
+			Seconds: {this.state.seconds}
+		  </div>
+		);
+	  }
+	}
+
+	ReactDOM.render(
+	  <Timer />,
+	  document.getElementById('timer-example')
+	);
+
+
+</script>
+
+<div id="app"> </div><hr>
+<I>Задаем компонент функционально:</I>
+<div id="hello"> </div><br><hr>
+<I>Задаем компонент с помощью стрелочной функции:</I>
+<div id="hello2"> </div><br><hr>
+<I>Задаем компонент с помощью классов ES6:</I>
+<div id="hello3"> </div><br><hr>
+<I>Таймер:</I><br><br>
+<div id="timer-example"> </div>
+
+</body>
+</html>
