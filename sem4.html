@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Hello React</title>
+<style>
+   body{
+    background-color: #c71585; /* Цвет фона веб-страницы */
+   } 
+  </style>
+<script
+crossorigin
+src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-
+dom.production.min.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/babel-
+standalone/6.25.0/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+<script type="text/babel">
+const user = {
+id : 5,
+age: 20,
+firstName: 'Anna',
+lastName: 'Raibekas',
+getFullName: function(){
+return `${this.firstName} ${this.lastName}`;
+}
+};
+const userClassName = "user-info";
+const styleObj = {
+color:'black',
+fontFamily:'Arial',
+background: '#690c46',
+fontSize: '40px',
+textAlign: 'center'
+};
+ReactDOM.render(
+<div className={userClassName} style={styleObj}>
+<p>Name: {user.getFullName()}</p>
+<p>Age: {user.age}</p>
+</div>,
+document.getElementById("app")
+)
+
+class Hello extends React.Component {
+  render() {
+    return <h1>Этот таймер</h1>;
+  }
+}
+ReactDOM.render(
+		<Hello />,
+		document.getElementById("container")
+	)
+	
+function Hello1() {
+		return <h1>считает</h1>;
+}
+ReactDOM.render(
+				<Hello1 />,
+				document.getElementById("container1")
+			)
+
+			
+var Hello2 =() => {
+		return (<h1>секунды</h1>);
+}
+ReactDOM.render(
+				<Hello2 />,
+				document.getElementById("container2")
+			)	
+
+class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { seconds: 0 };
+  }
+  tick() {
+    this.setState(state => ({
+      seconds: state.seconds + 1
+    }));
+  }
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+  render() {
+    return (
+      <div>
+        Seconds: {this.state.seconds}
+      </div>
+    );
+  }
+};
+
+ReactDOM.render(
+  <Timer />,
+  document.getElementById('timer-example')
+);
+</script>
+<!--поместим описанный объект-->
+<div id="app"> </div>
+<div id='container'></div>
+<div id = 'container1'></div>
+<div id = 'container2'></div>
+<div id='timer-example'></div>
+</body>
+</html>
