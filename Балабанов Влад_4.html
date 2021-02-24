@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+
+<body>
+    
+<script type="text/babel">
+    
+	ReactDOM.render(
+        <h1>Балабанов Влад.Способы описания компонентов</h1>,
+        document.getElementById("app")
+    )
+	
+	function Primer1() {
+	  return <h3>Балабанов Влад. Функционально</h3>;
+	  document.getElementById("Primer1")
+	}
+
+	var Primer2 =() => {
+		return (<h3>Балабанов Влад. С помощью стрелочной функции </h3>);
+	}
+
+	class Primer3 extends React.Component {
+	  render() {
+		return <h3>Балабанов Влад. С помощью классов ES6</h3>;
+	  }
+	}
+
+	ReactDOM.render(
+        <Primer1 />,
+        document.getElementById("Primer1")
+    )
+	
+	ReactDOM.render(
+        <Primer2 />,
+        document.getElementById("Primer2")
+    )
+	
+	ReactDOM.render(
+        <Primer3 />,
+        document.getElementById("Primer3")
+    )
+	
+
+	class Timer extends React.Component {
+	  constructor(props) {
+		super(props);
+		this.state = { seconds: 0 };
+	  }
+
+	  tick() {
+		this.setState(state => ({
+		  seconds: state.seconds + 1
+		}));
+	  }
+
+	  componentDidMount() {
+		this.interval = setInterval(() => this.tick(), 1000);
+	  }
+
+	  componentWillUnmount() {
+		clearInterval(this.interval);
+	  }
+
+	  render() {
+		return (
+		  <div>
+			Балабанов Влад. Seconds: {this.state.seconds}
+		  </div>
+		);
+	  }
+	}
+
+	ReactDOM.render(
+	  <Timer />,
+	  document.getElementById('Primer4')
+	);
+</script>
+ 
+<div id="Primer4"> </div> 
+<div id="app"> </div><hr>
+<div id="Primer1"> </div><br><hr>
+<div id="Primer2"> </div><br><hr>
+<div id="Primer3"> </div><br><hr>
+
+   
+</body>
+</html>
