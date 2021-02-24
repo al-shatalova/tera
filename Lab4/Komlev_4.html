@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Hello React</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+<div id='app'></div>
+<div id='container'></div>
+<div id='timer-example'></div>
+
+<script type="text/babel">
+	var a = 300;
+	var r = 200;
+	var style = {
+	position: 'absolute',
+	width: '82px',
+	height: '82px',
+	left: '13px',
+	top: a+'px',
+	background: '#C4C4C4'
+	};
+
+	ReactDOM.render(
+		<h1>Комлев. ПИ18-3. Hello React</h1>,
+		document.getElementById("app")
+	)
+	class Hello extends React.Component {
+		render() {
+			return <h1 style={{color: '#C4C4C4'}}>Привет</h1>;
+		}
+	}
+	ReactDOM.render(
+		<Hello />,
+		document.getElementById("container")
+	)
+	
+//Таймер
+	class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { seconds: 0, 
+	position: 'absolute',
+	width: '82px',
+	height: '82px',
+	left: a+r+'px',
+	top: a+r+'px',
+	background: '#C4C4C4' };
+  }
+
+  tick() {
+    this.setState(state => ({
+      seconds: state.seconds + 1,
+	  top: a + Math.sin(state.seconds/120)*r + 'px',
+	  left: a + Math.cos(state.seconds/120)*r + 'px',
+	  background: 'rgb(' + Math.cos(state.seconds/120)*256 + ', ' + Math.sin(state.seconds/120)*256 + ', 196)'
+	  }));
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
+      <div style={{
+
+		background: this.state.background,
+		width: this.state.width,
+		height: this.state.height,
+		left: this.state.left,
+		position: this.state.position,
+		top: this.state.top}}>
+        Seconds: {Math.round(this.state.seconds / 200, 1)}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Timer />,
+  document.getElementById('timer-example')
+);
+
+</script>
+</body>
+</html>
