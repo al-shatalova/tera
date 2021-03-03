@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<title>lab3</title>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="description" content="Personal Website Template">
+<meta name="keywords" content="Personal, Website Template, Minimal HTML Template, Freelancer">
+<meta name="author" content="khai tawng">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/animate.css">
+<link rel="stylesheet" href="css/magnific-popup.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<!-- PRE LOADER -->
+<div class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+     </div>
+</div>
+
+
+<!-- NAVIGATION SECTION -->
+<div class="navbar custom-navbar navbar-fixed-top" role="navigation">
+     <div class="container">
+
+          <div class="navbar-header">
+               <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+               </button>
+               <!-- lOGO TEXT HERE -->
+               <a href="index.html" class="navbar-brand">Tavrovskiy.</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a class="smoothScroll" href="./index.html">Lab3</a></li>
+                  <li><a class="smoothScroll" href="./lab4.html">Lab4</a></li>
+                  <li><a class="smoothScroll" href="./lab5.html">Lab5</a></li>       
+               </ul>
+          </div>
+
+     </div>
+</div>
+
+
+<!-- HOME SECTION -->
+<section id="home">
+
+     <div class="container">
+          <div class="row">
+               <div class="col-md-offset-1 col-md-10">
+                    <div id="app"> </div>
+                    <div id="container1"> </div>
+                    <div id="container2"> </div>
+                    <div id="container"> </div>
+                    <hr>
+                    <div id="timer-example"> </div>
+               </div>
+
+          </div>
+     </div>
+</section>
+
+
+<!-- SCRIPTS -->
+<script type="text/babel">
+      ReactDOM.render(
+          <h2 style={{padding: "15px 15px", textAlign: "center", color: "#000000"}}>Вывод текста</h2>,
+          document.getElementById("app")
+      )
+
+      function Hello1() {
+        return <h2 style={{ padding: "15px 15px", textAlign: "center", color: "#252525"}}>Через обычную функцию</h2>;
+      }
+
+      var Hello2 =() => {
+          return (<h2 style={{ padding: "15px 15px", textAlign: "center", color: "#797979"}}>Через стрелочную функцию</h2>);
+      }
+
+      class Hello extends React.Component {
+        render() {
+        return <h2 style={{ padding: "15px 15px", textAlign: "center", color: "#959595", fontFamily:'Muli'}}>Через классы ES6</h2>;
+        }
+      }
+
+      ReactDOM.render(
+          <Hello />,
+          document.getElementById("container")
+          )
+      ReactDOM.render(
+          <Hello1 />,
+          document.getElementById("container1")
+          )
+      ReactDOM.render(
+          <Hello2 />,
+          document.getElementById("container2")
+          )
+
+      class Timer extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { seconds: 0 };
+      }
+
+      tick() {
+        this.setState(state => ({
+          seconds: state.seconds + 1
+        }));
+      }
+
+      componentDidMount() {
+        this.interval = setInterval(() => this.tick(), 1000);
+      }
+
+      componentWillUnmount() {
+        clearInterval(this.interval);
+      }
+
+      render() {
+        return (
+          <div>
+            Seconds: {this.state.seconds}
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <table align="center" cellSpacing="0" cellPadding="10"><h2 style={{ padding: "40px 40px", textAlign: "center", color: "E6E6E6", fontSize:"20px"}}>
+      <Timer> {<Timer />}
+      </Timer>
+      </h2></table> 
+      ,
+      document.getElementById('timer-example')
+    );
+
+</script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/magnific-popup-options.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>
