@@ -1,90 +1,22 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Baranyuk</title>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+  </head>
+  <body>
+    <div id="app"></div>
     <script
       crossorigin
       src="https://unpkg.com/react@16/umd/react.production.min.js"
     ></script>
     <script
       crossorigin
-      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+      src="https://unpkg.com/react-dom@16/umd/react-
+dom.production.min.js"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-    <script type="text/babel">
-      ReactDOM.render(
-          <h1>Hello React</h1>,
-          document.getElementById("app")
-      )
-  </script>
-  
-    <link href="style.css" rel="stylesheet" />
-  </head>
-  <body>
-    <header class="header"></header>
-    <nav>
-      <ul class="main-menu">
-          <li class="menu-item"><a href="#1"><div id="container"></div></a></li>
-          <li class="menu-item"><a href="#2"><div id="timer-example"></div></a></li>
-      </ul>
-  </nav>
-</header>
-
-    <script type="text/babel">
-      class Timer extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = { seconds: 0 };
-       }   
-
-        tick() {
-          this.setState(state => ({
-            seconds: state.seconds + 1
-          }));
-        }
-
-        componentDidMount() {
-          this.interval = setInterval(() => this.tick(), 1000);
-        }
-
-        componentWillUnmount() {
-          clearInterval(this.interval);
-        }
-
-        render() {
-          return (
-            <div>
-              Вы запустли этот сайт {this.state.seconds} секунд назад
-            </div>
-          );
-        }
-}
-
-    function Hello() {
-      return <h1>Я Баранюк</h1>;
-    }
-
-    // var Hello =() => {
-    //   return (<h1>Привет</h1>);
-    // }
-
-    // class Hello extends React.Component {
-    //   render() {
-    //     return <h1>Привет</h1>;
-    //   }
-    // }
-
-
-    ReactDOM.render(
-      <Hello />,
-            document.getElementById("container")
-    );
-    ReactDOM.render(
-      <Timer />,
-      document.getElementById('timer-example')
-    );
-
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-
+standalone/6.25.0/babel.min.js"></script>
+    <script type="text/babel" src="index.jsx"></script>
   </body>
 </html>
