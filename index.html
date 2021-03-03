@@ -1,46 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-	<meta charset="UTF-8" />
-    <title>sem2 Raibekas</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-	
-	<style>
-   body {
-    background: url(https://moscow-airports.com/wp-content/uploads/2019/05/5d8147c6dc269.png) no-repeat;
-    -moz-background-size: 100%; /* Firefox 3.6+ */
-    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
-    -o-background-size: 100%; /* Opera 9.6+ */
-    background-size: 100%; /* Современные браузеры */
-   }
+<meta charset="utf-8" />
+<title>Hello React</title>
+<style>
+   body{
+    background-color: #9db9d1; /* Цвет фона веб-страницы */
+   } 
   </style>
 </head>
-<body class="text-center" style="margin: 100px;">
+<body>
+<script type="text/babel">
+const userClassName = "user-info";
+const styleObj = {
+color:'white',
+fontFamily:'Arial',
+background: '#4c5866',
+fontSize: '40px',
+textAlign: 'center'
+};
+const styleBut = {
+color:'black',
+background: '#9db9d1',
+fontSize: '40px',
+};
+
+</script>
+<div id="app"></div>
+<div id="todos-example"></div>
 
 
-	<script src="sem21.js"></script>
-	
-    <div id="root"></div>
-    <script type="text/babel">
-
-      ReactDOM.render(
-        <h1>Hello, world!</h1>,
-        document.getElementById('root')
-      );
-
-    </script>
-    <button type="button" class="btn btn-primary" onclick="changeColor();" data-toggle="popover" title="Инфо" data-content="Путешествие по миру">Путешествовать</button>
-	
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="sem2.js"></script>
+<script crossorigin
+src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-
+dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-
+standalone/6.25.0/babel.min.js"></script>
+<script type="text/babel" src="index.jsx"></script>
 </body>
 </html>
