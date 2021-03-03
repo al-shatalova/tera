@@ -2,125 +2,18 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>My name</title>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<title>Hello React</title>
+</head>
+<body>
+<style></style>
+<div id="app"></div>
+<div id="cat"></div>
+<script crossorigin
+src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-
 dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-
 standalone/6.25.0/babel.min.js"></script>
-</head>
-<body>
-<!--опишем объект-->
-<script type="text/babel">
-	const userClassName = "user-info";
-	const styleObj = {
-	color:'#38153d',
-	fontFamily:'Verdana',
-	textAlign: "center",
-	fontSize: "25px",
-	backgroundColor:"#ED96FA"
-	};
-	const user = {
-	id : 5,
-	age: 20,
-	firstName: 'Лилия',
-	lastName: 'Рачкова',
-	getFullName: function(){
-	return `${this.firstName} ${this.lastName}`;
-	}};
-	
-	
-	
-	ReactDOM.render(
-	<div className={userClassName} style={styleObj}>
-	<p>Полное имя: {user.getFullName()}</p>
-	<p>Возраст: {user.age}</p>
-	</div>, document.getElementById("app"))
-	
-	
-	
-	
-	
-	
-	
-	//Таймер
-	
-		class Timer extends React.Component {
-	  constructor(props) {
-		super(props);
-		this.state = { seconds: 0 };
-	  }
-	  tick() {
-		this.setState(state => ({
-		  seconds: state.seconds + 1
-		}));
-	  }
-	  componentDidMount() {
-		this.interval = setInterval(() => this.tick(), 1000);
-	  }
-	  componentWillUnmount() {
-		clearInterval(this.interval);
-	  }
-	  render() {
-		return (
-		  <div>
-			Seconds: {this.state.seconds}
-		  </div>
-		);
-	  }
-	}
-	
-	ReactDOM.render(
-	<Timer />,
-  document.getElementById('timer-example')
-)
-
-
-
-
-
-
-
-	//Кдассы
-	class Hello extends React.Component {
-	  render() {
-		return <h1>Привет</h1>;
-	  }
-	}
-	
-		  
-	//Функционально	  
-	function Hello1() {
-			return <h1>Привет</h1>}
-			
-	//Стрелочная функция 
-
-	var Hello2 =() => {
-			return (<h1>Привет</h1>)};
-			
-	ReactDOM.render(
-              <Hello />,
-              document.getElementById("container")
-          )
-
-
-	ReactDOM.render(
-				<Hello1 />,
-				document.getElementById("container2")
-			)
-	ReactDOM.render(
-				<Hello2 />,
-				document.getElementById("container3")
-			)	
-	
-		  
-	
-</script>
-<!--поместим описанный объект-->
-<div id="app"> </div>
-<div id="timer-example"> </div>
-<div id="container"> </div>
-<div id="container2"> </div>
-<div id="container3"> </div>
+<script type="text/babel" src="index.jsx"></script>
 </body>
 </html>
