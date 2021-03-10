@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Сорокин Владимир</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+
+<style>
+    .fig {
+        text-align: center;
+    }
+    
+    .section a {
+        color: rgb(245, 0, 0);
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+    
+    .title-text {
+        text-align: center;
+    }
+    
+    .button {
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        position: relative;
+        border: 3px solid rgb(255, 123, 0);
+        padding: 0 1rem;
+    }
+    
+    body {
+        background: rgb(255, 255, 255);
+    }
+    
+    p {
+        font-family: "Calibri";
+        color: rgb(255, 159, 70)
+    }
+    
+    h1 {
+        font-family: "Times New Roman";
+        color: rgb(255, 103, 2);
+    }
+    
+    h2 {
+        font-family: "Times New Roman";
+        color: rgb(223, 25, 25);
+        font-size: x-large;
+    }
+</style>
+
+<script>
+    function btnclick() {
+        activebtn.style.backgroundColor = disactiveclr;
+        (activebtn = this).style.backgroundColor = activeclr;
+    }
+    var disactiveclr = "#F6F6f6";
+    var activeclr = "#fc0707";
+    var activebtn = null;
+
+    function ld() {
+        activebtn = document.getElementById("b1");
+        for (var i = 1; i < 5; ++i) document.getElementById("b" + i).onclick = btnclick;
+        alert("ready");
+    }
+</script>
+
+<body onload="ld();">
+
+    <p class="fig"><img src="1.png" width="400" height="400" alt="Фотография"></p>
+
+    <div class="section clearfix">
+        <div class="title-text">
+            <h2>We are specialist in</h2>
+            <h1>Responsive designs, Stationary<br> And wordpress Themes</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting<br>industry. Lorem Ipsum has been the industry's standard dummy text.
+            </p>
+            <div class="button"><a href="#">Нажми меня</a></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
