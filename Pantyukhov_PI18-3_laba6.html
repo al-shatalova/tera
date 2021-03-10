@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<style>
+#form{
+  margin: 0 auto;
+  width: 200px;
+  padding: 1em;
+  background: #F0FFF0;
+  border: 1px solid #2F4F4F;
+  border-radius: 1em;
+  
+}
+
+p{
+	font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    line-height: 1.5;
+	color:#2F4F4F
+}
+
+button{
+            width: 120px;
+            height:30px;
+            border-radius: 100px;
+            margin:40px;
+			
+        }
+        .on{
+            color:coral;
+            background-color: #B0C4DE;
+        }
+        .off{
+            color:#006400;
+            background-color: white;
+        }
+
+</style>
+<head>
+    <meta charset="utf-8" />
+
+    <title>Пантюхов ПИ18-3 лаба6</title>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+</head>
+<body>
+
+
+
+<div id='form'>
+	<div id="app"></div>
+	<div id="app1"> </div>
+	<div id="app2"> </div>
+	<div id="button"> </div>
+</div>
+<script type="text/babel">
+
+function Hello1(props) {
+  return <div>
+            <p>Имя: {props.nam}</p>
+            <p>Возраст: {props.ag}</p>
+    </div>;
+}
+
+ReactDOM.render(
+              <Hello1 nam="Саня" ag="также 20" />,
+              document.getElementById("app1")
+          )
+
+
+const Hello2 = (props) => {
+     
+    const {name, age} = props;
+    return(<div>
+            <p>Имя: {name}</p>
+            <p>Возраст: {age}</p>
+           </div>);
+}
+
+ReactDOM.render(
+              <Hello2 name="Санек" age="все еще 20" />,
+              document.getElementById("app2")
+          )
+
+		  
+class Hello extends React.Component {
+  render() {
+    return <div>
+            <p>Имя: {this.props.name}</p>
+            <p>Возраст: {this.props.age}</p>
+    </div>;
+  }
+}
+
+
+ReactDOM.render(
+              <Hello name="Александр" age="20" />,
+              document.getElementById("app")
+          )
+
+class ClickButton extends React.Component {
+             
+           constructor(props) {
+               super(props);
+               this.state = {class: "off", label: "Нажми"};
+                 
+               this.press = this.press.bind(this);
+           }
+           press(){
+               let className = (this.state.class==="off")?"on":"off";
+               this.setState({class: className});
+           }
+           render() {
+               return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+           }
+       }
+         
+       ReactDOM.render(
+           <ClickButton />,
+           document.getElementById("button")
+       )
