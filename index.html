@@ -2,18 +2,102 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>Hello React</title>
-</head>
-<body>
-<style></style>
-<div id="app"></div>
-<div id="cat"></div>
-<script crossorigin
-src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<title>My name</title>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-
 dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-
 standalone/6.25.0/babel.min.js"></script>
-<script type="text/babel" src="index.jsx"></script>
+</head>
+<style>
+button{
+	width: 100px;
+	height:30px;
+	border-radius: 4px;
+	margin:50px;
+	margin: auto;
+	position: absolute;
+	 left: 0;right: 0;
+	height:50px;
+    width:100px;
+	font-size:10px;
+	
+	}
+	.on{
+	color:#38153d;
+	background-color: #ED96FA; 
+	}
+	.off{
+	color:#013220;
+	background-color: #71bc78;
+}
+img{
+margin: auto;
+	position: absolute;
+	left: 0; right: 0;
+}
+</style>
+<body>
+<script type="text/babel">
+	const userClassName = "user-info";
+	const styleObj = {
+	color:'#38153d',
+	fontFamily:'Verdana',
+	textAlign: "center",
+	fontSize: "20px",
+	backgroundColor:"#ED96FA"
+	};
+
+function Hello(props) {
+	return <div className={userClassName} style={styleObj}>
+	<p>Имя: {props.name}</p>
+	<p>Возраст: {props.age}</p>
+	</div>;
+}
+ReactDOM.render(
+<Hello name="Лиля" age="20" />,
+document.getElementById("app")
+)
+
+
+class ClickButton extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {class: "off", label: "Нажми на меня!", img : "l1.jpg"};
+		 
+		this.press = this.press.bind(this);
+	}
+	press(){
+		let className = (this.state.class==="off")?"on":"off";
+		this.setState({class: className});
+		let labeltype = (this.state.label==="Люпины")?"Фиалки":"Люпины";
+		this.setState({label: labeltype});
+		let imgL= (this.state.img==="l1.jpg")?"l2.jpg":"l1.jpg";
+		this.img({img: imgL});
+	}
+	render() {
+		return <div><button onClick={this.press}
+		className={this.state.class}>{this.state.label}</button>
+		<br></br>
+		<br></br>
+		<br></br>
+		<img src = {this.state.img}></img></div>;
+	}
+	}
+ 
+ReactDOM.render(
+<ClickButton />,
+document.getElementById("container")
+)
+
+ </script>
+<div id="app"> </div>
+<div id="timer-example"> </div>
+<div id="container"> </div>
+<div id="container2"> </div>
+<div id="container3"> </div>
+
 </body>
+
 </html>
