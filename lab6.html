@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Пантелеймонова ПИ18-4 Лаба6</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+</head>
+
+<style>
+
+	body{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: #E0FFFF;
+	}
+
+	.main{
+		width: 240px;
+        height:260px;
+        border-radius: 4px;
+        margin:10px;
+		border: 1px solid #CEC5BB;
+		font-size:15pt;
+		padding:10px;
+		color: black;
+		font-family:Arial;
+		background-color: #AFEEEE;
+	}
+
+	button{
+            width: 100px;
+            height:30px;
+            border-radius: 2px;
+            margin:70px;
+        }
+        .on{
+            color:#666;
+            background-color: cyan;
+        }
+        .off{
+            color:#888;
+            background-color: white;
+        }
+	
+	#age{
+			font-size:17pt;
+			color: #20B2AA; /* Цвет текста */
+			font-weight: 600; /* Жирное начертание */
+		}
+	
+	#name{
+			font-size:20pt;
+			color: #008080; /* Цвет текста */
+			font-weight: bold; /* Жирное начертание */
+		}		
+
+
+</style>
+<body>
+
+	<script type="text/babel"> 
+// Использование классов ES6
+		class Hello extends React.Component {
+		  render() {
+			return <div>
+					<p id="name">Name: {this.props.name}</p>
+					<p id="age">Age: {this.props.age}</p>
+			</div>;
+		  }
+		}
+
+
+		class ClickButton extends React.Component {
+
+           constructor(props) {
+               super(props);
+               this.state = {class: "off", label: "Нажми"};
+
+               this.press = this.press.bind(this);
+           }
+           press(){
+               let className = (this.state.class==="off")?"on":"off";
+			   
+			   // обновление состояния
+               this.setState({class: className});
+           }
+           render() {
+               return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+           }
+       }
+
+	   ReactDOM.render(
+			<div>
+            <Hello name="Анастасия" age="21"/>
+			<ClickButton />
+			</div>,
+            document.getElementById("app")
+        )
+
+
+   </script>
+
+   <div id="app" class="main"> </div>
+
+
+</body>
+</html> 
