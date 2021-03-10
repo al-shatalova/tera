@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>PI18-2 Stepanov - lab 6</title>
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css">
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css">
+    <style>
+    button{
+          width: 100px;
+          height:30px;
+          border-radius: 4px;
+          margin:50px;
+      }
+      .on{
+          color:#666;
+          background-color: #ccc;
+      }
+      .off{
+          color:#888;
+          background-color: white;
+      }
+    </style>
+  </head>
+  <body class="grey lighten-2">
+
+    <nav class="green">
+      <div class="brand-logo white-text">
+        Лабораторная №6
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <div class="card grey lighten-5">
+            <div class="card-content">
+              <div class="card-title">
+                <i class="material-icons left green-text">account_circle</i>Сведения об авторе
+              </div>
+              <div id="output"></div>
+            </div>
+            <div class="card-action">
+              <span id="output2"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://stepigor.ru/cdn/react.js"></script>
+    <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+    <script src="https://stepigor.ru/cdn/babel.js"></script>
+    <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+    <script type="text/babel">
+      class Personal extends React.Component {
+        render(){
+          return <div>
+            <p><b>Имя:</b> {this.props.name}</p>
+            <p><b>Возраст:</b> {this.props.age}</p>
+            <p><b>Деятельность: </b>{this.props.activity}</p>
+          </div>
+        }
+      }
+
+
+      class ClickButton extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {class:"btn waves-effect waves-light green white-text", label:"Нажмите"};
+          this.press = this.press.bind(this);
+        }
+
+        press(){
+          let className = this.state.class === "btn waves-effect waves-light green white-text" ? "btn waves-effect waves-light grey lighten-5 black-text" : "btn waves-effect waves-light green white-text";
+          this.setState({class: className});
+          M.toast({html:'Нажата кнопка!'});
+        }
+
+        render(){
+          return <a onClick={this.press} className={this.state.class}>{this.state.label}</a>
+        }
+      }
+
+      //render
+      ReactDOM.render(<Personal name="Игорь" age="20" activity="выполняет работу по дисциплине Веб-разработка" />, document.getElementById('output'));
+      ReactDOM.render(<ClickButton />, document.getElementById('output2'));
+    </script>
+  </body>
+</html>
