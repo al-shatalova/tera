@@ -1,0 +1,25 @@
+body {
+font-size: 23px;
+line-height: 1.42857143;
+color: #333;
+/*color: #fc0;  Цвет текста */
+};
+button{
+width: 100px;
+height:30px;
+border-radius: 4px;
+margin:50px;
+}
+.on{
+color:#666;
+background-color: #ccc;
+}
+.off{
+color:#888;
+background-color: white;
+};
+/* Style the top navigation bar */
+.navbar {
+    overflow: hidden; /* Hide overflow */
+    background-color: #333; /* Dark background color */
+}
