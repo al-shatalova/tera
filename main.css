@@ -1,15 +1,32 @@
+button {
+    border: none;
+    box-shadow: 0 0 6px 0 black;
+    width: 100px;
+    height:30px;
+    border-radius: 4px;
+    margin:50px;
+}
+.on{
+    color:#666;
+    background-color: #ccc;
+}
+.off{
+    color:#888;
+    background-color: white;
+}
+
 .container {
-	margin: 50px 0;
+    margin: 50px;
 }
 
 .row {
-	margin: 20px 0;
+    margin: 50px 0;
 }
 
-img {
-	width: 50%;
+.black {
+    color: black;
 }
 
-.like_button {
-	margin: 20px 0;
+.red {
+    color:red;
 }
