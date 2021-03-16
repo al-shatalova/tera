@@ -1,0 +1,39 @@
+div#clock {
+    width: 70%;
+    height: 45%;
+    background: teal;
+    margin: auto;
+    border: 1px solid #ffffff;
+}
+
+div#app {
+    width: 70%;
+    height: 45%;
+    background: salmon;
+    margin: auto;
+    border: 1px solid #cccccc;
+}
+
+h1{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+button{
+    text-align: center;
+    margin: auto;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-weight: 700;
+    color: black;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: cornflowerblue;
+    box-shadow: 0 -3px cornflowerblue inset;
+    transition: 0.2s;
+}
