@@ -1,51 +1,52 @@
-body {
-  font-family: "Ubuntu", sans-serif;
-  background: #ffafbd;
-  background: -webkit-linear-gradient(to right, #ffafbd, #ffc3a0);
-  background: linear-gradient(to right, #ffafbd, #ffc3a0);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-#form {
-  margin-top: 150px;
-  margin-bottom: 150px;
-  width: 550px;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+#clock {
   background: #42275a;
-  background: -webkit-linear-gradient(to right, #734b6d, #42275a);
-  background: linear-gradient(to right, #734b6d, #42275a);
-  border-radius: 5px;
-  box-shadow: 3px 3px 5px -2px #3b3737;
+   background: -webkit-linear-gradient(to right, #734b6d, #42275a);
+   background: linear-gradient(to right, #734b6d, #42275a);
+   border-radius: 5px;
+   box-shadow: 3px 3px 5px -2px #3b3737;
+   color: aliceblue;
+   display: flex;
+   justify-content: center;
+   border: none;
+   margin-bottom: 25px;
+
 }
 
-.content {
-  display: flex;
-  align-items: center;
-}
-.content p {
-  color: #ffffff;
-  font-size: 20px;
-}
-button {
-  width: 200px;
-  height: 50px;
-  margin: 25px;
-  font-size: 16px;
+
+body{
   font-family: "Ubuntu", sans-serif;
-  border-radius: 3px;
-  cursor: pointer;
-  outline: none;
+   background: #ffafbd;
+   background: -webkit-linear-gradient(to right, #ffafbd, #ffc3a0);
+   background: linear-gradient(to right, #ffafbd, #ffc3a0);
+   color: aliceblue;
+
 }
-.on {
-  color: white;
-  background-color: #ce55d6;
-  border-color: white;
+h1{
+  padding-top: 20px;
+  text-align: center;
 }
-.off {
-  color: #ce55d6;
-  background-color: white;
-  border: 3px solid #ce55d6;
+h2{
+  text-align: center;
+}
+button{
+  width: 200px;
+   height: 50px;
+   margin: 25px;
+   font-size: 16px;
+   font-family: "Ubuntu", sans-serif;
+   border-radius: 3px;
+   cursor: pointer;
+   outline: none;
+   border-radius: 3px;
+   margin-bottom: 20px;
+}
+#app div{
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   background: #42275a;
+   background: -webkit-linear-gradient(to right, #734b6d, #42275a);
+   background: linear-gradient(to right, #734b6d, #42275a);
+   border-radius: 5px;
 }
