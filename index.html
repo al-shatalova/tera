@@ -17,7 +17,7 @@ button{
 	margin:50px;
 	margin: auto;
 	position: absolute;
-	 left: 0;right: 0;
+	left: 0;right: 0;
 	height:50px;
     width:100px;
 	font-size:10px;
@@ -31,11 +31,55 @@ button{
 	color:#013220;
 	background-color: #71bc78;
 }
-img{
-margin: auto;
-	position: absolute;
-	left: 0; right: 0;
-}
+h2{
+		color: #38153d;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	}
+	#timer{
+		font-size: 20px;
+		color: #FFFFFF;
+		margin-bottom: 20px;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	}
+	li{
+		font-size: 20px;
+		color: #38153d;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	}
+	body{
+		background: #ED96FA;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+	#form{
+		margin-top: 100px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: #707070;
+		box-shadow: 3px 3px 5px -2px #191919;
+
+	}
+
+	.content{
+	margin-top: 25px;
+		display: flex;
+		align-items: center;
+
+	}
+	.content p{
+		color: #FFFFFF;
+		font-size: 20px;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+	}
+
+
 </style>
 <body>
 <script type="text/babel">
@@ -60,43 +104,160 @@ document.getElementById("app")
 )
 
 
+class Timer extends React.Component {
+			constructor(props) {
+				super(props);
+				this.state = { seconds: 0};
+			}
+
+			tick() {
+				this.setState(state => ({
+				  seconds: state.seconds + 1,
+				  })); 
+			}
+
+			componentDidMount() {
+				console.log('timerDidUnmount')
+				this.interval = setInterval(() => this.tick(), 1);
+			}
+
+			componentWillUnmount() {
+				console.log('timerWillUnmount')
+				clearInterval(this.interval);
+			}
+
+			componentDidUpdate(prevProps, prevState, snapshot){
+				console.log("timerDidUpdate()");
+			}
+
+			render() {
+				return (
+				  <div>
+					Seconds: {Math.round(this.state.seconds / 200, 1)}
+				  </div>
+				);
+			}
+		}
+
+		ReactDOM.render(
+		  <Timer />,
+		  document.getElementById('timer')
+		);
+
+
+
 class ClickButton extends React.Component {
 
 	constructor(props) {
-		super(props);
-		this.state = {class: "off", label: "Нажми на меня!", img : "l1.jpg"};
-		 
-		this.press = this.press.bind(this);
-	}
+        super(props);
+        this.state = {class: "off", label: "Нажми"};
+        this.press = this.press.bind(this);
+        console.log("constructor");
+         }
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps()");
+           }
 	press(){
 		let className = (this.state.class==="off")?"on":"off";
 		this.setState({class: className});
-		let labeltype = (this.state.label==="Люпины")?"Фиалки":"Люпины";
-		this.setState({label: labeltype});
-		let imgL= (this.state.img==="l1.jpg")?"l2.jpg":"l1.jpg";
-		this.img({img: imgL});
 	}
 	render() {
-		return <div><button onClick={this.press}
-		className={this.state.class}>{this.state.label}</button>
-		<br></br>
-		<br></br>
-		<br></br>
-		<img src = {this.state.img}></img></div>;
+		return <button onClick={this.press}
+		className={this.state.class}>{this.state.label}</button>;
 	}
 	}
  
 ReactDOM.render(
 <ClickButton />,
-document.getElementById("container")
+document.getElementById("container2")
 )
 
+
+
+
+const propsValues = {
+    title: "Список группы",
+    items: [
+        "Студент 1", 
+        "Студент 2", 
+        "Студент 3", 
+        "Студент 4", 
+        "Студент 5",
+        "Студент 6"
+    ]
+};
+              
+class Item extends React.Component {
+    render() {
+        return <li>{this.props.name}</li>;
+    }
+}
+         
+class SearchPlugin extends React.Component{
+             
+    constructor(props){
+        super(props);
+        this.onTextChanged = this.onTextChanged.bind(this);
+    }
+             
+    onTextChanged(e){
+        var text = e.target.value.trim();
+        this.props.filter(text); 
+    }
+             
+    render() {
+        return <input placeholder="Поиск"
+onChange={this.onTextChanged} />;
+    }
+}
+                  
+class ItemsList extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = { items: this.props.data.items};
+                          
+        this.filterList = this.filterList.bind(this);
+    }
+             
+    filterList(text){
+        var filteredList = this.props.data.items.filter(function(item){
+            return item.toLowerCase().search(text.toLowerCase())!== -1;
+        }); 
+        this.setState({items: filteredList});
+    }
+              
+    render() {
+        return(
+            <div>         
+                <h2>{this.props.data.title}</h2>
+                <SearchPlugin filter={this.filterList} />
+                <ul>
+                    {
+                        this.state.items.map(function(item){
+                            return <Item key={item} name={item} />
+                        })
+                    }
+                </ul>
+            </div>);
+    }
+}
+          
+ReactDOM.render(
+    <ItemsList data={propsValues} />,
+    document.getElementById("container")
+)
+
+
+
+
+
+					
  </script>
-<div id="app"> </div>
-<div id="timer-example"> </div>
-<div id="container"> </div>
-<div id="container2"> </div>
-<div id="container3"> </div>
+	<div id="app"> </div>
+	<div id="timer"> </div>
+	<div id="container"> </div>
+	<div id="container2"> </div>
+
 
 </body>
 
