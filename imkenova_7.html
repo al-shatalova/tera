@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Имкенова ПИ18-2</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+	
+</head>
+<style>
+
+</style>
+<body>
+	<script type="text/babel">
+		class ClickButton extends React.Component {
+           constructor(props) {
+               super(props);
+               this.state = {class: "off", label: "Нажми"};
+                 
+               this.press = this.press.bind(this);
+                 
+               console.log("constructor");
+            }
+            componentWillReceiveProps(nextProps) {
+               console.log("componentWillReceiveProps()");
+			}
+		}
+			
+		const propsValues = {
+			title: "Список группы",
+			items: [
+				"Студент 1", 
+				"Студент 2", 
+				"Студент 3", 
+				"Студент 4", 
+				"Студент 5", 
+				"Студент 6"
+			]
+		};
+						  
+		class Item extends React.Component {
+			render() {
+				return <li>{this.props.name}</li>;
+			}
+		}
+					 
+		class SearchPlugin extends React.Component{
+						 
+			constructor(props){
+				super(props);
+				this.onTextChanged = this.onTextChanged.bind(this);
+			}
+						 
+			onTextChanged(e){
+				var text = e.target.value.trim();   
+				this.props.filter(text); 
+			}
+						 
+			render() {
+				return <input placeholder="Поиск" onChange={this.onTextChanged} />;
+			}
+		}
+							  
+		class ItemsList extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = { items: this.props.data.items};
+									  
+				this.filterList = this.filterList.bind(this);
+			}
+						 
+			filterList(text){
+				var filteredList = this.props.data.items.filter(function(item){
+					return item.toLowerCase().search(text.toLowerCase())!== -1;
+				}); 
+				this.setState({items: filteredList});
+			}
+						  
+			render() {
+				return(
+					<div>         
+						<h2>{this.props.data.title}</h2>
+						<SearchPlugin filter={this.filterList} />
+						<ul>
+							{
+								this.state.items.map(function(item){
+									return <Item key={item} name={item} />
+								})
+							}
+						</ul>
+					</div>);
+			}
+		}
+					  
+	ReactDOM.render(
+		<ItemsList data={propsValues} />,
+		document.getElementById("app")
+	)
+   
+		  
+	</script>
+	
+	<script type="text/babel">
+		class Clock extends React.Component {
+		  constructor(props) {
+			super(props);
+			this.state = {date: new Date()};
+			this.unmount = this.unmount.bind(this);
+		  }
+		  
+		  unmount(){
+			ReactDOM.unmountComponentAtNode(document.getElementById("clock"));
+		  }
+
+		  componentDidMount() {
+			this.timerID = setInterval(
+			  () => this.tick(),
+			  1000
+			);
+			console.log("componentDidMount()");
+		  }
+
+		  componentWillUnmount() {
+			clearInterval(this.timerID);
+			console.log("componentWillUnmount()");
+		  }
+
+		  tick() {
+			this.setState({
+			  date: new Date()
+			});
+		  }
+
+		  render() {
+			return (
+			  <div>
+				<h2>Часы</h2>
+				<h2>{this.state.date.toLocaleTimeString()}</h2>
+				<div id="button"><button onClick={this.unmount}>Удалить часы</button></div>
+			  </div>
+			);
+		  }
+		}
+
+		ReactDOM.render(
+		  <Clock />,
+		  document.getElementById('clock')
+		);
+	</script>
+	
+	
+	<div id="clock"> </div>
+	<div id="app"> </div>
+	
+</body>
+</html> 
