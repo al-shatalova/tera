@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Формы в React</title>
+</head>
+<body>
+    <div id="app"></div>
+        
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+        
+    <script type="text/babel">
+	
+	class NameField extends React.Component {
+	constructor(props) {
+		super(props);
+		var name = props.value;
+        var nameIsValid = this.validateName(name);
+		this.state = {name: name, nameValid: nameIsValid};
+		this.onNameChange = this.onNameChange.bind(this);
+		}
+		validateName(name){
+            return name.length>2;
+        }
+		onNameChange(e) {
+            var val = e.target.value;
+            console.log(val);
+            var valid = this.validateName(val);
+            this.setState({name: val, nameValid: valid});
+        }
+		render() {
+		 var nameColor = this.state.nameValid===true?"green":"red";
+		return (
+		<input type="text" value={this.state.name} onChange={this.onNameChange} style={{borderColor:nameColor}} />
+				);
+        }
+	}
+	class AgeField extends React.Component {
+		constructor(props) {
+			super(props);
+			var age = props.value;
+			var ageIsValid = this.validateAge(age);
+			this.state = {age: age, ageValid: ageIsValid};
+	
+			this.onAgeChange = this.onAgeChange.bind(this);
+		}
+			validateAge(age){
+				return age>=0;
+			}
+			onAgeChange(e) {
+				var val = e.target.value;
+				var valid = this.validateAge(val);
+				this.setState({age: val, ageValid: valid});
+			}
+				
+			render() {
+			var ageColor = this.state.ageValid===true?"green":"red";
+			return (
+			<input type="number" value={this.state.age} onChange={this.onAgeChange}  style={{borderColor:ageColor}} />
+					);
+			}
+		}			
+							
+    class UserForm extends React.Component {
+      constructor(props) {
+        super(props);
+        this.nf = React.createRef();
+		this.af = React.createRef();
+		}
+        handleSubmit(e) {
+            e.preventDefault();
+			var name = this.nf.current.state.name;
+			var age = this.af.current.state.age;
+
+			if(this.nf.current.state.nameIsValid && this.af.current.state.ageValid){
+					alert("Имя: " + name + " Возраст: " + age);
+				}
+			}
+
+   
+        render() {
+            // цвет границы для поля для ввода возраста
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <p>
+                        <label>Имя:</label><br />
+						<NameField value="Сер" ref={this.nf} />
+
+                    </p>
+                    <p>
+                        <label>Возраст:</label><br />
+						<AgeField value="5" ref={this.af} />
+                    </p>
+                    <input type="submit" value="Отправить" />
+                </form>
+					);
+				}
+		}
+    ReactDOM.render(
+        <UserForm />,
+        document.getElementById("app")
+    )
+    </script>
+</body>
+</html>
