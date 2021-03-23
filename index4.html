@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>NIKOTA</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+  </head>
+  <body style="margin: 0">
+    <div id="app"></div>
+
+    <script type="text/babel">
+      let Hello = () => {
+        return <h4>Привет Я НИКИТА ОСТИАШНКИНИРА</h4>;
+      };
+
+     
+      class Timer extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = { seconds: 0 };
+          }
+          tick() {
+            this.setState((state) => ({
+              seconds: state.seconds + 1,
+            }));
+          }
+          componentDidMount() {
+            this.interval = setInterval(() => this.tick(), 1000);
+          }
+          componentWillUnmount() {
+            clearInterval(this.interval);
+          }
+          render() {
+            return <div>Seconds: {this.state.seconds}</div>;
+          }
+        }
+    
+  
+      ReactDOM.render(
+        <div>
+        <Hello />
+        <br />
+        <Timer />
+        </div>,
+        document.getElementById("app")
+      );
+    </script>
+  </body>
+</html>
