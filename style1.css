@@ -1,13 +1,47 @@
-input{
-border: 1px solid #cccccc; 
+input[type=submit] {
+border: 1px solid #2d2c2c; 
 border-radius: 3px; 
 background: #ffffff !important;
 outline: none; 
 height: 40px; 
 width: 200px; 
-color: #cccccc; 
+color: #2d2c2c; 
 font-size: 16px; 
 font-family: Century Gothic; 
-margin: 20px;
+margin-left: 20px;
 }
+
+input[type=text]{
+border: 1px solid #2d2c2c; 
+border-radius: 3px; 
+background: #ffffff !important;
+outline: none; 
+height: 40px; 
+width: 200px; 
+color: #2d2c2c; 
+font-size: 16px; 
+font-family: Century Gothic; 
+margin-left: : 5px;
+}
+
+input[type=number]{
+border: 1px solid #2d2c2c; 
+border-radius: 3px; 
+background: #ffffff !important;
+outline: none; 
+height: 40px; 
+width: 200px; 
+color: #2d2c2c; 
+font-size: 16px; 
+font-family: Century Gothic; 
+margin-left: : 5px;
+}
+
+p{
+font-family: Century Gothic; 
+font-weight:bold;
+margin-top: 10px;
+margin-left: 20px; 
+}
+
 	
