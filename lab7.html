@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+	<html>
+
+		<head>
+
+			<meta charset="utf-8" />
+
+			<title>Hello React</title>
+
+			<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+
+			<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+			 <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+			<script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg==" crossorigin="anonymous"></script>
+
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous">
+
+			<link rel="stylesheet" href="style1.css">
+			<link rel="stylesheet" href="style2.css">
+			<link rel="stylesheet" href="style3.css">
+
+		</head>
+
+		<body>
+
+			<!--опишем объект-->
+
+			<div id="app"> </div>
+
+			<script type="text/babel">
+			const propsValues = {
+				title: "Список группы",
+			    items: [
+			        "Студент 1", 
+			        "Студент 2", 
+			        "Студент 3", 
+			        "Студент 4", 
+			        "Студент 5", 
+			        "Студент 6",
+			        "Студент 61",
+			        "Студент 21"
+			    ]
+			};
+              
+			class Item extends React.Component {
+			    render() {
+			        return <li>{this.props.name}</li>;
+			    }
+			}
+         
+			class SearchPlugin extends React.Component{
+			             
+			    constructor(props){
+			        super(props);
+			        this.onTextChanged = this.onTextChanged.bind(this);
+			    }
+             
+		    onTextChanged(e){
+		        var text = e.target.value.trim();   // удаляем пробелы
+		        this.props.filter(text); // передаем введенный текст в родительский компонент
+		    }
+             
+		    render() {
+		        return <input placeholder="Поиск" onChange={this.onTextChanged} />;
+		    }
+			}
+                  
+			class ItemsList extends React.Component {
+			    constructor(props){
+			        super(props);
+			        this.state = { items: this.props.data.items};
+			                          
+			        this.filterList = this.filterList.bind(this);
+			    }
+			             
+			    filterList(text){
+			        var filteredList = this.props.data.items.filter(function(item){
+			            return item.toLowerCase().search(text.toLowerCase())!== -1;
+			        }); 
+			        this.setState({items: filteredList});
+			    }
+			              
+			    render() {
+			        return(
+			            <div>         
+			                <h2>{this.props.data.title}</h2>
+			                <SearchPlugin filter={this.filterList} />
+			                <ul>
+			                    {
+			                        this.state.items.map(function(item){
+			                            return <Item key={item} name={item} />
+			                        })
+			                    }
+			                </ul>
+			            </div>);
+			    }
+			}
+          
+			ReactDOM.render(
+			    <ItemsList data={propsValues} />,
+			    document.getElementById("app")
+			)
+
+			</script>
+		</body>
+
+	</html>
