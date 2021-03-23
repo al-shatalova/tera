@@ -1,0 +1,19 @@
+#app {
+    margin-top: 3em;
+    margin-left: 3em;
+}
+
+.age {
+    margin-top: 3em;
+}
+
+input {
+    width: 15em;
+}
+
+input[type="submit"]
+{   
+    margin-top: 1.5em;
+    width: 8em;
+
+}

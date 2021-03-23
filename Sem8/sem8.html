@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klevleeva</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    class NameField  extends React.Component {
+        constructor(props) {
+            super(props);
+            var name = props.name;
+            var nameIsValid = this.validateName(name);
+            this.state = {name: name, nameValid: nameIsValid};
+            this.onNameChange = this.onNameChange.bind(this);
+            
+        }
+        
+       
+        
+        validateName(name){
+            return name.length>2;
+        }
+        
+        onNameChange(e) {
+            var val = e.target.value;
+            console.log(val);
+            var valid = this.validateName(val);
+            this.setState({name: val, nameValid: valid});
+        }
+
+        render() {
+            // цвет границы для поля для ввода имени
+            var nameColor = this.state.nameValid===true?"#f2d530":"#177db0";
+            return (
+                <input type="text" value={this.state.name} 
+                onChange={this.onNameChange} style={{borderColor:nameColor}} />
+
+        );  
+        }
+   
+    }
+    class AgeField  extends React.Component {
+        constructor(props) {
+            super(props);
+            var age = props.age;
+            var ageIsValid = this.validateAge(age);
+            this.state = {age: age, ageValid: ageIsValid};
+            this.onAgeChange = this.onAgeChange.bind(this);
+        }
+        validateAge(age){
+            return age>=0;
+        }
+        
+        onAgeChange(e) {
+            var val = e.target.value;
+            var valid = this.validateAge(val);
+            this.setState({age: val, ageValid: valid});
+        }
+
+        render() {
+            // цвет границы для поля для ввода возраста
+            var ageColor = this.state.ageValid===true?"#f2d530":"#177db0";
+            return (
+                
+                <input type="number" value={this.state.age} 
+                onChange={this.onAgeChange}  style={{borderColor:ageColor}} />
+
+        );  
+        }
+    }
+
+
+    class UserForm extends React.Component {
+      constructor(props) {
+        super(props);
+        this.nameField = React.createRef();
+        this.ageField = React.createRef();
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+       
+ 
+        handleSubmit(e) {
+            e.preventDefault();
+            var name = this.refs.nameField.state.value;
+            var age = this.refs.ageField.state.value;
+            if(this.refs.nameField.state.valid && this.refs.ageField.state.valid){
+                alert("Имя: " + name + " Возраст: " + age);
+            }
+        }
+
+        render() {
+            
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <p className="name">
+                        <label>Имя:</label><br />
+                        <NameField name="" ref={this.nameField} />
+                    </p>
+                    <p className="age">
+                        <label>Возраст:</label><br />
+                        <AgeField age="5" ref={this.ageField} />
+                    </p>
+                    <input type="submit" value="Отправить" />
+                </form>
+            );
+        }
+    }
+    ReactDOM.render(
+        <UserForm name="" age="0" />,
+        document.getElementById("app")
+    )
+    </script>
+
+</body>
+</html>
