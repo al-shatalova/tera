@@ -2,263 +2,143 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>My name</title>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-
-dom.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-
-standalone/6.25.0/babel.min.js"></script>
-</head>
+<title>Liliya_8</title>
 <style>
-button{
-	width: 100px;
-	height:30px;
-	border-radius: 4px;
-	margin:50px;
-	margin: auto;
-	position: absolute;
-	left: 0;right: 0;
-	height:50px;
-    width:100px;
-	font-size:10px;
-	
-	}
-	.on{
-	color:#38153d;
-	background-color: #ED96FA; 
-	}
-	.off{
-	color:#013220;
-	background-color: #71bc78;
-}
-h2{
-		color: #38153d;
-		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-
-	}
-	#timer{
-		font-size: 20px;
-		color: #FFFFFF;
-		margin-bottom: 20px;
-		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-
-	}
-	li{
-		font-size: 20px;
-		color: #38153d;
-		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-
-	}
-	body{
-		background: #ED96FA;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
-	}
-	#form{
+form{
 		margin-top: 100px;
 		margin-bottom: 100px;
 		width: 250px;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-		background: #707070;
-		box-shadow: 3px 3px 5px -2px #191919;
-
-	}
-
-	.content{
-	margin-top: 25px;
+		background: #ED96FA;}
+	body{
+		
 		display: flex;
 		align-items: center;
-
+		flex-direction: column;
+		background: #F8D1FF;
 	}
-	.content p{
-		color: #FFFFFF;
-		font-size: 20px;
-		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-	}
-
 
 </style>
+</head>
 <body>
+<div id="app"></div>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
 <script type="text/babel">
-	const userClassName = "user-info";
 	const styleObj = {
-	color:'#38153d',
-	fontFamily:'Verdana',
-	textAlign: "center",
-	fontSize: "20px",
-	backgroundColor:"#ED96FA"
-	};
-
-function Hello(props) {
-	return <div className={userClassName} style={styleObj}>
-	<p>Имя: {props.name}</p>
-	<p>Возраст: {props.age}</p>
-	</div>;
-}
-ReactDOM.render(
-<Hello name="Лиля" age="20" />,
-document.getElementById("app")
-)
+		color:'#38153d',
+		fontFamily:'Verdana',
+		textAlign: "center",
+		fontSize: "20px",
+		};
+	class NameField extends React.Component {
+		constructor(props) {
+			super(props);
+			var name = props.name;
+			var nameIsValid = this.validateName(name);
+			this.state = {name: name, nameValid: nameIsValid};
 
 
-class Timer extends React.Component {
-			constructor(props) {
-				super(props);
-				this.state = { seconds: 0};
-			}
-
-			tick() {
-				this.setState(state => ({
-				  seconds: state.seconds + 1,
-				  })); 
-			}
-
-			componentDidMount() {
-				console.log('timerDidUnmount')
-				this.interval = setInterval(() => this.tick(), 1);
-			}
-
-			componentWillUnmount() {
-				console.log('timerWillUnmount')
-				clearInterval(this.interval);
-			}
-
-			componentDidUpdate(prevProps, prevState, snapshot){
-				console.log("timerDidUpdate()");
-			}
-
-			render() {
-				return (
-				  <div>
-					Seconds: {Math.round(this.state.seconds / 200, 1)}
-				  </div>
-				);
-			}
+			this.onNameChange = this.onNameChange.bind(this);
 		}
 
-		ReactDOM.render(
-		  <Timer />,
-		  document.getElementById('timer')
-		);
+		validateName(name){
+            return name.length>2;
+		}
 
+		onNameChange(e) {
+            var val = e.target.value;
+            console.log(val);
+            var valid = this.validateName(val);
+            this.setState({name: val, nameValid: valid});
+        }
 
-
-class ClickButton extends React.Component {
-
-	constructor(props) {
-        super(props);
-        this.state = {class: "off", label: "Нажми"};
-        this.press = this.press.bind(this);
-        console.log("constructor");
-         }
-    componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps()");
-           }
-	press(){
-		let className = (this.state.class==="off")?"on":"off";
-		this.setState({class: className});
+		render(){
+			var nameColor = this.state.nameValid===true?"green":"red";
+			return(
+				<input type="text" value={this.state.name}
+				onChange={this.onNameChange} style={{borderColor:nameColor}} />
+			);
+		}
 	}
-	render() {
-		return <button onClick={this.press}
-		className={this.state.class}>{this.state.label}</button>;
+
+	class AgeField extends React.Component {
+		constructor(props) {
+			super(props);
+			var age = props.age;
+			var ageIsValid = this.validateAge(age);
+			this.state = {age: age, ageValid: ageIsValid};
+
+			this.onAgeChange = this.onAgeChange.bind(this);
+		}
+
+		validateAge(age){
+            return age>=0;
+		}
+
+		onAgeChange(e) {
+            var val = e.target.value;
+            console.log(val);
+            var valid = this.validateAge(val);
+            this.setState({age: val, ageValid: valid});
+        }
+
+		render(){
+		    var ageColor = this.state.ageValid===true?"green":"red";
+			return(
+				<input type="number" value={this.state.age}
+				 onChange={this.onAgeChange} style={{borderColor:ageColor}} />
+			);
+		}
 	}
-	}
- 
-ReactDOM.render(
-<ClickButton />,
-document.getElementById("container2")
-)
 
+    class UserForm extends React.Component {
+		constructor(props) {
+			super(props);
+			var name = props.name;
+			var age = props.age;
+			this.nameField = React.createRef();
+			this.ageField = React.createRef();
+			this.state = {name: name, age: age}
 
+			this.handleSubmit = this.handleSubmit.bind(this);
+		}
 
+        handleSubmit(e) {
+			e.preventDefault();
+			var name = this.nameField.current.state.name;
+			var age = this.ageField.current.state.age;
+			if(this.nameField.current.state.nameValid && this.ageField.current.state.ageValid){
+				alert("Имя: " + name + " Возраст: " + age);
+			}
+        }
 
-const propsValues = {
-    title: "Список группы",
-    items: [
-        "Студент 1", 
-        "Студент 2", 
-        "Студент 3", 
-        "Студент 4", 
-        "Студент 5",
-        "Студент 6"
-    ]
-};
-              
-class Item extends React.Component {
-    render() {
-        return <li>{this.props.name}</li>;
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+				<h3 style={styleObj}> Рачкова Лилия ПИ18-2 </h3>
+                    <p>
+                        <label>Имя:</label><br />
+						<NameField name={this.state.name} ref={this.nameField} />
+                    </p>
+                    <p>
+                        <label>Возраст:</label><br />
+                        <AgeField age={this.state.age} ref={this.ageField} />
+                    </p>
+					<p>
+                    <input class="button" type="submit" value="Отправить" />
+					</p>
+                </form>
+            );
+        }
     }
-}
-         
-class SearchPlugin extends React.Component{
-             
-    constructor(props){
-        super(props);
-        this.onTextChanged = this.onTextChanged.bind(this);
-    }
-             
-    onTextChanged(e){
-        var text = e.target.value.trim();
-        this.props.filter(text); 
-    }
-             
-    render() {
-        return <input placeholder="Поиск"
-onChange={this.onTextChanged} />;
-    }
-}
-                  
-class ItemsList extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = { items: this.props.data.items};
-                          
-        this.filterList = this.filterList.bind(this);
-    }
-             
-    filterList(text){
-        var filteredList = this.props.data.items.filter(function(item){
-            return item.toLowerCase().search(text.toLowerCase())!== -1;
-        }); 
-        this.setState({items: filteredList});
-    }
-              
-    render() {
-        return(
-            <div>         
-                <h2>{this.props.data.title}</h2>
-                <SearchPlugin filter={this.filterList} />
-                <ul>
-                    {
-                        this.state.items.map(function(item){
-                            return <Item key={item} name={item} />
-                        })
-                    }
-                </ul>
-            </div>);
-    }
-}
-          
-ReactDOM.render(
-    <ItemsList data={propsValues} />,
-    document.getElementById("container")
-)
-
-
-
-
-
-					
- </script>
-	<div id="app"> </div>
-	<div id="timer"> </div>
-	<div id="container"> </div>
-	<div id="container2"> </div>
-
-
+    ReactDOM.render(
+        <UserForm name="" age="0"  />,
+        document.getElementById("app")
+    )
+</script>
 </body>
-
 </html>
