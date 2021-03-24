@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Деревянко_ПИ18-3</title>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../Sem8/style.css">
+
+
+<script type="text/babel">
+    class UserForm extends React.Component {
+        constructor(props) {
+            super(props);
+            const name = props.name;
+            const age = props.age;
+            this.state = {
+                name: name, age: age
+            };
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        handleSubmit(e) {
+            e.preventDefault();
+            if (this.refs.nameField.state.nameValid === true && this.refs.ageField.state.ageValid === true) {
+                alert("Имя: " + this.refs.nameField.state.name + " Возраст: " + this.refs.ageField.state.age);
+            }
+        }
+
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <NameField name={this.state.name} ref="nameField"/>
+                    <AgeField age={this.state.age} ref="ageField"/>
+                    <input class="inp-btn" type="submit" value="Отправить"/>
+                </form>
+            );
+        }
+    }
+
+    class AgeField extends React.Component {
+
+        constructor(props) {
+            super(props);
+            const valid = this.validate(props.age)
+            this.state = {age: props.age, ageValid: valid}
+            this.onChange = this.onChange.bind(this);
+        }
+
+        validate(val) {
+            return val > 0;
+        }
+
+        onChange(e) {
+            const val = e.target.value;
+            const valid = this.validate(val);
+            this.setState({age: val, ageValid: valid});
+        }
+
+        render() {
+            const ageColor = this.state.ageValid === true ? "green" : "red";
+            return (
+                <p>
+                    <label class="text-item">Возраст:<br/>
+                        <input class="input-items" type="number" value={this.state.age}
+                               onChange={this.onChange}
+                               style={{borderColor: ageColor}}/>
+                    </label>
+                </p>
+            );
+        }
+    }
+
+    class NameField extends React.Component {
+
+        constructor(props) {
+            super(props);
+            const valid = this.validate(props.name)
+            this.state = {name: props.name, nameValid: valid}
+            this.onChange = this.onChange.bind(this);
+        }
+
+        validate(val) {
+            return val.length > 2;
+        }
+
+        onChange(e) {
+            const val = e.target.value;
+            const valid = this.validate(val);
+            this.setState({name: val, nameValid: valid});
+        }
+
+        render() {
+            const nameColor = this.state.nameValid === true ? "green" : "red";
+            return (
+                <p>
+                    <label class="text-item">Имя:<br/>
+                        <input class="input-items" type="text" value={this.state.name}
+                               onChange={this.onChange}
+                               style={{borderColor: nameColor}}/>
+                    </label>
+                </p>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <UserForm name="" age="0"/>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html> 
