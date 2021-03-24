@@ -1,52 +1,63 @@
-#clock {
-  background: #42275a;
-   background: -webkit-linear-gradient(to right, #734b6d, #42275a);
-   background: linear-gradient(to right, #734b6d, #42275a);
-   border-radius: 5px;
-   box-shadow: 3px 3px 5px -2px #3b3737;
-   color: aliceblue;
-   display: flex;
-   justify-content: center;
-   border: none;
-   margin-bottom: 25px;
-
-}
-
-
-body{
+body {
+  background: #ffafbd;
+  background: -webkit-linear-gradient(to right, #ffafbd, #ffc3a0);
+  background: linear-gradient(to right, #ffafbd, #ffc3a0);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   font-family: "Ubuntu", sans-serif;
-   background: #ffafbd;
-   background: -webkit-linear-gradient(to right, #ffafbd, #ffc3a0);
-   background: linear-gradient(to right, #ffafbd, #ffc3a0);
-   color: aliceblue;
+}
+form {
+  margin-top: 20vh;
+  margin-bottom: 100px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #42275a;
+  background: -webkit-linear-gradient(to right, #734b6d, #42275a);
+  background: linear-gradient(to right, #734b6d, #42275a);
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px -2px #191919;
+}
+label {
+  color: #ffffff;
+}
+#timer {
+  font-size: 20px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+li {
+  font-size: 20px;
+  color: #ffffff;
+}
+h1 {
+  font-size: 20px;
+  color: #ffffff;
+}
 
+.content {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
 }
-h1{
-  padding-top: 20px;
-  text-align: center;
+.content p {
+  color: #ffffff;
+  font-size: 20px;
 }
-h2{
-  text-align: center;
+.button {
+  width: 180px;
+  height: 50px;
+  margin: 25px;
+
+  font-size: 16px;
 }
-button{
-  width: 200px;
-   height: 50px;
-   margin: 25px;
-   font-size: 16px;
-   font-family: "Ubuntu", sans-serif;
-   border-radius: 3px;
-   cursor: pointer;
-   outline: none;
-   border-radius: 3px;
-   margin-bottom: 20px;
+.on {
+  color: #666;
+  background-color: #ccc;
 }
-#app div{
-   display: flex;
-   justify-content: center;
-   flex-direction: column;
-   align-items: center;
-   background: #42275a;
-   background: -webkit-linear-gradient(to right, #734b6d, #42275a);
-   background: linear-gradient(to right, #734b6d, #42275a);
-   border-radius: 5px;
+.off {
+  color: #888;
+  background-color: white;
 }
