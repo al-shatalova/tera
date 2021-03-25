@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Hello React</title>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+
+<div id="app0"> </div>
+<div id="app"> </div>
+
+</body>
+
+<script type="text/babel">
+
+
+ReactDOM.render( 
+<h2 >Семинар №3</h2>, 
+document.getElementById("app0") 
+) 
+
+const userClassName = "user-info";
+const styleObj = {
+color:'IndianRed',
+fontFamily:'Verdana'
+};
+
+const user = {
+id : 10,
+age: 20,
+grup: 'ПИ18-3',
+firstName: 'Gamid',
+lastName: 'Isaev',
+getFullName: function(){
+return `${this.firstName} ${this.lastName}`;
+}
+};
+
+ReactDOM.render(
+<div className={userClassName} style={styleObj}>
+<p>Полное имя: {user.getFullName()}</p>
+<p>Возраст: {user.age}</p>
+<p>Группа: {user.grup}</p>
+</div>,
+document.getElementById("app")
+)
+
+</script>
+
+
+</html>
