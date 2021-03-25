@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PRIMER</title>
+</head>
+
+<style type="text/css">
+	body{
+		margin-top: 200px;
+	}
+</style>
+
+<script type="text/javascript">
+	function f1(){
+		x = document.getElementById("num").value
+		x = x * x
+		document.getElementById("num").value = x
+	}
+</script>
+
+
+<body>
+<center>
+	<input autofocus="" type="number" id="num" placeholder="insert a digit" required>
+	<button type="submit" value="*" onclick="f1()">Submit</button>
+</center>
+
+<div class="like_button_container" data-commentid='1'></div>
+<div class="like_button_container" data-commentid='2'></div>
+<div class="like_button_container" data-commentid='3'></div>
+<div class="like_button_container" data-commentid='4'></div>
+
+
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+<script src="like_button.js"></script>	
+
+
+</body>
+</html>

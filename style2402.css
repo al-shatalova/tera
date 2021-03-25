@@ -1,0 +1,10 @@
+
+#container{
+	font-family: Courier New;
+}
+
+#timer_example{
+	border-style: outset;
+	padding: 5px;
+	width: 20%;
+}
