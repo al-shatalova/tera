@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Формы в React</title>
+</head>
+<style>
+
+	body{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background-color: #FBF6F0;
+		font-family:Calibri;
+	}
+
+
+	form{
+		margin-top: 50px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		border: 1px solid #CEC5BB;
+		font-family:Calibri;
+		background:white;
+	}
+
+	.button{
+		width: 110px;
+		height:30px;
+		margin:25px;
+		font-family: Calibri;
+		font-size: 16px;
+	}
+
+</style>
+
+<body>
+
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+    class NameField extends React.Component {
+        constructor(props) {
+            super(props);
+            var isValid = this.validate(props.value);
+            this.state = {value: props.value, valid: isValid};
+            this.onChange = this.onChange.bind(this);
+        }
+
+        validate(val){
+            return val.length>2;
+        }
+
+        onChange(e) {
+            var val = e.target.value;
+            var isValid = this.validate(val);
+            this.setState({value: val, valid: isValid});
+        }
+
+        render() {
+            var color = this.state.valid===true?"green":"red";
+            return(
+                <input type="text" value={this.state.value} onChange={this.onChange} style={{borderColor:color}} />
+            );
+        }   
+    }
+
+    class AgeField extends React.Component {
+
+        constructor(props) {
+            super(props);
+            var isValid = this.validate(props.value);
+            this.state = {value: props.value, valid: isValid};
+            this.onChange = this.onChange.bind(this);
+        }
+
+        validate(val){
+            return val>=0;
+        }
+
+        onChange(e) {
+            var val = e.target.value;
+            var isValid = this.validate(val);
+            this.setState({value: val, valid: isValid});
+        }
+
+        render() {
+            var color = this.state.valid===true?"green":"red";
+            return(
+                <input type="number" value={this.state.value} onChange={this.onChange} style={{borderColor:color}} />
+            );
+        }   
+    }
+
+    class UserForm extends React.Component {
+        constructor(props) {
+            super(props);
+            this.handleSubmit = this.handleSubmit.bind(this);
+
+	    //Создание ссылок (refs) с помощью метода React.createRef()
+            this.nameField = React.createRef();
+            this.ageField = React.createRef();
+        }
+
+        handleSubmit(e) {
+            e.preventDefault();
+	    var name = this.refs.nameField.state.value;
+	    var age = this.refs.ageField.state.value;
+	    if(this.refs.nameField.state.valid && this.refs.ageField.state.valid){
+		alert("Имя: " + name + " Возраст: " + age);
+            }
+        }
+
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+		<h2>Введите данные</h2>
+                <p>
+		<label>Имя:</label><br/>
+
+		<NameField value="" ref="nameField" />
+		</p>
+		<p>
+                <label>Возраст:</label><br/>
+
+                <AgeField value="5" ref="ageField" />
+		</p>
+                <input class="button" type="submit" value="Отправить" />
+            	</form>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <UserForm />,
+        document.getElementById("app")
+    )
+
+    </script>
+
+</body>
+</html> 
