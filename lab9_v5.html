@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Пантелеймонова ПИ18-4 Лаба 9</title>
+	
+		<style>
+	
+	body{
+		background-image: url(back2.jpg);
+		color: #DB7093;
+		font-size: 15px;
+	}
+	
+	
+	form{
+		width: 200px;
+		height: 200px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border: 10px;
+		background: #FAFAD2;
+		font-style: italic;
+	}
+	
+	input[type=submit] {
+		background-color: #FFC0CB;
+		border: 10px;
+		color: #FAFAD2;
+		padding: 16px 32px;
+		cursor: pointer;
+}
+	</style>
+	
+</head>
+
+<body>
+	
+       
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+       
+    <script type="text/babel">
+	
+	class Hello extends React.Component {
+            constructor(props) {
+                super(props);
+				this.client = React.createRef();
+                this.state = {welcome: "Добро пожаловать на сайт!"};
+            }
+            render() {
+                return <h1>{this.state.welcome}</h1>;
+            }
+        }
+		
+        ReactDOM.render(
+            <Hello />,
+            document.getElementById("hello")
+        )
+
+	
+    class NameField extends React.Component {
+        constructor(props) {
+            super(props);
+            var isValid = this.validate(props.value);
+            this.state = {value: props.value, valid: isValid};
+            this.onChange = this.onChange.bind(this);
+        }
+        validate(val){
+            return val.length>2;
+        }
+        onChange(e) {
+            var val = e.target.value;
+            var isValid = this.validate(val);
+            this.setState({value: val, valid: isValid});
+        }
+        render() {
+            var color = this.state.valid===true?"green":"red";
+            return <p>
+                <label>Имя:</label><br />
+                <input type="text" value={this.state.value} onChange={this.onChange} style={{borderColor:color}} />
+            </p>;
+        }   
+    }
+    class AgeField extends React.Component {
+        
+        constructor(props) {
+            super(props);
+            var isValid = this.validate(props.value);
+            this.state = {value: props.value, valid: isValid};
+            this.onChange = this.onChange.bind(this);
+        }
+        validate(val){
+            return val>=0;
+        }
+        onChange(e) {
+            var val = e.target.value;
+            var isValid = this.validate(val);
+            this.setState({value: val, valid: isValid});
+        }
+        render() {
+            var color = this.state.valid===true?"green":"red";
+            return <p>
+                <label>Возраст:</label><br />
+                <input type="number" value={this.state.value} onChange={this.onChange} style={{borderColor:color}} />
+            </p>;
+        }   
+    }
+      
+    class UserForm extends React.Component {
+        constructor(props) {
+            super(props);
+            this.handleSubmit = this.handleSubmit.bind(this);
+            this.nameField = React.createRef();
+            this.ageField = React.createRef();
+			this.greetings = React.createRef();
+        }
+        handleSubmit(e) {
+            e.preventDefault();
+            var name = this.nameField.current.state.value;
+            var age = this.ageField.current.state.value;
+            if(this.nameField.current.state.valid && this.ageField.current.state.valid){
+                alert("Здравствуйте " + name + "!" + " Ваш возраст: " + age);
+            }
+			if(this.nameField.current.state.valid && !this.ageField.current.state.valid){
+                alert("Неправильный ввод возраста!!!");
+            }
+			if(!this.nameField.current.state.valid && this.ageField.current.state.valid){
+                alert("Вы не ввели имя!!!");
+            }
+			if(!this.nameField.current.state.valid && !this.ageField.current.state.valid){
+                alert("Введите правильные имя и возраст!");
+            }
+			
+        }
+  
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                <NameField value="" ref={this.nameField} />
+                <AgeField value="5" ref={this.ageField} />
+                <input type="submit" value="Отправить" />
+            </form>
+        );
+      }
+    }
+	
+    ReactDOM.render(
+        <UserForm />,
+        document.getElementById("app")
+    )
+	
+	class Timer extends React.Component {
+		constructor(props) {
+			super(props);
+			this.state = { seconds: 0 };
+	}
+
+  tick() {
+    this.setState(state => ({
+      seconds: state.seconds + 1
+    }));
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  render() {
+    return (
+       <div>
+			{this.state.seconds} секунд
+		  </div>
+    );
+  }
+}
+
+ReactDOM.render(React.createElement(Timer, null), document.getElementById('timer-example'));
+	
+	
+	
+    </script>
+
+<div id="hello"> </div>
+<div id="app"> </div>
+<br><b> Время работы на сайте: <div id="timer-example"> </div>
+
+
+</body>
+</html>
