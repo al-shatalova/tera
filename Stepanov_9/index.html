@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Stepanov lab 9</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css">
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css">
+  </head>
+  <body class="grey lighten-2">
+
+    <div class="navbar-fixed">
+      <div class="nav-wrapper">
+        <nav class="purple">
+            <span class="brand-logo"><i class="material-icons" style="font-size:36px;">message</i>Чат</span>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m12 l12" id="personalInfoBlock">
+
+        </div>
+        <div class="col s12 m12 l12" id="chatContentBlock">
+
+        </div>
+        <div class="col s12 m12 l12" id="enterMsgBlock">
+
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://stepigor.ru/cdn/react.js"></script>
+    <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+    <script src="https://stepigor.ru/cdn/babel.js"></script>
+    <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+    <script type="text/babel">
+      var username = 'UserDefault';
+      var chatContent = '<b>Bot</b><br>This is a first message!';
+
+      class PersonalInfo extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {'newName':username}
+          this.editName = this.editName.bind(this);
+        }
+
+        editName(e){
+          if (e.target.value.length > 0){
+            this.setState({'newName': e.target.value})
+            username = e.target.value;
+          }
+        }
+
+        render() {
+          return (
+            <div class="card grey lighten-5">
+              <div class="card-content">
+                <div class="row">
+                  <div class="col s12 m12 l12">
+                    <span class="card-title">Сведения о вас</span>
+                    <b>Отображаемое имя:</b> {username}
+                  </div>
+                  <div class="col s12 m12 l12">
+                    <input type="text" onChange={this.editName} maxlength="24" value={this.state.newName} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+      }
+
+
+      class ChatWindow extends React.Component {
+        constructor (props){
+            super(props);
+        }
+
+        componentDidMount() {
+          this.ticker = setInterval(
+            () => this.updateChat(this),
+            350
+          );
+        }
+
+        updateChat(e){
+          e.forceUpdate();
+        }
+        render(){
+          return (
+            <div class="card lighten-5">
+              <div class="card-content">
+                <div class="row">
+                  <div class="col s12 m12 l12" dangerouslySetInnerHTML={{__html: chatContent}} />
+                </div>
+              </div>
+            </div>
+          )
+        }
+      }
+
+      class EnterMsg extends React.Component{
+        constructor(props){
+          super(props);
+          this.sendMsg = this.sendMsg.bind(this);
+        }
+        sendMsg(e){
+          if (this.refs.msgtext.value.length > 0){
+            chatContent += '<br><br><b>'+username+'</b><br>'+this.refs.msgtext.value;
+            this.refs.msgtext.value = '';
+          }
+        }
+        render() {
+          return (
+            <div class="card lighten-5">
+              <div class="card-content">
+                <div class="row">
+                  <div class="col s10 m10 l10">
+                    <input ref="msgtext" type="text" placeholder="Ваше сообщение"/>
+                  </div>
+                  <div class="col s2 m2 l2">
+                    <button onClick={this.sendMsg} class="btn purple waves-effect waves-light"><i class="material-icons">send</i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(<PersonalInfo />, document.getElementById('personalInfoBlock'));
+      ReactDOM.render(<ChatWindow />, document.getElementById('chatContentBlock'));
+      ReactDOM.render(<EnterMsg />, document.getElementById('enterMsgBlock'));
+    </script>
+  </body>
+</html>
