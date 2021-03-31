@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+    body{
+        background: #1a2c51;
+    }
+    #form{
+        margin: 0 auto;
+        width: 200px;
+        padding: 20px;
+        background: #68f368;
+        border: 1px solid #2F4F4F;
+        border-radius: 2em;
+        text-align: center;
+        font-size: 16px;
+        font-family: Montserrat;
+    }
+
+    button{
+        width: 120px;
+        height:30px;
+        border-radius: 100px;
+        margin:40px;
+        font-family: Montserrat;
+    }
+    .on{
+        color: white;
+        background-color: #6f1400;
+        text-align: center;
+
+    }
+    .off{
+        color:#006400;
+        background-color: white;
+        font-size: 15px;
+    }
+
+</style>
+<head>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+</head>
+<body>
+<div id="form">
+    <div id="app1"></div>
+    <div id="app2"></div>
+    <div id="app3"></div>
+    <div id="button"></div>
+</div>
+<script type="text/babel">
+
+    // function Hello1(props) {
+    //     return <div>
+    //         <p>Имя: {props.name}</p>
+    //         <p>Возраст: {props.age}</p>
+    //         <p>Программа: {props.prog}</p><br/>
+    //     </div>;
+    // }
+    // ReactDOM.render(
+    //     <Hello1 name="Ник" age="20" prog="1"/>,
+    //     document.getElementById("app1")
+    // )
+    //
+    // class Hello2 extends React.Component {
+    //     render() {
+    //         return <div>
+    //             <p>Имя: {this.props.name}</p>
+    //             <p>Возраст: {this.props.age}</p>
+    //             <p>Программа: {this.props.prog}</p><br/>
+    //         </div>;
+    //     }
+    // }
+    // ReactDOM.render(
+    //     <Hello2 name="Ник" age="20" prog="2"/>,
+    //     document.getElementById("app2")
+    // )
+
+    const Hello3 = (props) => {
+
+        const {name, age, prog} = props;
+        return(<div>
+            <p>Имя: {name}</p>
+            <p>Возраст: {age}</p>
+            <p>Программа: {prog}</p><br/>
+        </div>);
+    }
+
+    ReactDOM.render(
+        <Hello3 name="Ник" age="20" prog="3"/>,
+        document.getElementById("app3")
+    )
+
+
+    class ClickButton extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {class: "off", label: "Нажми"};
+
+            this.press = this.press.bind(this);
+        }
+        press(){
+            let className = (this.state.class==="off")?"on":"off";
+            this.setState({class: className});
+        }
+        render() {
+            return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+        }
+    }
+
+    ReactDOM.render(
+        <ClickButton />,
+        document.getElementById("button")
+    )
+
+
+
+
+</script>
+</body>
+</html>
