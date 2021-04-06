@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Имкенова ПИ18-2</title>
+</head>
+
+<style>
+	
+	body{
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		font-family: Calibri;
+		background-color: #FBF6F0;
+	}
+	
+	form{
+		margin-top: 0px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		border: 1px solid #CEC5BB;
+		font-family:Calibri;
+		background:white;
+	}
+	
+	.button{
+	width: 150px;
+	height:30px;
+	margin:25px;
+	font-family: Calibri;
+	font-size: 16px;
+	}
+
+
+
+</style>
+	
+<body>
+
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+
+	class Hello extends React.Component {
+            constructor(props) {
+                super(props);
+				this.client = React.createRef();
+                this.state = {welcome: "Добро пожаловать на сайт!"};
+            }
+            render() {
+                return <h1>{this.state.welcome}</h1>;
+            }
+        }
+
+        ReactDOM.render(
+            <Hello />,
+            document.getElementById("hello")
+        )
+		
+	
+
+    class Req extends React.Component {
+	  render() {
+		return <h3>Не хотите ли составить список дел на сегодня?)</h3>;
+	  }
+	}
+	
+	ReactDOM.render(
+        <Req />,
+        document.getElementById("req")
+    )
+
+
+    class Clock extends React.Component {
+		  constructor(props) {
+			super(props);
+			this.state = {date: new Date()};
+			this.unmount = this.unmount.bind(this);
+		  }
+		  
+		  unmount(){
+			ReactDOM.unmountComponentAtNode(document.getElementById("clock"));
+		  }
+
+		  componentDidMount() {
+			this.timerID = setInterval(
+			  () => this.tick(),
+			  1000
+			);
+			console.log("componentDidMount()");
+		  }
+
+		  componentWillUnmount() {
+			clearInterval(this.timerID);
+			console.log("componentWillUnmount()");
+		  }
+
+		  tick() {
+			this.setState({
+			  date: new Date()
+			});
+		  }
+
+		  render() {
+			return (
+			  <div>
+				<h3>Сегодняшняя дата: {this.state.date.toLocaleDateString()+" "} 
+				{this.state.date.toLocaleTimeString()}</h3>
+				<div id="button1"><button onClick={this.unmount}>Скрыть дату</button></div>
+			  </div>
+			);
+		  }
+		}
+
+		ReactDOM.render(
+		  <Clock />,
+		  document.getElementById('clock')
+		);
+		
+		class TodoApp extends React.Component {
+		  constructor(props) {
+			super(props);
+			this.state = { items: [], text: '' };
+			this.handleChange = this.handleChange.bind(this);
+			this.handleSubmit = this.handleSubmit.bind(this);
+		  }
+
+		  render() {
+			return (
+			  <div>
+				<form onSubmit={this.handleSubmit}>
+				<h3>Список дел:</h3>
+				<TodoList items={this.state.items} />
+				  <label htmlFor="new-todo">
+				Что нужно сделать? 
+				  </label>
+				  <input
+					id="new-todo"
+					onChange={this.handleChange}
+					value={this.state.text}
+				  />
+				  <p><button>
+					Добавить
+				  </button></p>
+				</form>
+			  </div>
+			);
+		  }
+
+		  handleChange(e) {
+			this.setState({ text: e.target.value });
+		  }
+
+		  handleSubmit(e) {
+			e.preventDefault();
+			if (this.state.text.length === 0) {
+			  return;
+			}
+			const newItem = {
+			  text: this.state.text,
+			  id: Date.now()
+			};
+			this.setState(state => ({
+			  items: state.items.concat(newItem),
+			  text: ''
+			}));
+		  }
+		}
+
+		class TodoList extends React.Component {
+		  render() {
+			return (
+			  <ul>
+				{this.props.items.map(item => (
+				  <li key={item.id}>{item.text}</li>
+				))}
+			  </ul>
+			);
+		  }
+		}
+
+		ReactDOM.render(
+		  <TodoApp />,
+		  document.getElementById('app')
+		);
+
+
+    </script>
+
+<div id="hello"> </div>
+<div id="clock"> </div>
+<div id="req"> </div>
+<div id="app"> </div>
+
+
+
+</body>
+</html> 
