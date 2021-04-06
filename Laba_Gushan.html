@@ -1,0 +1,234 @@
+<head>
+	<meta charset="utf-8" />
+	<title>Hello React</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+
+<style>
+	body{
+		background: #FFE4C4;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+	form{
+		margin-top: 100px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: #DEB887;
+		box-shadow: 3px 3px 5px -2px #191919;
+		padding: 50px;
+	}
+	.btn{
+	    width: inherit;
+		display: flex;
+	}
+	input{
+		height: 50px;
+		width: inherit;
+	}
+	.dv{
+	    width: inherit;
+		display: flex;
+	}
+	.pressed{
+		height: 50px;
+		width: inherit;
+		background: #87CEEB;
+		margin: 5px;
+		text-align: center;
+		color: #FFFFFF;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	}
+	.unpressed{
+		height: 50px;
+		width: inherit;
+		background: #F5DEB3;
+		margin: 5px;
+		text-align: center;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	}
+	h1{
+		text-align: center;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		margin: 0px;
+		margin: 20px;
+		color: #191970;
+	}
+	.dvPad{
+		width: inherit;
+		margin-top: 20px;
+	}
+	.label{
+		height: 20px;
+		text-align: center;
+		margin-bottom: 10px;
+		font-size: 16px;
+		background: #DEB887;
+		border-width: 0px;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		font-weight: bold;
+	}
+}
+
+	</style>
+	
+</head>
+	
+<body>
+	<h1>Гушан. ПИ18-4. Лабораторная 9.</h1>
+	<div id='body'/>
+	
+<script type="text/babel">
+
+class FormPad extends React.Component{
+
+	constructor(props){
+		super(props);	
+
+		this.BtnRefs = []
+		for (var i=0; i<9; i++){
+			this.BtnRefs[i] = React.createRef();
+		}
+		
+		this.DivRefs = []
+		for (var i=0; i<9; i++){
+			this.DivRefs[i] = React.createRef();
+		}
+		
+		this.OutputRef = React.createRef();
+		
+		this.onClick = this.onClick.bind(this);
+	}
+	
+	onClick(e){
+		e.preventDefault();
+		var idx = e.target.value - 1;
+		var btn = this.BtnRefs[idx].current;
+		var arr = this.OutputRef.current.state.elems;
+		if (btn.state.pressed == "false"){
+			btn.setState({pressed: "true"});
+			this.DivRefs[idx].current.setState({pressed: "pressed"});
+			arr[arr.length] = e.target.value;
+			this.OutputRef.current.sum();
+			
+		}
+		else{
+			btn.setState({pressed: "false"});
+			this.DivRefs[idx].current.setState({pressed: "unpressed"});
+			for (var i=0; i<arr.length; i++){
+				if (arr[i] == e.target.value){
+					arr.splice(i,1);
+					break;
+				}
+			}
+			this.OutputRef.current.sum();
+		}
+	}
+
+	render(){
+		return	<form>
+			<div class="btn">
+				<Button value="1" onClick={this.onClick} ref={this.BtnRefs[0]}/>
+				<Button value="2" onClick={this.onClick} ref={this.BtnRefs[1]}/>
+				<Button value="3" onClick={this.onClick} ref={this.BtnRefs[2]}/>
+			</div>
+			<div class="btn">
+				<Button value="4" onClick={this.onClick} ref={this.BtnRefs[3]}/>
+				<Button value="5" onClick={this.onClick} ref={this.BtnRefs[4]}/>
+				<Button value="6" onClick={this.onClick} ref={this.BtnRefs[5]}/>
+			</div>                                                           
+			<div class="btn">                                                
+				<Button value="7" onClick={this.onClick} ref={this.BtnRefs[6]}/>
+				<Button value="8" onClick={this.onClick} ref={this.BtnRefs[7]}/>
+				<Button value="9" onClick={this.onClick} ref={this.BtnRefs[8]}/>
+			</div>
+			<div class="dvPad">
+				<div class="dv">
+					<Square id="1" ref={this.DivRefs[0]} pressed="unpressed"/>
+					<Square id="2" ref={this.DivRefs[1]} pressed="unpressed"/>
+					<Square id="3" ref={this.DivRefs[2]} pressed="unpressed"/>
+				</div>
+				<div class="dv">
+					<Square id="4" ref={this.DivRefs[3]} pressed="unpressed"/>
+					<Square id="5" ref={this.DivRefs[4]} pressed="unpressed"/>
+					<Square id="6" ref={this.DivRefs[5]} pressed="unpressed"/>
+				</div>                                    
+				<div class="dv">                         
+					<Square id="7" ref={this.DivRefs[6]} pressed="unpressed"/>
+					<Square id="8" ref={this.DivRefs[7]} pressed="unpressed"/>
+					<Square id="9" ref={this.DivRefs[8]} pressed="unpressed"/>
+				</div>
+			</div>
+			<Output ref={this.OutputRef}/>
+			
+				</form>;
+	}
+	
+}
+
+class Button extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = {value: this.props.value, press: this.props.onClick, pressed: "false"}
+	}
+
+	render(){
+		return <input type="button" value={this.state.value} onClick={this.state.press}></input>;
+	}
+}
+
+class Square extends React.Component {
+
+	constructor(props){
+		super(props);
+		
+		this.state = {id: this.props.id, pressed: this.props.pressed};
+	}
+	
+	render(){
+		return <div id={this.state.id} class={this.state.pressed}>{this.state.id}</div>;
+	}
+}
+
+class Output extends React.Component {
+
+	constructor(props){
+		super(props);
+		
+		this.state = {value: "Сумма выбранных ячеек = 0", elems: []};
+		
+		this.sum = this.sum.bind(this);
+	}
+	
+	sum(){
+		var sum = 0;
+		for (var i=0; i<this.state.elems.length; i++){
+			sum = sum + Number(this.state.elems[i]);
+		}
+		var str = "Сумма выбранных ячеек = " + sum
+		this.setState({value: str});
+	}
+	
+	render(){
+		return <input type="text" value={this.state.value} class="label" disabled="1"></input>;
+	}
+}
+
+ReactDOM.render(
+	<FormPad />,
+	document.getElementById("body")
+)
+
+</script>
+
+</body>
+</html>
