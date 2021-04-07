@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Имкенова ПИ18-2</title>
+</head>
+
+<style>
+	form{
+		margin-top: 0px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		border: 1px solid #CEC5BB;
+		font-family:Calibri;
+		background:white;
+	}
+	
+	body{
+		
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background-color: #FBF6F0;
+	}
+	
+</style>
+	
+<body>
+
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+	
+		function App() {
+  
+			var fruits = ['банан', 'яблоко','апельсин','груша','ананас']
+
+			const [count, setCount] = React.useState(0);
+			const [age, setAge] = React.useState(19);
+			const [fruit, setFruit] = React.useState(fruits[0]);
+			const [todos, setTodos] = React.useState([{ text: 'изучить хуки' }]);
+			
+			function todo(e){
+			if(e.code == "Enter"){
+				setTodos(e.target.value)
+				e.target.value = ""
+			}
+		}
+		
+			return (
+				<div>
+				<div>
+				  <p>Вы нажали {count} раз</p>
+				  <button onClick={() => setCount(count + 1)}>
+					Нажми на меня
+				  </button>
+				  </div>
+				  <div>
+					<p>Фрукт: {fruit}</p>
+					<button onClick={() => setFruit(fruits[Math.floor(Math.random()*fruits.length)])}>
+					Другой фрукт
+					</button>
+				  </div>
+				  <div>
+					<p>Мой возраст: {age} </p>
+					<button onClick={() => setAge(age + 1)}>
+						Добавить
+					</button>
+					<button onClick={() => setAge(age - 1)}>
+						Убавить
+					</button>
+				</div>
+				<div>
+				  <p> Мне нужно сделать: {todos[0].text}</p>
+				  <input type="text" maxlength="16" onChange={(e)=>setTodos([{text: e.target.value}])} />
+				</div>
+				</div>
+			);
+		}
+
+		ReactDOM.render(
+		  <App />,
+		  document.getElementById('app')
+		);
+
+    </script>
+
+<div id="app"> </div>
+
+</body>
+</html> 
