@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Акаев ПИ18-2</title>
+    <script
+            crossorigin
+            src="https://unpkg.com/react@17/umd/react.production.min.js"
+    ></script>
+    <script
+            crossorigin
+            src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script type="text/babel">
+    function App() {
+// Объявляем новую переменную состояния "count"
+        const [count, setCount] = React.useState(0);
+        const [age, setAge] = React.useState(20);
+        const [Mood, setMood] = React.useState("Только честно");
+        const [todos, setTodos] = React.useState(["Смотрите как умею"]);
+        return (
+            <div style={{ margin: "auto" }}>
+                <p>Жамкнули {count} раз</p>
+                <button onClick={() => setCount(count + 1)}>Нажми на меня</button>
+                <br />
+                <p>Ваш психологический возраст {age}</p>
+                <button onClick={() => setAge(age + 1)}>Я олд</button>
+                <br />
+                <p>Вы сегодня улыбнулись? - {Mood}</p>
+                <button onClick={() => setMood("Значит день прошел не зря)")}>Да</button>
+                <br />
+                <p>Хуки:{todos.join(" ")}</p>
+                <button onClick={() => setTodos([...todos, ", Никак" ])}>
+                    Посмотрите
+                </button>
+                <br />
+            </div>
+        );
+    }
+
+    ReactDOM.render(<App />, document.getElementById("app"));
+</script>
+</body>
+</html>
