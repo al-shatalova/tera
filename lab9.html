@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<style type="text/css">
+body { 
+    display:flex;
+	align-items:center;
+	flex-direction:column;
+	background:#BFBFB0;
+   }
+.d{
+width: 200px;
+height:550px;
+border-radius: 4px;
+margin:10px;
+background-color: gray;
+font-size:200%;
+padding: 10px;
+color: lightgrey;
+font-family:Helvetica;
+}
+button{
+width: 50px;
+height:30px;
+border-radius: 4px;
+margin:10px;
+}
+</style>
+<title>Hello React</title>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+</head>
+
+<body>
+
+<script type="text/babel">
+var current_date = new Date();
+var number_of_clicks=0;
+var number_of_seconds=0;
+class Watch extends React.Component {
+	constructor(props){ 
+		super(props);
+		this.state = {  hours: current_date.getHours(),
+						minutes:current_date.getMinutes(),
+						seconds:current_date.getSeconds()};
+		}
+		componentDidMount() {
+			this.interval=setInterval(() => this.tick(),1000);}
+		
+		tick(){
+			if (this.state.seconds==59)
+				{this.setState({seconds: 0});
+				this.setState({minutes: this.state.minutes+1});}
+			this.setState({seconds: this.state.seconds+1});
+			}
+		render() {
+			return(
+			<div align="center">
+			{this.state.hours}:{this.state.minutes}:{this.state.seconds}
+			</div>);
+		}
+}
+class ClickButton extends React.Component {
+	constructor(props){ 
+		super(props);
+		this.state = { clicks:0};
+		this.plus = this.plus.bind(this);
+		this.minus = this.minus.bind(this);
+		}
+		plus(){
+		number_of_clicks=number_of_clicks+1;
+		this.setState({clicks: this.state.clicks+1});
+		}
+		minus(){
+		number_of_clicks=number_of_clicks+1;
+		this.setState({clicks: this.state.clicks-1});
+		}
+		render() {
+			return (
+			<div align="center">
+			<p>Кол-во очков:{this.state.clicks}</p>
+			<button onClick={this.plus}>+</button><button onClick={this.minus}>-</button>
+			<Clicks num_of_clicks={number_of_clicks} />
+			<ClicksPerSecond num_of_clicks={number_of_clicks} />
+			</div>);
+		}
+}
+class Clicks extends React.Component {
+render() {
+return <div align="center">
+<p>Кол-во кликов: {this.props.num_of_clicks}</p>
+</div>;
+}
+}
+
+class ClicksPerSecond extends React.Component {
+constructor(props) {
+		super(props);
+		this.state = {seconds:0};
+		}
+		componentDidMount() {
+			this.interval=setInterval(() => this.tick(),1000);}
+		tick(){
+			this.setState({seconds: this.state.seconds+1});
+			}
+render() {
+return <div align="center">
+<p>Прошло секунд: {this.state.seconds}</p>
+<p>Кликов в секунду:{Math.round(Math.pow(10, 2)*this.props.num_of_clicks/this.state.seconds)/Math.pow(10, 2)}</p>
+</div>;
+}
+}
+ReactDOM.render(
+<div>
+<Watch />
+<ClickButton />
+</div>,
+document.getElementById("app")
+
+)
+</script>
+<div id="app" class="d"> </div>
+</div>
+</body>
+
+</html>
+
