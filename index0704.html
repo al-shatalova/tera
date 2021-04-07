@@ -1,0 +1,43 @@
+
+<html>
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>Лабораторная 10. Хуки</title>
+    </head>
+
+    <br>
+    <center><h1> Kozhevnikov Nick PI18-2</h1>
+    </br>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+<script type="text/babel">
+    function App() {
+// Объявляем новую переменную состояния "count"
+        const [count, setCount] = React.useState(0);
+        const [age, setAge] = React.useState(21);
+        const [fruit, setFruit] = React.useState('банан');
+        const [todos, setTodos] = React.useState([{ text: 'Изучить хуки' }]);
+    return (
+    <div>
+
+        <p>Возраст разработчика: {age}</p>
+        <button onClick={() => setAge(age + 1)}>Каждый год нажимать по разу</button>
+
+        <p>Вы оценили это {count} раз</p>
+        <button onClick={() => setCount(count + 1)}>Оценить</button>
+    
+    </div>);
+    }
+        ReactDOM.render(
+            <App />,
+                document.getElementById("app")
+            )
+</script>
+<body>
+    <div id = "app"></div>
+</body>   
+</html>
