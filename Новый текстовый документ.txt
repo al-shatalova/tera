@@ -1,0 +1,26 @@
+import "./styles.css";
+import React, { useState } from "react";
+export default function App() {
+// Объявляем новую переменную состояния "count"
+const [count, setCount] = useState(0);
+const [age, setAge] = useState(45);
+const [answer, setFruit] = useState([
+"A - 1 ",
+"B - 4 ",
+"C - 3 ",
+"D - 15"
+]);
+return (
+<div>
+<p className="count">Счетчик нажатий</p>
+<p className="count">Кнопка была нажата {count} раз</p>
+<button onClick={() => setCount(count + 1)}>НАЖИМАЙ</button>
+<p>Уменьшение числа</p>
+<p>Осталось {age} раз</p>
+<button onClick={() => setAge(age - 1)}>НАЖИМАЙ</button>
+<p>Сколько будет 2+2</p>
+<p>Ответы: {answer}</p>
+<button onClick={() => setFruit(answer[1])}>Показать ответ</button>
+</div>
+);
+}
