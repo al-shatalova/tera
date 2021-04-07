@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Hello React</title>
+<style>
+   body{
+   width:100vw;
+    background-color: #003841; /* Цвет фона веб-страницы */
+	
+   } 
+  button{
+width: 100px;
+height:50px;
+margin-left:200px;
+left: 45%;
+}
+h2{
+		color: #FFFFFF;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+	}
+.on{
+color:black;
+background-color: #c5d0e6;
+}
+.off{
+color:black;
+background-color: white;
+}
+.content p{
+		color: #FFFFFF;
+		font-size: 20px;
+		margin-left:200px;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+	}
+  </style>
+<script
+crossorigin
+src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+<script type="text/babel">
+
+function App() {
+// Объявляем новую переменную состояния "count"
+const [count, setCount] = React.useState(0);
+return (
+<div>
+<h2>Вы нажали {count} раз</h2>
+<button onClick={() => setCount(count + 1)}>
+Нажми на меня
+</button><br/><br/><br/>
+</div>
+);
+}
+ReactDOM.render(
+		  <App />,
+		  document.getElementById('app')
+		);
+		
+function App1() {
+const [age, setAge] = React.useState(50);
+return (
+<div>
+<h2>Возраст {age}</h2>
+<button onClick={() => setAge(age - 1)}>
+Уменьшить возраст 
+</button><br/><br/>  
+<button onClick={() => setAge(age + 1)}>
+Увеличить возраст 
+</button>
+</div>
+);
+}
+ReactDOM.render(
+		  <App1 />,
+		  document.getElementById('app1')
+		);
+		
+		
+function App2() {
+const [todos, setTodos] = React.useState('Изучить хуки');
+return (
+<div>
+<h2>{todos}</h2>
+<button onClick={() => setTodos('Изучено')}>
+Изучил 
+</button>
+</div>
+);
+}
+ReactDOM.render(
+		  <App2 />,
+		  document.getElementById('app2')
+		);		
+</script>
+<!--поместим описанный объект-->
+
+<div id='app'></div>
+<div id='app1'></div>
+<div id='app2'></div>
+</body>
+</html>
