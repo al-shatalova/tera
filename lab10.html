@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html style="background-color: #C5E39B">
+<head>
+<meta charset="utf-8" />
+<title>Hello React</title>
+</head>
+<body style="background-color: #C5E39B">
+
+<div id="app" align="center"></div>
+ 
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script> 
+ <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script> 
+<script type="text/babel"> 
+ function App() { 
+  // Объявляем новую переменную состояния "count" 
+  const [count, setCount] = React.useState(0); 
+  const [age, setAge] = React.useState(42); 
+  const [fruit, setFruit] = React.useState('Банан'); 
+  const [todos, setTodos] = React.useState([{ text: 'Изучить хуки' }]); 
+  return ( 
+  <div> 
+   <p>Вы нажали {count} раз</p> 
+   <button onClick={() => setCount(count + 1)}> 
+   Нажми на меня 
+   </button> 
+   <p>Возраст: {age}</p> 
+   <button onClick={() => setAge(age - 1)}> 
+   Уменьшить возраст 
+   </button>
+   <p>{fruit}</p> 
+   <button onClick={() => setFruit("Яблоко")}> 
+   Изменить фрукт 
+   </button>
+   <p>{todos[1]}</p> 
+   <button onClick={() => setTodos("Изучено")}> 
+   Изменить 
+   </button>
+  </div>);
+ } 
+ReactDOM.render( 
+ <App />, 
+ document.getElementById("app") 
+ ) 
+</script> 
+</body>
