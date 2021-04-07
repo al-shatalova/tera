@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Хуки</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+  </head>
+  <body>
+    <h1>Записи</h1>
+    <div id="notes"></div>
+
+    <script type="text/babel">
+      function App() {
+        // Объявляем новую переменную состояния "notesList"
+        const [notesList, setList] = React.useState([]);
+        return (
+          <div>
+            {notesList.map((element) => (
+              <p>{element}</p>
+            ))}
+            <input id="note"></input>
+            <button
+              onClick={() => {
+                setList([...notesList, document.getElementById("note").value]);
+                document.getElementById("note").value = "";
+              }}
+            >
+              Добавить запись
+            </button>
+          </div>
+        );
+      }
+      ReactDOM.render(<App />, document.getElementById("notes"));
+    </script>
+  </body>
+</html>
