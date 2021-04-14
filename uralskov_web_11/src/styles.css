@@ -1,0 +1,31 @@
+body {
+  padding: 10px;
+  color: #444;
+  font: 14px/22px sans-serif;
+  font-size: 13px;
+}
+img {
+  margin-right: 20px;
+  height: 300px;
+}
+.Intro {
+  font-weight: bold;
+  font-family: monaco;
+}
+.MainText {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.Head {
+  background-image: url(https://i1.wp.com/homewithaneta.com/wp-content/uploads/2019/02/snow-day.jpg?fit=3126%2C1978&ssl=1);
+  background-size: cover;
+  height: 300px;
+  color: white;
+  font-size: 25px;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+  font-style: bold;
+  margin-bottom: 30px;
+}
