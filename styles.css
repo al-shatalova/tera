@@ -1,0 +1,39 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+h3 {
+  font-size: 30px;
+  margin-bottom: -10px;
+}
+h2{
+  text-align: left;
+  font-size: 15px;
+  margin-bottom: -30px;
+  font-weight: 400;
+}
+h1{
+  text-align: center;
+  color: rgb(15, 11, 6);
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: -0.001px;
+}
+p1{
+  width: 1000px;
+  text-align: left;
+  color: rgb(15, 11, 6);
+  font-size: 15px;
+  line-height: 1.5;
+}
+h4{
+  margin-bottom: -20px;
+  text-align: right;
+  font-size: 15px;
+}
+h5{
+  text-align: right;
+  font-size: 15px;
+}
+
