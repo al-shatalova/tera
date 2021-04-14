@@ -1,0 +1,23 @@
+body{
+  background-color: #dbdbdb 
+}
+.App1 {
+  font-family: roboto;
+  text-align: left;
+  font-size:14px;
+  max-width: 800px;
+  font-kerning: inherit;
+  font-variant-ligatures: contextual
+  
+  
+}
+.App2 {
+  font-family: roboto;
+  text-align: left;
+  font-size:13px;
+  max-width: 800px;
+  font-kerning: inherit;
+  font-variant: small-caps;
+  
+}
+
