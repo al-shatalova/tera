@@ -1,0 +1,17 @@
+.App {
+  font-family: sans-serif;
+  text-align: left;
+  color: blue;
+  font-weight: bold;
+}
+.App1 {
+  font-family: sans-serif;
+  text-align: left;
+  max-width: 400px;
+  font-weight: bold;
+}
+.App2 {
+  font-family: sans-serif;
+  text-align: left;
+  max-width: 370px;
+}
