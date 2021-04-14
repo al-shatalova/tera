@@ -1,0 +1,89 @@
+body {
+  background-color: #dedae3;
+}
+
+.App {
+  font-family: sans-serif;
+  font-family: roboto;
+  text-align: left;
+  text-align: center;
+  font-kerning: auto;
+  font-kerning: normal;
+  font-kerning: none;
+  font-kerning: inherit;
+  font-kerning: initial;
+  font-variant-ligatures: normal;
+  font-variant-ligatures: none;
+  font-variant-ligatures: common-ligatures;
+  font-variant-ligatures: no-common-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: no-discretionary-ligatures;
+  font-variant-ligatures: historical-ligatures;
+  font-variant-ligatures: no-historical-ligatures;
+  font-variant-ligatures: contextual;
+  font-variant-ligatures: no-contextual;
+  font-variant-ligatures: inherit;
+  font-variant-ligatures: initial;
+  font-variant: small-caps;
+}
+
+.App1 {
+  font-family: sans-serif;
+  font-family: roboto;
+  text-align: left;
+  text-align: center;
+  font-kerning: auto;
+  font-kerning: normal;
+  font-kerning: none;
+  font-kerning: inherit;
+  font-kerning: initial;
+  font-variant-ligatures: normal;
+  font-variant-ligatures: none;
+  font-variant-ligatures: common-ligatures;
+  font-variant-ligatures: no-common-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: no-discretionary-ligatures;
+  font-variant-ligatures: historical-ligatures;
+  font-variant-ligatures: no-historical-ligatures;
+  font-variant-ligatures: contextual;
+  font-variant-ligatures: no-contextual;
+  font-variant-ligatures: inherit;
+  font-variant-ligatures: initial;
+  font-variant: small-caps;
+}
+
+.App2 {
+  font-family: sans-serif;
+  font-family: roboto;
+  text-align: left;
+  text-align: center;
+  font-kerning: auto;
+  font-kerning: normal;
+  font-kerning: none;
+  font-kerning: inherit;
+  font-kerning: initial;
+  font-variant-ligatures: normal;
+  font-variant-ligatures: none;
+  font-variant-ligatures: common-ligatures;
+  font-variant-ligatures: no-common-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: no-discretionary-ligatures;
+  font-variant-ligatures: historical-ligatures;
+  font-variant-ligatures: no-historical-ligatures;
+  font-variant-ligatures: contextual;
+  font-variant-ligatures: no-contextual;
+  font-variant-ligatures: inherit;
+  font-variant-ligatures: initial;
+  font-variant: small-caps;
+}
+
+p {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  font-family: sans-serif;
+  font-family: roboto;
+  text-align: left;
+  text-align: center;
+  font-kerning: auto;
+  font-style: bold;
+}
