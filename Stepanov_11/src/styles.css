@@ -1,0 +1,36 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  border: 2px solid orangered;
+}
+.main_header {
+  font-kerning: normal;
+  font-variant: small-caps;
+  color: orangered;
+}
+.description {
+  color: grey;
+  font-weight: 100;
+}
+.date_text {
+  font-style: italic;
+  color: grey;
+}
+.article_header {
+  margin-top: 25px;
+  color: orangered;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: left;
+}
+.article_content {
+  text-align: justify;
+  font-family: sans-serif;
+  color: black;
+  margin-top: 15px;
+}
+.article_footer {
+  margin-top: 25px;
+  color: grey;
+}
