@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Пантелеймонова Лаба12</title>
+	
+	<style>
+		.filters {
+	  border: 1px solid black;
+	  border-radius: 8px;
+	  float: left;
+	  margin: 10;
+	  height: 400px;
+	  margin-top: 7%;
+	  margin-left: 1;
+	  font-family:Helvetica;
+	}
+	.country {
+	  width: 50px;
+	  margin: 10;
+	  font-family:Helvetica;
+	}
+	.price-input {
+	  font-family:Helvetica;
+	  width: 50px;
+	  margin: 10;
+	}
+
+	.size {
+	  display: block;
+	}
+
+	.good {
+	  margin: 10px;
+	  float: left;
+	  background-color: #F5F5F5;
+	  text-align: center;
+	  border-radius: 8px;
+	  width: 250px;
+	  height: 450px;
+	}
+	.goodslist{
+	  margin-left: 11%;
+	}
+	.good img {
+	  width: 200px;
+	  height: 300px;
+	}
+	.header {
+	   margin: 10px; 
+	  margin-left: 500px;
+	}
+	
+	body{
+		background-image: url(back.jpg);
+	}
+	
+
+</style>
+
+</head>
+
+
+<body>
+    <div id="app"></div>
+        
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+	
+	const Block = ({ HeaderTag = 'h2', headerText, className = '', children }) => (
+  <div className={className}>
+    <HeaderTag>{headerText}</HeaderTag>
+    {children}
+  </div>
+);
+
+const CountryFilter = ({ value, onChange, countries }) => (
+  <Block headerText="Страна" className="country">
+    <select onChange={onChange} value={value}>
+      <option value="">-- Производитель --</option>
+      {countries.map(n => <option key={n}>{n}</option>)}
+    </select>
+  </Block>
+);
+
+const SizeFilter = ({ value, onChange, sizes }) => (
+  <Block headerText="Размер">
+    {sizes.map(n => (
+      <label key={n} className="size">
+        <input
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+const PriceInput = ({ index, ...props }) => (
+  <input className="price-input" data-index={index} {...props} />
+);
+
+const PriceFilter = ({ value, onChange }) => (
+  <Block headerText="Цена">
+    <PriceInput value={value[0]} onChange={onChange} index="0" />
+    &nbsp;-&nbsp;
+    <PriceInput value={value[1]} onChange={onChange} index="1" />
+    &nbsp;руб.&nbsp;
+  </Block>
+);
+
+const GoodsList = ({ goods }) => (
+  <div className="goodslist">
+    {goods.map(n => (
+      <Block className="good" HeaderTag="h3" headerText={n.name} key={n.id}>
+        <img src={n.image} />
+        <p>Цена: {n.cost}</p>
+        <button data-art={n.name}>Купить</button>
+      </Block>
+    ))}
+  </div>
+);
+
+const App = ({ goods }) => {
+  const countries = React.useMemo(() => [...new Set(goods.map(n => n.country))], [ goods ]);
+  const sizes = React.useMemo(() => [...new Set(goods.map(n => n.size))], [ goods ]);
+
+  const [ country, setCountry ] = React.useState('');
+  const [ size, setSize ] = React.useState([]);
+  const [ price, setPrice ] = React.useState([ '', '' ]);
+
+  const onCountryChange = e => setCountry(e.target.value);
+  const onSizeChange = ({ target: { checked, value } }) => {
+    setSize((!size.includes(value) && checked)
+      ? [ ...size, value ]
+      : size.filter(n => n !== value)
+    );
+  };
+  const onPriceChange = ({ target: { value, dataset: { index } } }) => {
+    setPrice(price.map((n, i) => i === +index ? value : n));
+  };
+
+  const filteredGoods = goods.filter(n => (
+    (!country || n.country === country) &&
+    (!size.length || size.includes(n.size)) &&
+    (!price[0] || price[0] <= n.cost) &&
+    (!price[1] || price[1] >= n.cost)
+  ));
+
+  return (
+    <div>
+      <div className="filters">
+        <CountryFilter value={country} onChange={onCountryChange} countries={countries} />
+        <SizeFilter value={size} onChange={onSizeChange} sizes={sizes} />
+        <PriceFilter value={price} onChange={onPriceChange} />
+      </div>
+      <h1 className="header">Магазин женской одежды</h1>
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+}
+
+const DATA = [
+  {
+    "sex" : "female",
+    "name" : "Сарафан в клетку с воланом",
+    "cost" : 2999,
+    "country" : "Germany",
+    "image" : "https://cache-limeshop.cdnvideo.ru/limeshop/aa/67093947917b3ab1392d911eb9d2800155d011401.jpeg?q=85&w=611",
+    "size": "XS"
+  },
+  {
+    "sex" : "female",
+    "name" : "Объемная рубашка изо льна",
+    "cost" : 2199,
+    "country" : "Turkey",
+    "image" : "https://cache-limeshop.cdnvideo.ru/limeshop/aa/670937584b62a569988cb11eb9d2600155d011401.jpeg?q=85&w=353",
+    "size": "S"
+  },
+  {
+    "sex" : "female",
+    "name" : "Однобортный блейзер",
+    "cost" : 4999,
+    "country" : "China",
+    "image" : "https://cache-limeshop.cdnvideo.ru/limeshop/aa/671579963f5b4abef9bbd11eb9d2800155d011401.jpeg?q=85&w=353",
+    "size": "L"
+  },
+  {
+    "sex" : "female",
+    "name" : "Джинсы свободного кроя",
+    "cost" : 3499,
+    "country" : "Turkey",
+    "image" : "https://cache-limeshop.cdnvideo.ru/limeshop/aa/8fefe92020c811ea9d1c00155d011401_res.jpeg?q=85&w=353",
+     "size": "XL"
+  },
+  {
+    "sex" : "female",
+    "name" : "Базовая футболка",
+    "cost" : 1299,
+    "country" : "Russia",
+    "image" : "https://cache-limeshop.cdnvideo.ru/limeshop/aa/67095672429b4b5fa5fae11eb9d2200155d011401.jpeg?q=85&w=353",
+     "size": "M"
+  },
+  
+    {
+    "sex" : "female",
+    "name" : "Худи на молнии",
+    "cost" : 3999,
+    "country" : "Italy",
+    "image" : "  https://cache-limeshop.cdnvideo.ru/limeshop/aa/6722449266485cc956c6411eb9d2600155d011401.jpeg?q=85&w=353",
+     "size": "XS"
+  },
+  
+  
+
+].map((n, i) => ({ ...n, id: i + 1 }));
+
+ReactDOM.render(<App goods={DATA} />, document.getElementById('app')); 
+
+ </script>
+</body>
+</html>
+	
+	
+
+	
