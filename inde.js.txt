@@ -1,0 +1,204 @@
+const Block = ({ HeaderTag = 'h2', headerText, className = '', children }) => (
+  <div className={className}>
+    <HeaderTag>{headerText}</HeaderTag>
+    {children}
+  </div>
+);
+
+const CountryFilter = ({ value, onChange, countries }) => (
+  <Block headerText="Country">
+    <select className="form-select" onChange={onChange} value={value}>
+      <option value="">-- Country --</option>
+      {countries.map(n => <option key={n}>{n}</option>)}
+    </select>
+  </Block>
+);
+
+const SizeFilter = ({ value, onChange, sizes }) => (
+  <Block headerText="Size">
+    {sizes.map(n => (
+      <label className="size" key={n}>
+        <input className = "form-check-input"
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+const PriceInput = ({ index, ...props }) => (
+  <input className="form-control price-input" data-index={index} {...props} />
+);
+
+const PriceFilter = ({ value, onChange }) => (
+  <Block headerText="Price">
+    <PriceInput value={value[0]} onChange={onChange} index="0" />
+    &nbsp;-&nbsp;
+    <PriceInput value={value[1]} onChange={onChange} index="1" />
+    &nbsp;usd&nbsp;
+  </Block>
+);
+
+const GoodsList = ({ goods }) => (
+  <div>
+    {goods.map(n => (
+      <Block className="card border-light mb-3 good"  key={n.id}>
+        <h3 className="card-title">{n.name}</h3>
+        <img className="rounded mx-auto d-block" src={n.image} />
+        <p className="card-text">Цена: {n.cost}</p>
+        <button className="btn btn-primary"  data-art={n.name}>Купить</button>
+      </Block>
+    ))}
+  </div>
+);
+
+
+
+
+const App = ({ goods }) => {
+  const countries = React.useMemo(() => [...new Set(goods.map(n => n.country))], [ goods ]);
+  const sizes = React.useMemo(() => [...new Set(goods.map(n => n.size))], [ goods ]);
+
+  const [ country, setCountry ] = React.useState('');
+  const [ size, setSize ] = React.useState([]);
+  const [ price, setPrice ] = React.useState([ '', '' ]);
+
+  const onCountryChange = e => setCountry(e.target.value);
+  const onSizeChange = ({ target: { checked, value } }) => {
+    setSize((!size.includes(value) && checked)
+      ? [ ...size, value ]
+      : size.filter(n => n !== value)
+    );
+  };
+  const onPriceChange = ({ target: { value, dataset: { index } } }) => {
+    setPrice(price.map((n, i) => i === +index ? value : n));
+  };
+
+  const filteredGoods = goods.filter(n => (
+    (!country || n.country === country) &&
+    (!size.length || size.includes(n.size)) &&
+    (!price[0] || price[0] <= n.cost) &&
+    (!price[1] || price[1] >= n.cost)
+  ));
+
+  return (
+    <div>
+      <div className="filters">
+        <CountryFilter value={country} onChange={onCountryChange} countries={countries} />
+        <SizeFilter value={size} onChange={onSizeChange} sizes={sizes} />
+        <PriceFilter value={price} onChange={onPriceChange} />
+      </div>
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+}
+
+const DATA = [
+  {
+    "sex" : "male",
+    "name" : "Рубашка №1",
+    "cost" : 1000,
+    "country" : "france",
+    "image" : "https://a.lmcdn.ru/img600x866/T/O/TO172EMMSNN1_13671299_1_v1.jpg",
+    "size": "S"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №2",
+    "cost" : 1200,
+    "country" : "turkey",
+    "image" : "https://a.lmcdn.ru/img600x866/H/E/HE002EMMMCW2_13104853_1_v1.jpg",
+    "size": "M"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №3",
+    "cost" : 1700,
+    "country" : "china",
+    "image" : "https://a.lmcdn.ru/img600x866/H/E/HE002EMMPKC0_13396903_1_v1.jpg",
+    "size": "L"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://a.lmcdn.ru/img600x866/R/T/RTLAAD304701_13770913_1_v1_2x.jpg",
+     "size": "XL"
+  }
+  ,
+  {
+    "sex" : "male",
+    "name" : "Рубашка №2",
+    "cost" : 1200,
+    "country" : "turkey",
+    "image" : "https://a.lmcdn.ru/img600x866/H/E/HE002EMMMCW2_13104853_1_v1.jpg",
+    "size": "L"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №3",
+    "cost" : 1700,
+    "country" : "china",
+    "image" : "https://a.lmcdn.ru/img600x866/H/E/HE002EMMPKC0_13396903_1_v1.jpg",
+    "size": "S"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://a.lmcdn.ru/img600x866/R/T/RTLAAD304701_13770913_1_v1_2x.jpg",
+     "size": "S"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №1",
+    "cost" : 1000,
+    "country" : "france",
+    "image" : "https://a.lmcdn.ru/img600x866/T/O/TO172EMMSNN1_13671299_1_v1.jpg",
+    "size": "XL"
+  }
+  ,
+  {
+    "sex" : "male",
+    "name" : "Рубашка №5",
+    "cost" : 1200,
+    "country" : "china",
+    "image" : "https://a.lmcdn.ru/img600x866/M/A/MA178EMEWIR8_8503641_1_v1.jpg",
+    "size": "XL"
+  }
+  ,
+  {
+    "sex" : "male",
+    "name" : "Брюки №1",
+    "cost" : 3500,
+    "country" : "france",
+    "image" : "https://a.lmcdn.ru/img600x866/M/P/MP002XM1H6P1_13474544_1_v1_2x.jpg",
+    "size": "XL"
+  }
+  ,
+  {
+    "sex" : "male",
+    "name" : "Брюки №1",
+    "cost" : 3500,
+    "country" : "france",
+    "image" : "https://a.lmcdn.ru/img600x866/M/P/MP002XM1H6P1_13474544_1_v1_2x.jpg",
+    "size": "L"
+  }
+  ,
+  {
+    "sex" : "male",
+    "name" : "Брюки №1",
+    "cost" : 850,
+    "country" : "france",
+    "image" : "https://a.lmcdn.ru/img600x866/M/P/MP002XM1H5EK_13480515_1_v1_2x.jpg",
+    "size": "XL"
+  }
+].map((n, i) => ({ ...n, id: i + 1 }));
+
+ReactDOM.render(<App goods={DATA} />, document.getElementById('app'));
