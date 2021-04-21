@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Stepanov_12</title>
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css">
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css">
+</head>
+
+<body class="grey lighten-3">
+
+  <div class="row">
+    <div id="sidebar">
+
+    </div>
+    <div id="content">
+
+    </div>
+  </div>
+
+  <script src="https://stepigor.ru/cdn/react.js"></script>
+  <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+  <script src="https://stepigor.ru/cdn/babel.js"></script>
+  <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+  <script type="text/babel">
+    var goods = {
+      1: {
+        'name': 'Рубашка обыкновенная',
+        'sizes': ['s', 'm', 'l', 'xl'],
+        'price': 350,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Россия'
+      },
+      2: {
+        'name': 'Джинсы обыкновенные',
+        'sizes': ['s', 'l', 'xl'],
+        'price': 750,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Россия'
+      },
+      3: {
+        'name': 'Пиджак обыкновенный',
+        'sizes': ['s', 'm', 'l'],
+        'price': 870,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Украина'
+      },
+      4: {
+        'name': 'Джинсовка обыкновенная',
+        'sizes': ['m', 'l', 'xl'],
+        'price': 650,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Россия'
+      },
+      5: {
+        'name': 'Кроссовки обыкновенные',
+        'sizes': ['s', 'xl'],
+        'price': 450,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Китай'
+      },
+      6: {
+        'name': 'Туфли обыкновенные',
+        'sizes': ['s', 'm', 'l', 'xl'],
+        'price': 670,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Россия'
+      },
+      7: {
+        'name': 'Шляпа обыкновенная',
+        'sizes': ['s', 'm', 'l', 'xl'],
+        'price': 150,
+        'url': 'https://picsum.photos/128/128',
+        'country': 'Россия'
+      }
+    }
+
+    function reApplyFilters(){
+      let goods_fil = Object.values(goods);
+
+      if (document.getElementById('c1').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['country'] == 'Россия');
+      }
+      if (document.getElementById('c2').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['country'] == 'Украина');
+      }
+      if (document.getElementById('c3').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['country'] == 'Китай');
+      }
+
+      if (document.getElementById('s1').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['sizes'].indexOf('s') != -1);
+      }
+      if (document.getElementById('s2').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['sizes'].indexOf('m') != -1);
+      }
+      if (document.getElementById('s3').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['sizes'].indexOf('l') != -1);
+      }
+      if (document.getElementById('s4').checked){
+        goods_fil = Object.values(goods_fil).filter((x) => x['sizes'].indexOf('xl') != -1);
+      }
+
+      if (document.getElementById('price').value > 0){
+        goods_fil = Object.values(goods_fil).filter((x) => x['price'] <= document.getElementById('price').value);
+      }
+
+      ReactDOM.render(<Content goods={goods_fil} />, document.getElementById('content'));
+    }
+
+    function Sidebar() {
+      return (
+        <div class="col s12 m4 l4">
+          <div class="card grey lighten-5">
+            <div class="card-content">
+              <span class="card-title">Отображение</span>
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <b>Страна-производитель</b>
+                  <form>
+                  <p><label><input id="c1" onChange={reApplyFilters} type="checkbox" /><span>Россия</span></label></p>
+                  <p><label><input id="c2" onChange={reApplyFilters} type="checkbox" /><span>Украина</span></label></p>
+                  <p><label><input id="c3" onChange={reApplyFilters} type="checkbox" /><span>Китай</span></label></p>
+                  </form>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <b>Размер</b>
+                  <form>
+                  <p><label><input id="s1" onChange={reApplyFilters} type="checkbox" /><span>S</span></label></p>
+                  <p><label><input id="s2" onChange={reApplyFilters} type="checkbox" /><span>M</span></label></p>
+                  <p><label><input id="s3" onChange={reApplyFilters} type="checkbox" /><span>L</span></label></p>
+                  <p><label><input id="s4" onChange={reApplyFilters} type="checkbox" /><span>XL</span></label></p>
+                  </form>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <b>Лимит по цене</b>
+                  <form>
+                    <div class="input-field">
+                      <input id="price" type="number" onChange={reApplyFilters} />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+
+    function Content(props){
+
+        let result = props.goods.map((val) => {
+          return (<div class="col s12 m4 l4">
+            <div class="card hoverable grey lighten-5">
+              <div class="card-image">
+                <img src={val['url']} />
+              </div>
+              <div class="card-content">
+                <b>{val['name']} ({val['country']})</b><br/>
+                <h4 class="light grey-text">{val['price']} P</h4>
+              </div>
+              <div class="card-action">
+                Купить
+              </div>
+            </div>
+          </div>);
+        });
+
+        return (<div>{result}</div>);
+    }
+
+    ReactDOM.render(<Sidebar />, document.getElementById('sidebar'));
+  </script>
+</body>
+
+</html>
