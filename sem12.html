@@ -1,0 +1,307 @@
+const Block = ({ HeaderTag = 'h2', headerText, className = '', children }) => (
+  <div className={className}>
+    <HeaderTag>{headerText}</HeaderTag>
+    {children}
+  </div>
+);
+
+const CountryFilter = ({ value, onChange, countries }) => (
+  <Block headerText="Country">
+    <select className="form-select" onChange={onChange} value={value}>
+      <option value="">-- Country --</option>
+      {countries.map(n => <option key={n}>{n}</option>)}
+    </select>
+  </Block>
+);
+
+const SizeFilter = ({ value, onChange, sizes }) => (
+  <Block headerText="Size">
+    {sizes.map(n => (
+      <label className="size"  key={n}>
+        <input className="form-check-input"
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+const PriceInput = ({ index, ...props }) => (
+  <input className="price-input" data-index={index} {...props} />
+);
+
+const PriceFilter = ({ value, onChange }) => (
+  <Block headerText="Price">
+    <PriceInput value={value[0]} onChange={onChange} index="0" />
+    &nbsp;-&nbsp;
+    <PriceInput value={value[1]} onChange={onChange} index="1" />
+    &nbsp;usd&nbsp;
+  </Block>
+);
+
+const GoodsList = ({ goods }) => (
+  <div className="card border-light mb-3">
+    {goods.map(n => (
+      <Block className="card border-light mb-3 good" HeaderTag="h3" headerText={n.name} key={n.id}>
+        <img src={n.image} className="rounded float-start"/>
+        <p>Price: {n.cost}</p>
+        <button className="btn btn-dark" data-art={n.name}>Buy</button>
+      </Block>
+    ))}
+  </div>
+);
+
+const App = ({ goods }) => {
+  const countries = React.useMemo(() => [...new Set(goods.map(n => n.country))], [ goods ]);
+  const sizes = React.useMemo(() => [...new Set(goods.map(n => n.size))], [ goods ]);
+
+  const [ country, setCountry ] = React.useState('');
+  const [ size, setSize ] = React.useState([]);
+  const [ price, setPrice ] = React.useState([ '', '' ]);
+
+  const onCountryChange = e => setCountry(e.target.value);
+  const onSizeChange = ({ target: { checked, value } }) => {
+    setSize((!size.includes(value) && checked)
+      ? [ ...size, value ]
+      : size.filter(n => n !== value)
+    );
+  };
+  const onPriceChange = ({ target: { value, dataset: { index } } }) => {
+    setPrice(price.map((n, i) => i === +index ? value : n));
+  };
+
+  const filteredGoods = goods.filter(n => (
+    (!country || n.country === country) &&
+    (!size.length || size.includes(n.size)) &&
+    (!price[0] || price[0] <= n.cost) &&
+    (!price[1] || price[1] >= n.cost)
+  ));
+
+  return (
+    <div className="card border-dark mb-3">
+      <div className="filters" >
+        <CountryFilter value={country} onChange={onCountryChange} countries={countries} />
+        <SizeFilter value={size} onChange={onSizeChange} sizes={sizes} />
+        <PriceFilter value={price} onChange={onPriceChange} />
+      </div>
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+}
+
+const DATA = [
+  {
+    "sex" : "male",
+    "name" : "Sweatshirt",
+    "cost" : 1000,
+    "country" : "france",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/2adafb53-9e24-41f2-8dd5-1175766236cf/%D0%B6%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9-%D1%84%D0%BB%D0%B8%D1%81%D0%BE%D0%B2%D1%8B%D0%B9-%D1%81%D0%B2%D0%B8%D1%82%D1%88%D0%BE%D1%82-sportswear-essential-m9XKQn.png",
+    "size": "S"
+  },
+  {
+    "sex" : "male",
+    "name" : "Sweatshirt",
+    "cost" : 1200,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/5bc82e01-49ae-42e2-91c1-5150eb1e1ea1/%D0%B6%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9-%D1%84%D0%BB%D0%B8%D1%81%D0%BE%D0%B2%D1%8B%D0%B9-%D1%81%D0%B2%D0%B8%D1%82%D1%88%D0%BE%D1%82-%D1%81-%D0%BC%D0%BE%D0%BB%D0%BD%D0%B8%D0%B5%D0%B9-1-4-sportswear-sF8B4s.png",
+    "size": "M"
+  },
+  {
+    "sex" : "male",
+    "name" : "T-shirt",
+    "cost" : 1700,
+    "country" : "china",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/7ab65edc-f429-4a83-a33d-8ae13f428418/%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-sportswear-Xv5QJP.png",
+    "size": "L"
+  },
+  {
+    "sex" : "male",
+    "name" : "Sweatshirt",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/d0267d34-61d2-49d5-bd0b-c37f1f0ca48b/%D1%85%D1%83%D0%B4%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%82%D1%80%D0%B5%D0%BD%D0%B8%D0%BD%D0%B3%D0%B0-icon-clash-mKGJ76.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/4d4084a6-655d-4cae-b8d9-9125c06c9a67/%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-%D1%81-%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D0%BE%D0%B9-jordan-essential-lmqSTf.png",
+     "size": "XXL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/c4c96482-366f-4511-a43c-8fed735655f2/%D1%84%D0%BB%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D1%8F-%D1%85%D1%83%D0%B4%D0%B8-sportswear-zZTKHB.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/2240932b-6b22-40ae-ab2d-72c92c074af1/%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-sportswear-essential-G9CtKW.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/74c28764-bbe8-4b40-83d4-94820e7a7863/%D1%84%D0%BB%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D1%8F-%D1%85%D1%83%D0%B4%D0%B8-sportswear-%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%B8%D0%B5-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80%D1%8B-llQR1D.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/14af8d93-a47b-4111-a990-6b824e3f2ed1/%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BA%D1%80%D0%BE%D1%8F-air-8z3jJn.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/41cf2d51-efb0-49c6-b053-163d12f48c26/%D1%83%D0%BA%D0%BE%D1%80%D0%BE%D1%87%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F-%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-%D0%B4%D0%BB%D1%8F-%D1%82%D0%B0%D0%BD%D1%86%D0%B5%D0%B2-sportswear-Kxstkg.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/b155bd39-38fe-4b1f-8d3c-27d3f8c320f7/%D0%B6%D0%B5%D0%BD%D1%81%D0%BA%D0%B8%D0%B9-%D1%81%D0%B2%D0%B8%D1%82%D1%88%D0%BE%D1%82-sportswear-t4zPpb.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/9500c2ab-65a4-4e63-b583-ef029c8406af/%D1%84%D0%BB%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D1%8F-%D1%85%D1%83%D0%B4%D0%B8-paris-saint-germain-QXbMXq.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "https://static.nike.com/a/images/c_limit,w_318,f_auto/t_product_v1/727b4b82-6481-450c-8379-002d3ed9993f/%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-%D1%81-%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%B8%D0%BC-%D1%80%D1%83%D0%BA%D0%B0%D0%B2%D0%BE%D0%BC-sportswear-essential-qGBzHg.png",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  },
+  {
+    "sex" : "male",
+    "name" : "Рубашка №4",
+    "cost" : 2000,
+    "country" : "turkey",
+    "image" : "http://i.piccy.info/i9/e2e5c6cb274121b9898b7d45a085130f/1566815049/29582/1334636/4.jpg",
+     "size": "XL"
+  }
+].map((n, i) => ({ ...n, id: i + 1 }));
+
+ReactDOM.render(<App goods={DATA} />, document.getElementById('app'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.filters {
+  float: left;
+  margin: 0;
+}
+
+.price-input {
+  width: 50px;
+}
+
+.size {
+  display: block;
+}
+
+.good {
+  margin: 10px;
+  float: left;
+  text-align: center;
+}
+.good img {
+  width: 200px;
+}
+
+
+
+
+
+
+
+<div id="app"></div>
