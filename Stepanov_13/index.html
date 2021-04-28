@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Stepanov - 13</title>
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css" />
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css" />
+  </head>
+  <body>
+
+    <div id="app">
+
+    </div>
+
+
+
+    <script src="https://stepigor.ru/cdn/react.js"></script>
+    <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+    <script src="https://stepigor.ru/cdn/babel.js"></script>
+    <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+    <script type="text/babel">
+
+      function Main(){
+        let mainStyle = {'position':'absolute', 'left':'300px', 'top':'0', 'width':'calc(100% - 300px)', 'height':'100%', 'padding':'15px'}
+        let ownmargin = {'margin-top':'25px'}
+        const [catnow, editcatnow] = React.useState(0);
+        const [notes, editNotes] = React.useState([[0, 'Про личное'], [1, 'Про фильмы'], [2, 'Про покупки'], [3, 'Про игры']])
+        const [newtext, editnewtext] = React.useState('')
+
+        function addNote(e){
+          if (e.key == 'Enter'){
+            editNotes(notes.concat([[catnow, newtext]]))
+          }
+        }
+
+        function handleChange(e) {
+          editnewtext(e.target.value);
+        }
+
+        return (
+        <div>
+          <ul id="slide-out" class="sidenav sidenav-fixed">
+          <li><div class="user-view red">
+            <a href="#name"><span class="white-text name">Task Tracker</span></a>
+            <a href="#email"><span class="white-text email">Отслеживайте свои дела</span></a>
+          </div></li>
+          <li><a class="subheader">Категории</a></li>
+            <Cats catnow={catnow} changecat={editcatnow} />
+        </ul>
+
+        <div id="main" style={mainStyle}>
+          <h3 class="light">Трекер задач</h3>
+          <ul class="collection" style={ownmargin}>
+          <ContentView num={catnow} notes={notes} />
+          </ul>
+          <div class="row">
+            <div class="col s12 m12 l12">
+              <input type="text" onKeyPress={addNote} onChange={handleChange}/>
+              </div>
+          </div>
+        </div>
+        </div>
+        );
+      }
+
+      function Cats(props){
+        const [cats, setCats] = React.useState(['Личное', 'Фильмы', 'Покупки', 'Игры']);
+        const [icons, setIcons] = React.useState(['3d_rotation', 'ac_unit', 'access_alarm', 'account_balance', 'adb', 'account_box',
+                                                  '3d_rotation', 'ac_unit', 'access_alarm', 'account_balance', 'adb', 'account_box'])
+
+
+
+        let rendering
+
+
+        rendering = cats.map((item, i) => {
+          return <li><a class="waves-effect" href="#!" onClick={() => {props['changecat'](i)}}><i class="material-icons left">{icons[i]}</i>{item}</a></li>
+        });
+
+        return (
+         rendering
+         );
+
+      }
+
+      function ContentView(props){
+        let rendering
+        rendering = props['notes'].map((note) => {
+          if (note[0] != props['num']) return
+          return <li class="collection-item">{note[1]}</li>
+        });
+        return rendering
+      }
+
+
+      ReactDOM.render(<Main />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
