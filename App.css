@@ -1,0 +1,43 @@
+h2 {
+    text-align: center;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.LOG_IN {
+    border: 1px solid #2d2c2c;
+    border-radius: 3px;
+    outline: none;
+    height: 40px;
+    width: 200px;
+    background-color: #e3ffe4;
+    font-size: 16px;
+    font-family: Century Gothic;
+    margin-left: 20px;
+}
+
+.Name {
+    border: 1px solid #2d2c2c;
+    border-radius: 3px;
+    outline: none;
+    height: 35px;
+    width: 200px;
+    font-size: 16px;
+    font-family: Century Gothic;
+    margin-left: 20px;
+}
+
+.LOG_OUT {
+    border: 1px solid #2d2c2c;
+    border-radius: 3px;
+    outline: none;
+    height: 40px;
+    width: 200px;
+    background-color: #ffb0b0;
+    font-size: 16px;
+    font-family: Century Gothic;
+    margin-left: 20px;
+    color:aliceblue;
+}
