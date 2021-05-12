@@ -1,20 +1,37 @@
-import "./styles.css";
+import React from "react"
 
-export default function App() {
-  return (
-    <div className="App">
-      <h3>Автопутешествие</h3>
-      <h1>Подборка лучших автомобилей для автопутешествий зарубеж:</h1>
-      <p1>Данная статья предназначена для приобретения навыков работы с css и js, и ничего полезного нет смысла тут сочинять, но порасписывать клавиатуру - всегда весело. Просьба не относиться к данному материалу максильно лояльно, спасибо!</p1><br/>
-      <h2>1. Kia Ceed</h2><br/>
-      <h2>2. Kia Serato</h2><br/>
-      <h2>3. Audi A4</h2><br/>
-      <h2>4. Audi A7</h2><br/>
-      <h2>5. Audi Q5</h2><br/>
-      <h2>6. Audi Q7</h2><br/>
-      <h2>7. BMW 525i</h2><br/>
-      <h4>Статью подготовил студент группы ПИ18-2</h4>
-      <h5>Кожевников Николай</h5>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      isLoggedIn: false,
+      unreadMessages: [
+        "Call your mom!"
+      ]
+    }
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.setState(prevState => {
+      return {
+        isLoggedIn: !prevState.isLoggedIn
+      }
+    })
+  }
+
+  render() {
+    let buttonText = this.state.isLoggedIn ? "LOG OUT" : "LOG IN"
+    let displayText = this.state.isLoggedIn ? "Logged in" : "Logged out"
+    return (
+        <div>
+          <h2>You have {this.state.unreadMessages.length} unread messages!</h2>
+          <button onClick={this.handleClick}>{buttonText}</button>
+          <h1>{displayText}</h1>
+        </div>
+    )
+  }
 }
+
+export default App
+
