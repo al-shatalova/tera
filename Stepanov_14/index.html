@@ -1,0 +1,100 @@
+<html>
+<head>
+    <title>Stepanov_14</title>
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css"/>
+    <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css"/>
+    <style>
+        button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="teal lighten-2">
+
+<div id="app" class="container">
+
+</div>
+
+<script src="https://stepigor.ru/cdn/react.js"></script>
+<script src="https://stepigor.ru/cdn/react-dom.js"></script>
+<script src="https://stepigor.ru/cdn/babel.js"></script>
+<script type="text/babel">
+    function App() {
+        const [unreadMessages, editUnreadMessages] = React.useState(["Вы выиграли 1 000 рублей!", "Требуется подтверждение вашего пароля!"])
+        const [logged, editLogged] = React.useState(0)
+        const [password, editPassword] = React.useState('12345')
+
+        return (
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="card grey lighten-5">
+                        <div class="card-content">
+                            <span class="card-title"><i class="material-icons left teal-text">account_circle</i>Форма входа</span>
+                            <LoginForm logged={logged} editLogged={editLogged} password={password}/>
+                        </div>
+                    </div>
+                </div>
+                <div className="col s12 m12 l12">
+                    <div className="card grey lighten-5">
+                        <MailContent logged={logged}/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    function LoginForm(props){
+        let rendering
+
+        const [userPassword, editUserPassword] = React.useState();
+
+        function checkPassword(){
+            if (userPassword == props.password){
+                props.editLogged(1);
+            } else {
+                alert('Неправильный пароль!')
+            }
+        }
+
+        if (props.logged == 1){
+            rendering = <div class="row center-align">Вы уже вошли в систему!</div>
+        } else {
+            rendering = <div class="row center-align"><div class="col s12 m12 l12"><div class="input-field"><i
+                className="material-icons teal-text prefix">lock</i><input type="password" onChange={(e) => editUserPassword(e.target.value)} maxLength="16" placeholder="Введите пароль..."/></div></div><div class="col s12 m12 l12"><button onClick={checkPassword} class="btn teal waves-effect waves-light white-text">Войти</button></div></div>
+        }
+
+        return rendering
+    }
+
+    function MailContent(props){
+        const [letters, editLetters] = React.useState(['Вы выиграли миллион!', 'Вас ждет приз!', 'Госуслуги. Требуется подтверждение'])
+        const [update, editUpdate] = React.useState(0)
+        let rendering = ''
+
+        if (props.logged == 1){
+            rendering = <div class="card-content"><span class="card-title">{ letters.length > 0 && <span>У вас есть {letters.length} непрочитанных сообщений!</span>}</span><ul class="collection" onClick={function(e){editUpdate(update + 1)}}><Letters letters={letters} editLetters={editLetters}/></ul></div>
+        }
+
+        return rendering
+    }
+
+    function Letters(props){
+        const [update, editUpdate] = React.useState(0)
+        let rendering
+
+        function readLetter(x){
+            let edited = props.letters;
+            edited.splice(x, 1);
+            props.editLetters(edited)
+            editUpdate(update + 1)
+        }
+
+        rendering = props.letters.map(function(i, x){return <a onClick={function (e){readLetter(x)}} class="collection-item" href="#!">{i}</a>})
+
+        return rendering
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('app'))
+</script>
+</body>
+</html>
