@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="app"> </div>
+    <script type="text/babel"> 
+    const userClassName = "user-info";
 
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="text/babel">
+    const styleObj = {
+        color:'green', 
+        fontFamily:'Verdana'
+    };
 
-      ReactDOM.render(
-        <h3>Hi!</h3>,
-        document.getElementById('root')
-      );
+    const user = {
+        id : 5,
+        age: 777,
+        firstName: 'Name',
+        lastName: 'Surname',
+        getFullName: function(){ 
+            return `${this.firstName} ${this.lastName}`;
+        }
+    };
 
+    ReactDOM.render(
+        <div>
+            <div className={userClassName}  style={{color:'red', fontFamily:'Verdana'}}>
+                <h2>5 + 2 = {5 + 2}</h2>    
+            </div>
+
+            <div className={userClassName}  style={styleObj}>
+                <p>Полное имя: {user.getFullName()}</p>
+                <p>Возраст: {user.age}</p>
+            </div>
+        </div>,
+        document.getElementById("app")
+    )
     </script>
-    <!--
-      Note: this page is a great way to try React but it's not suitable for production.
-      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
-
-      Read this section for a production-ready setup with JSX:
-      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
-
-      In a larger project, you can use an integrated toolchain that includes JSX instead:
-      https://reactjs.org/docs/create-a-new-react-app.html
-
-      You can also use React without JSX, in which case you can remove Babel:
-      https://reactjs.org/docs/react-without-jsx.html
-    -->
-  </body>
-</html>
+</body>
+</html> 
