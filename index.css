@@ -1,0 +1,40 @@
+body {
+    color: white;
+    background-color: #0d1117;
+    font-family: sans-serif;
+    padding-left: 10px;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    margin-top: 15px;
+    border: 1px solid #21262d;
+    border-radius: 5px;
+}
+
+.listItem {
+    padding: 10px 15px;
+    border-bottom: 1px solid #21262d;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+input {
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #21262d;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.userIcon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 10px;
+    color: rgba(107, 114, 128, 1);
+}
