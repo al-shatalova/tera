@@ -1,0 +1,18 @@
+body {
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: #0d1117;
+    font-family: sans-serif;
+    padding-left: 10px;
+}
+
+input {
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #21262d;
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
