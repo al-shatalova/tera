@@ -1,36 +1,114 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
     <script type="text/babel">
+        const Hello = () => {
+            return (<h1>Привет</h1>);
+        }
+        
+        class Timer extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { seconds: 0 };
+            }
 
-      ReactDOM.render(
-        <h3>Hi!</h3>,
-        document.getElementById('root')
-      );
+            tick() {
+                this.setState(state => ({
+                seconds: state.seconds + 1
+                }));
+            }
 
+            componentDidMount() {
+                this.interval = setInterval(() => this.tick(), 1000);
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.interval);
+            }
+
+            render() {
+                return (
+                <div>
+                    Seconds: {this.state.seconds}
+                </div>
+                );
+            }
+        }
+        
+        function Button() {
+            const [clicks, setClicks] = React.useState(0);    
+            const categ = ['Laba', '4'];
+            return (
+                <div>
+                    <button className="but" onClick={ () => setClicks(clicks + 1) }>+</button>
+                    <button className="but red" onClick={ () => setClicks(clicks - 1) }>-</button>
+                    <br />
+                    { clicks !== 0 && 
+                        <span>
+                            Кликов: {clicks}
+                        </span>
+                    }
+                    <ul className="list">
+                        { categ.map( (name, i) => (
+                            <li className="list-item" key={ name + i }> { name } </li>
+                        ))
+                        }
+                    </ul>
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <div>
+                <Hello />
+                <Timer />
+                <Button />
+            </div>,
+            document.getElementById("app")
+        )
     </script>
-    <!--
-      Note: this page is a great way to try React but it's not suitable for production.
-      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+    
+    <style>
+        .but {
+            padding: 1rem 3rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+            background-color: goldenrod;
+            margin-right: 10px;
+        }
+        .but.red {
+            background-color: darkred;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
 
-      Read this section for a production-ready setup with JSX:
-      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+        .list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
 
-      In a larger project, you can use an integrated toolchain that includes JSX instead:
-      https://reactjs.org/docs/create-a-new-react-app.html
-
-      You can also use React without JSX, in which case you can remove Babel:
-      https://reactjs.org/docs/react-without-jsx.html
-    -->
-  </body>
+        .list-item {
+            border-bottom: 1px solid gray;
+            padding: 10px 15px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+    </style>
+</body>
 </html>
