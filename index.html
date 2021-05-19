@@ -1,74 +1,136 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <meta charset="UTF-8" />
+	
+	<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.16/browser.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-	</head>
+	<style>
+	
+	</style>
+</head>
 <body>
-<form class="row g-3">
-  <div class="col-auto">
-    <label for="staticEmail2" class="visually-hidden">Email</label>
-    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
-  </div>
-  <div class="col-auto">
-    <label for="inputPassword2" class="visually-hidden">Password</label>
-    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-  </div>
-
-</form>
-  <div id='app'></div>
-
+<h1>Timer</h1>
+<div class="container" id="timer-example"> </div>
+<div class="container" id="timer-example1"> </div>
+<div class="container" id="app"> </div>
+<div class="container" id="app1"> </div>
 <script type="text/babel">
+const text = "Это котик";
+class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { seconds: 0 };
+  }
 
-	class App extends React.Component {
-		constructor() {
-			super()
-			this.state = {
-			isLoggedIn: false
-			}
-			this.handleClick = this.handleClick.bind(this)
-			}
+  tick() {
+    this.setState(state => ({
+      seconds: state.seconds + 1
+    }));
+  }
 
-		handleClick() {
-			this.setState(prevState => {
-			return {
-				isLoggedIn: !prevState.isLoggedIn
-				}
-				})
-		}		
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
 
-		render() {
-			let buttonText = this.state.isLoggedIn ? "LOG OUT" : "LOG IN"
-			let displayText = this.state.isLoggedIn ? "Logged in" : "Logged out"
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
-		return (
-		<div>
-				<button className = "btn btn-success" onClick={this.handleClick}>{buttonText}</button>
-					<h1>{displayText}</h1>
-			</div>
-				)
-		}
-	}
+  render() {
+    return (
+      <div>
+        Class Seconds: {this.state.seconds}
+      </div>
+    );
+  }
+}
+function Timer1() {
+function tick() {
+      setSeconds(seconds +1);
+  }
+  const [seconds, setSeconds] = React.useState(0);
+  setTimeout(() => tick(), 1000)
+
+  
+
+  return (
+      <div>
+        function Seconds: {seconds}
+      </div>
+  );
+}
+
+function Comment(props) {
+  return (
+    <div className="Comment">
+      <div className="UserInfo">
+        <img className="Avatar"
+          src={props.author.avatarUrl}
+          alt={props.author.name}
+        />
+        <div className="UserInfo-name">
+          {props.author.name}
+        </div>
+      </div>
+      <div className="Comment-text">
+        {props.text}
+      </div>
+      <div className="Comment-date">
+        {props.date.toLocaleDateString()}
+      </div>
+    </div>
+  );
+}
+
+class CommentCat extends React.Component {
+  constructor(props) {
+    super(props); }
+  render() {
+    return (
+      <div className="Comment">
+      <div className="UserInfo">
+        <img className="Avatar"
+          src={this.props.author.avatarUrl}
+          alt={this.props.author.name}
+        />
+        <div className="UserInfo-name">
+          {this.props.author.name}
+        </div>
+      </div>
+      <div className="Comment-text">
+        {this.props.text}
+      </div>
+      <div className="Comment-date">
+        {this.props.date.toLocaleDateString()}
+      </div>
+    </div>
+    );
+  }
+}
 
 
 ReactDOM.render(
-<App/>,
-document.getElementById('app')
+  <Timer />,
+  document.getElementById('timer-example')
 );
-
+ReactDOM.render(
+  <Timer1 />,
+  document.getElementById('timer-example1')
+);
+ReactDOM.render(
+  <Comment author = {{avatarUrl:"https://pbs.twimg.com/media/ElDKBWLW0AEquxu.jpg", name:"Котик"}} text = {text} date = {new Date()} />,
+  document.getElementById('app')
+);
+ReactDOM.render(
+  <CommentCat author = {{avatarUrl:"https://pbs.twimg.com/media/ElDKBWLW0AEquxu.jpg", name:"Котик"}} text = {text} date = {new Date()} />,
+  document.getElementById('app1')
+);
 </script>
-
-
-
 </body>
 </html> 
