@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>Stepanov_15</title>
+	</head>
+	<body>
+		
+		<div id="app">
+		
+		</div>
+		<div id="app_clone"></div>
+		
+		<script src="https://stepigor.ru/cdn/react.js"></script>
+		<script src="https://stepigor.ru/cdn/react-dom.js"></script>
+		<script src="https://stepigor.ru/cdn/babel.js"></script>
+		<script type="text/babel">
+		
+
+			//ПЕРЕПИСАННЫЙ В ФУНКЦИИ
+			function TodoAppClone(){
+				const [items, edit_items] = React.useState([])
+				const [text, edit_text] = React.useState('')
+				
+				function handleChange(e) {
+					edit_text(e.target.value);
+				}
+				
+				function handleSubmit(e) {
+				e.preventDefault();
+				if (text.length === 0) {
+				  return;
+				}
+				const newItem = {
+				  text: text,
+				  id: Date.now()
+				};
+				
+				edit_text('')
+				edit_items(items.concat(newItem))
+			  }
+			  
+			  return (
+				  <div>
+					<h3>TODO</h3>
+					<TodoListClone items={items} />
+					<form onSubmit={handleSubmit}>
+					  <label htmlFor="new-todo">
+						What needs to be done?
+					  </label>
+					  <input
+						id="new-todo"
+						onChange={handleChange}
+						value={text}
+					  />
+					  <button>
+						Add #{items.length + 1}
+					  </button>
+					</form>
+				  </div>
+				);
+			}
+			
+			function TodoListClone(props){
+				return (
+				  <ul>
+					{props.items.map(item => (
+					  <li key={item.id}>{item.text}</li>
+					))}
+				  </ul>
+				);
+			}
+			
+			
+			
+			ReactDOM.render(
+			  <TodoAppClone />,
+			  document.getElementById('app')
+			);
+		</script>
+	</body>
+</html>
