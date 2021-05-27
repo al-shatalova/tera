@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang="en">
+<title>Lee_6</title>
+<head>
+	<meta charset="utf-8" /> 
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script> 
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script> 
+
+
+<style>
+	button{
+width: 134px;
+height:30px;
+border-radius: 4px;
+font-size: 12pt;
+font-family: calibri;
+border-radius: 50%;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+margin: 20px 635px;
+}
+
+.on{
+color:red;
+background-color: #ccc;
+}
+
+.off{
+color:green;
+background-color: #white;
+}
+body {
+  font-family: "Gill Sans",  sans-serif; 
+  font-size: 11pt; 
+  background-color: #f0f0f0; 
+  color: #333;
+}
+p {
+  text-align: center;
+  margin-left: 60px; 
+  margin-right: 10px; 
+}
+</style>
+
+<body>
+	<div id = "app"></div>
+
+	<div id = "app2"></div>
+	
+	
+	<script type = "text/babel">
+	function Hello(props) {
+	return <div>
+	<p>Имя: {props.name}</p>
+	<p>Возраст: {props.age}</p>
+	</div>;
+	}
+
+	ReactDOM.render(
+	<Hello name="Кирилл Ли" age="21" />,
+	document.getElementById("app")
+	)
+
+	
+
+
+	class ClickButton extends React.Component {
+	constructor(props) {
+	super(props);
+	this.state = {class: "off", label: "Кнопка"};
+	this.press = this.press.bind(this);
+	}
+	press(){
+	let className = (this.state.class==="off")?"on":"off";
+	this.setState({class: className});
+	}
+
+	render() {
+	return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+	}
+	}
+
+	ReactDOM.render(
+	<ClickButton />,
+
+	document.getElementById("app2")
+
+	)
+	
+
+	</script>
+
+
+</body>

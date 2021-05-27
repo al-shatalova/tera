@@ -1,0 +1,15 @@
+.App {
+  font-family: Snell Roundhand, cursive;
+  text-align: center;
+  color: red;
+}
+.App1 {
+  font-family: Gill Sans,;
+  text-align: left;
+  font-size: 16pt; 
+}
+.App2 {
+  text-align: right;
+  position: relative;
+  top: 40px;
+}

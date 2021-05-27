@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+<meta charset="utf-8" />
+
+<title>Hello React</title>
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+<style>	
+</style>
+
+</head>
+  <body>
+    <!-- <div id="text"></div> -->
+    <!--опишем объект-->
+
+	<script type="text/babel">
+
+
+		const user = {
+
+		id : 5,
+
+		age: 21,
+
+		firstName: 'Lee',
+
+		lastName: 'Kirill',
+
+		getFullName: function(){
+
+		return `${this.firstName} ${this.lastName}`;
+
+	}
+};
+
+		
+
+		const userClassName = "user-info";
+		const styleObj = {
+		color: 'black',
+		fontFamily: 'cursive',
+		fontSize: 40,
+		border: '4mm ridge rgba(128, 128, 128, .6)',
+		margin: '30px',
+		padding: '30px',
+		textAlign: 'center'
+
+
+
+
+};
+
+		ReactDOM.render(
+
+		<div className={userClassName} style={styleObj}>
+
+		<p>Полное имя: {user.getFullName()}</p>
+
+		<p>Возраст: {user.age}</p>
+
+		</div>,
+
+		document.getElementById("app")
+	)
+	   
+	</script>
+
+
+
+<!--поместим описанный объект-->
+
+	<div id="app"> </div>
+
+
+  </body>
+</html>

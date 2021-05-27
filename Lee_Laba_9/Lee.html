@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Lee</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+	<style>
+	body{
+		background: #0abab5;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+	form{
+		margin-top: 100px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: #fff5ee;
+		box-shadow: 3px 3px 5px -2px #191919;
+
+	}
+    label{
+    	font-family:  cursive;
+    }
+	.button{
+	width: 180px;
+	height:50px;
+	margin:25px;
+	font-family:  cursive;
+	font-size: 16px;
+	}
+
+	#app{
+            color: black;
+			fontFamilyamily: Biome;
+			font-size:25pt;
+			position: center;
+			top: 35%;
+			left: 40%;
+			
+		}
+	#app1{
+          
+	font-size: 15pt;
+	top: 40%;
+	left: 40%;
+	max-width: 300px;
+	text-align: center;
+
+		}
+	#app2{
+            color: black;
+			fontFamilyamily: Biome;
+			font-size:16pt;
+			
+		}
+	button{
+            width: 100px;
+            height:30px;
+            border-radius: 4px;
+			margin: 50px;
+			
+			
+        }
+        .on{
+            color:black;
+            background-color: #ADD8E6;
+            body{background: }
+        }
+        .off{
+            color:black;
+            background-color: white;
+        }
+
+	</style>
+</head>
+<body>
+<div id="app2"> </div>
+<div id="app"> </div>
+<div id="app1"> </div>
+<div id="app3"> </div>
+
+<script type="text/babel">
+class HelloMessage extends React.Component {
+  render() {
+    return (
+      <div>
+        Добро пожаловать, {this.props.name}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <HelloMessage name="Lee Kirill" />,
+  document.getElementById('app')
+);
+
+class TodoApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { items: [], text: '' };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  render() {
+    return (
+      <div>
+        <TodoList items={this.state.items} />
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="new-todo">
+            TO-DO List
+          </label>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={this.state.text}
+          />
+          <button>
+            Добавить
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({ text: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.text.length === 0) {
+      return;
+    }
+    const newItem = {
+      text: this.state.text,
+      id: Date.now()
+    };
+    this.setState(state => ({
+      items: state.items.concat(newItem),
+      text: ''
+    }));
+  }
+}
+
+class TodoList extends React.Component {
+  render() {
+    return (
+      <ul>
+        {this.props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    );
+  }
+}
+
+ReactDOM.render(
+  <TodoApp />,
+  document.getElementById('app1')
+);
+
+class Clock extends React.Component {
+            constructor(props) {
+              super(props);
+              this.state = {date: new Date()};
+              this.unmount = this.unmount.bind(this);
+            }
+            unmount(){
+                ReactDOM.unmountComponentAtNode(document.getElementById("app2"));
+            }
+            componentDidMount() {
+              this.timerId = setInterval(
+                ()=> this.tick(),
+                1000
+              );
+              console.log("componentDidMount()");
+            }
+     
+            componentWillUnmount() {
+              clearInterval(this.timerId);
+              console.log("componentWillUnmount()");
+            }
+     
+            tick() {
+              this.setState({
+                date: new Date()
+              });
+            }
+     
+            render() {
+              return (
+                <div>
+                  <h2>{this.state.date.toLocaleTimeString()}.</h2>
+                </div>
+              );
+            }
+          }
+          ReactDOM.render(
+              <Clock />,
+              document.getElementById("app2")
+          );
+		  
+class ClickButton extends React.Component {
+             
+           constructor(props) {
+               super(props);
+               this.state = {class: "off", label: "Нажми"};
+                 
+               this.press = this.press.bind(this);
+           }
+           press(){
+               let className = (this.state.class==="off")?"on":"off";
+               this.setState({class: className});
+           }
+           render() {
+               return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+           }
+       }
+         
+       ReactDOM.render(
+           <ClickButton />,
+           document.getElementById("app3")
+       )
+
+
+</script>
+</body>
+</html>
