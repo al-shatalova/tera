@@ -1,0 +1,213 @@
+<head>
+	<meta charset="utf-8" />
+	<title>Hello React</title>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+
+<style>
+	body{
+		background: #AAAAAA;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+	}
+	form{
+		margin-top: 100px;
+		margin-bottom: 100px;
+		width: 250px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		background: #707070;
+		box-shadow: 3px 3px 5px -2px #191919;
+		padding: 50px;
+	}
+	.btn0{
+	    width: inherit;
+		display: flex;
+		flex-direction: column;
+	}
+	.btn{
+	    width: inherit;
+		display: flex;
+
+	}
+	input{
+		height: 50px;
+		width: inherit;
+	}
+	.tablo{
+		text-align: right;
+		margin-bottom: 10px;
+		font-size: 26px;
+	}
+	.label{
+		height: 20px;
+		text-align: right;
+		margin-bottom: 10px;
+		font-size: 13px;
+		background: #707070;
+		color: #FFFFFF;
+		border-width: 0px;
+	}
+	h1{
+		text-align: center;
+		font-family: inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+		margin: 0px;
+		margin: 20px;
+	}
+}
+
+	</style>
+	
+</head>
+	
+<body>
+	<h1>Комлев. ПИ18-3. Лабораторная 9. Складыватель.</h1>
+	<div id='body'/>
+	
+<script type="text/babel">
+
+class FormPad extends React.Component{
+
+	constructor(props){
+		super(props);	
+		this.Tablo = React.createRef();
+		this.Label = React.createRef();
+		this.BtnRefs = []
+		for (var i=0; i<13; i++){
+			this.BtnRefs[i] = React.createRef();
+		}
+		
+		this.onClick = this.onClick.bind(this);
+	}
+	
+	onClick(e){
+		e.preventDefault();
+		
+		if (e.target.value == 'C'){
+			this.Tablo.current.setState({value: "0"});
+			this.Label.current.setState({value: ""});
+			this.Label.current.state.toSum = [];
+			for (var i=0; i<12; i++){
+				this.BtnRefs[i].current.setState({dis: ""});
+			}
+		}
+		
+		else if (e.target.value == "+"){
+			var arr = this.Label.current.state.toSum;
+			arr[arr.length] = (this.Tablo.current.state.value);
+			this.Label.current.setState({value: this.Label.current.state.value + 
+				this.Tablo.current.state.value + " + "});
+			this.Tablo.current.setState({value: "0"});
+
+		}
+		
+		else if (e.target.value == "="){
+			var arr = this.Label.current.state.toSum;
+			arr[arr.length] = (this.Tablo.current.state.value);
+			var sum = 0;
+			this.Label.current.setState({value: this.Label.current.state.value + 
+				this.Tablo.current.state.value+ " = " });
+				
+			for (var i=0; i<arr.length; i++){
+				sum = sum + Number(arr[i]);
+			}
+			
+			this.Tablo.current.setState({value: sum});
+			
+			for (var i=0; i<12; i++){
+				this.BtnRefs[i].current.setState({dis: "true"});
+			}
+		}
+		
+		else{
+			if (this.Tablo.current.state.value == 0){
+				this.Tablo.current.setState({value: e.target.value});
+			}
+			else{
+				this.Tablo.current.setState({value: this.Tablo.current.state.value + e.target.value});
+			}
+		}
+	}
+
+	render(){
+		return	<form>
+			<Label value="" ref={this.Label}/>
+			<Tablo value="0" ref={this.Tablo}/>
+			<div class="btn0">
+				<Button value="0" onClick={this.onClick} ref={this.BtnRefs[0]} disabled=""/>
+			</div>
+			<div class="btn">
+				<Button value="1" onClick={this.onClick} ref={this.BtnRefs[1]} disabled=""/>
+				<Button value="2" onClick={this.onClick} ref={this.BtnRefs[2]} disabled=""/>
+				<Button value="3" onClick={this.onClick} ref={this.BtnRefs[3]} disabled=""/>
+			</div>
+			<div class="btn">
+				<Button value="4" onClick={this.onClick} ref={this.BtnRefs[4]} disabled=""/>
+				<Button value="5" onClick={this.onClick} ref={this.BtnRefs[5]} disabled=""/>
+				<Button value="6" onClick={this.onClick} ref={this.BtnRefs[6]} disabled=""/>
+			</div>                                                           
+			<div class="btn">                                                
+				<Button value="7" onClick={this.onClick} ref={this.BtnRefs[7]} disabled=""/>
+				<Button value="8" onClick={this.onClick} ref={this.BtnRefs[8]} disabled=""/>
+				<Button value="9" onClick={this.onClick} ref={this.BtnRefs[9]} disabled=""/>
+			</div>
+			<div class="btn">
+				<Button value="+" onClick={this.onClick} ref={this.BtnRefs[10]} disabled=""/>
+				<Button value="=" onClick={this.onClick} ref={this.BtnRefs[11]} disabled=""/>
+				<Button value="C" onClick={this.onClick} ref={this.BtnRefs[12]} disabled=""/>
+			</div>
+			
+				</form>;
+	}
+	
+}
+
+class Button extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = {value: this.props.value, press: this.props.onClick, dis:this.props.disabled}
+	}
+
+	render(){
+		return <input type="button" value={this.state.value} onClick={this.state.press} disabled={this.state.dis}></input>;
+	}
+}
+
+class Tablo extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = {value: this.props.value};
+	}
+
+	render(){
+		return <input type="number" value={this.state.value} disabled="true" class="tablo"/>;
+	}
+}
+
+class Label extends React.Component {
+
+	constructor(props){
+		super(props);
+		this.state = {value: this.props.value, toSum: []};
+	}
+
+	render(){
+		return <input type="text" value={this.state.value} disabled="true" class="label"/>;
+	}
+}
+
+ReactDOM.render(
+	<FormPad />,
+	document.getElementById("body")
+)
+
+</script>
+
+</body>
+</html>
