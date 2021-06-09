@@ -1,37 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Tatarenkova_5</title>
-
-    <style>
-   		body {
-    	background: #E6E6FA;
-   		}
-   		h1 { 
-    	font-size: 170%; 
-    	font-family: Verdana;
-    	text-align: center; 
-    	color: #6A5ACD;
-   		}
-   		h3 { 
-    	font-size: 120%; 
-    	font-family: Verdana;
-    	text-align: center; 
-    	color: #6A5ACD;
-   		}
-  	</style>
-</head>
-<body>
-    <div id="app"></div>
-    
-    <div id="todos-example"></div>
-    <p></p>
-    <div id="timer-example"></div>
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-    <script type="text/babel" src="index.jsx"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        const Hello = () => {
+            return (<h1>Привет</h1>);
+        }
+        
+        class Timer extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { seconds: 0 };
+            }
+
+            tick() {
+                this.setState(state => ({
+                seconds: state.seconds + 1
+                }));
+            }
+
+            componentDidMount() {
+                this.interval = setInterval(() => this.tick(), 1000);
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.interval);
+            }
+
+            render() {
+                return (
+                <div>
+                    Seconds: {this.state.seconds}
+                </div>
+                );
+            }
+        }
+        
+        function Button() {
+            const [clicks, setClicks] = React.useState(0);    
+            const categ = ['Laba', '4'];
+            return (
+                <div>
+                    <button className="but" onClick={ () => setClicks(clicks + 1) }>+</button>
+                    <button className="but red" onClick={ () => setClicks(clicks - 1) }>-</button>
+                    <br />
+                    { clicks !== 0 && 
+                        <span>
+                            Кликов: {clicks}
+                        </span>
+                    }
+                    <ul className="list">
+                        { categ.map( (name, i) => (
+                            <li className="list-item" key={ name + i }> { name } </li>
+                        ))
+                        }
+                    </ul>
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <div>
+                <Hello />
+                <Timer />
+                <Button />
+            </div>,
+            document.getElementById("app")
+        )
+    </script>
+    
+    <style>
+        .but {
+            padding: 1rem 3rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+            background-color: goldenrod;
+            margin-right: 10px;
+        }
+        .but.red {
+            background-color: darkred;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        .list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .list-item {
+            border-bottom: 1px solid gray;
+            padding: 10px 15px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+    </style>
 </body>
 </html>
