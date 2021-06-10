@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ZUKCLUB</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <script type="text/babel" src="index.jsx"></script>
+</body>
+</html>
+class Hello extends React.Component {
+	render() {
+		return <h1>Hello ZUKCLUB</h1>;
+	}
+}
+ReactDOM.render(
+	<Hello></Hello>,
+	document.getElementById("app")
+)
+
+
+
+{
+    "name": "helloapp",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "lite-server"
+    },
+    "devDependencies": {
+        "lite-server": "^2.2.1"
+    }
+}
