@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add React in One Minute</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+
+ <div id="root"></div>
+    <script type="text/babel">
+
+      ReactDOM.render(
+        <h1>Первая практика</h1>,
+        document.getElementById('root')
+      );
+
+    </script>
+
+
+
+
+    <h2>1. Лайки:</h2>
+
+    <p>
+      Первый коммент.
+      <!-- We will put our React component inside this div. -->
+      <div class="like_button_container" data-commentid="1"></div>
+    </p>
+
+    <p>
+      Второй коммент.
+      <!-- We will put our React component inside this div. -->
+      <div class="like_button_container" data-commentid="2"></div>
+    </p>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <script src="like_button.js"></script>
+ 
+ 
+ <div id="root2"></div>
+    <script type="text/babel">
+
+      ReactDOM.render(
+        <div><h3>----------------</h3>
+        <h1><b>Вторая практика</b></h1>
+        <h3><b>Жирный</b></h3>
+        <h3><em>Курсив</em></h3>
+        <h3><ins>Подчеркнутый</ins></h3>
+        </div>,
+
+        document.getElementById('root2')
+      );
+
+    </script>
+
+  </body>
+</html>
+
