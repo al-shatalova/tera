@@ -1,0 +1,119 @@
+<head>
+	<meta charset="utf-8" />
+	<title>Hello React</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+const propsValues = {
+	title: "Group list",
+	items: [
+		"Student 1",
+		"Student 2",
+		"Student 3",
+		"Student 4",
+		"Student 5",
+		"Student 6"
+	]
+};
+
+class Item extends React.Component {
+	render() {
+		return <li>{this.props.name}</li>;
+	}
+}
+
+
+class ClickButton extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = { class: "off", label: "Нажми" };
+
+		this.press = this.press.bind(this);
+
+		console.log("constructor");
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log("componentWillReceiveProps()");
+	}
+
+
+	render() {
+		return <button onClick={this.press} className={this.state.class}>{this.state.label}</button>;
+	}
+}
+
+
+
+class SearchPlugin extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.onTextChanged = this.onTextChanged.bind(this);
+	}
+
+	onTextChanged(e) {
+		var text = e.target.value.trim();   // удаляем пробелы
+		this.props.filter(text); // передаем введенный текст в родительский компонент
+	}
+
+	render() {
+		return <input placeholder="Поиск" onChange={this.onTextChanged} />;
+	}
+}
+
+class ItemsList extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { items: this.props.data.items };
+
+		this.filterList = this.filterList.bind(this);
+	}
+
+	filterList(text) {
+		var filteredList = this.props.data.items.filter(function (item) {
+			return item.toLowerCase().search(text.toLowerCase()) !== -1;
+		});
+		this.setState({ items: filteredList });
+	}
+
+	render() {
+		return (
+			<div>
+				<h2 className="title">{this.props.data.title}</h2>
+				<SearchPlugin filter={this.filterList} />
+				<ul>
+					{
+						this.state.items.map(function (item) {
+							return <Item key={item} name={item} />
+						})
+					}
+				</ul>
+			</div>);
+	}
+}
+
+ReactDOM.render(
+	<ItemsList data={propsValues} />,
+	document.getElementById("app")
+)
+
+STYLE CSS
+
+body {
+    color: green;
+    background-color: rgb(99, 187, 99);
+    }
+
+    input {
+        color: rgb(74, 17, 187);
+        background-color: #898e94;
+
+    }
+
+.listItem {
+        font-size: 40px;
