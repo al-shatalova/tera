@@ -1,0 +1,448 @@
+
+Код CSS
+
+
+
+.filters {
+  border: 5px solid black;
+   padding-left: 10px;
+  border-radius: 20px;
+   background: #A52A2A;
+  float: left;
+  margin: 10;
+  height: 370px;
+  margin-top: 1%;
+  margin-left: 10;
+  font-family:century gothic;
+  color: black;
+
+}
+
+
+
+.country {
+  width: 5zpx;
+  margin: 10;
+  font-family:century gothic;
+}
+.price-input {
+  font-family:century gothic;
+  width: 50px;
+  margin: 10;
+}
+
+.size {
+  display: block;
+}
+
+.good {
+ border: 5px solid black;
+  margin: 15px;
+  float: left;
+  background-color: #A52A2A;
+  text-align: center;
+  border-radius: 5px;
+  width: 250px;
+  height: 370px;
+}
+.goodslist{
+  margin-left: 11%;
+}
+.good img {
+  width: 230px;
+  height: 230px;
+}
+.header {
+   margin: 10px; 
+  margin-left: 500px;
+}
+.slideshow-container {
+   max-width: 1000px;
+   position: relative;
+   margin: auto;
+  }
+
+/* Hide the images by default */
+  .mySlides {
+     display: none;
+   }
+
+    /* Next & previous buttons */
+   .prev, .next {
+       cursor: pointer;
+       position: absolute;
+       top: 30%;
+       width: auto;
+       margin-top: -25px;
+       padding: 40px;
+       color: black;
+       font-weight: bold;
+       font-size: 70px;
+       transition: 0.6s ease;
+       border-radius: 0 3px 3px 0;
+       user-select: none;
+    }
+
+   /* Position the "next button" to the right */
+    .next {
+       right: 0;
+       border-radius: 3px 0 0 3px;
+     }
+
+     /* On hover, add a black background color with a little bit see-through 
+     */
+       .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+       }
+
+       /* Caption text */
+       .text {
+          color: red;
+          font-size: 30px;
+         font-family:century gothic;
+         font-style:oblique ;
+         font-weight:bolder;
+          padding: 5px 10px;
+          position: absolute;
+          bottom: 8px;
+          width: 40%;
+          text-align: center;
+         text-shadow: 2px 2px 2px black;
+
+       }
+
+       /* Number text (1/3 etc) */
+       .numbertext {
+            color: red;
+            font-size: 20px;
+            padding: 20px 120px;
+            position: absolute;
+            top: 0;
+         }
+
+.center-img {
+  display: block;
+  margin: 0 auto;
+}
+
+
+
+
+header{
+ width: 100%;
+ background: #D8E3AB;
+ height: 90px;
+background: yellow 
+  url(https://media1.fdncms.com/sacurrent/imager/we-agree-life-without-art-is-stupid/u/big/2253028/563974_10151309797542070_241883564_n1jpg?cb=1454774870) no-repeat 5% 50%;
+}
+
+.title{
+ font-size: 70px;
+ padding-top: 0px;
+  color : black ;
+  font-family: century gothic,sans-serif;
+  font-style:oblique ;
+         font-weight:bolder;
+ text-align: center;
+  text-shadow: 2px 2px 2px red,
+             2px 2px 1px red;
+}
+.menu{
+ list-style: none;
+ position: absolute;
+ top: 3px;
+  font-family: century gothic,sans-serif;
+   font-weight:bolder;
+
+
+ right: 100px;
+}
+
+
+
+       /* The dots/bullets/indicators */
+         .dot {
+           cursor: pointer;
+           height: 20px;
+           width: 20px;
+           margin: 0 3px;
+           background-color: red;
+           border-radius: 70%;
+           display: inline-block;
+           transition: background-color 0.6s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: yellow;
+
+        }
+
+
+
+
+
+
+Далее код jss
+
+
+
+const Block = ({ HeaderTag = 'h2', headerText, className = '', children }) => (
+  <div className={className}>
+    <HeaderTag>{headerText}</HeaderTag>
+    {children}
+  </div>
+);
+
+const CountryFilter = ({ value, onChange, countries }) => (
+  <Block headerText="ZUKCLUB CANVAS GALLERY">
+    <select onChange={onChange} value={value}>
+      <option value="">-- Country --</option>
+      {countries.map(n => <option key={n}>{n}</option>)}
+    </select>
+  </Block>
+);
+
+const SizeFilter = ({ value, onChange, sizes }) => (
+  <Block headerText="size">
+    {sizes.map(n => (
+      <label className="size" key={n}>
+        <input
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+const PriceInput = ({ index, ...props }) => (
+  <input className="price-input" data-index={index} {...props} />
+);
+
+const PriceFilter = ({ value, onChange }) => (
+  <Block headerText="Price">
+    <PriceInput value={value[0]} onChange={onChange} index="0" />
+    &nbsp;-&nbsp;
+    <PriceInput value={value[1]} onChange={onChange} index="1" />
+    &nbsp;usd&nbsp;
+  </Block>
+);
+
+const GoodsList = ({ goods }) => (
+  <div>
+    {goods.map(n => (
+      <Block className="good" HeaderTag="h3" headerText={n.name} key={n.id}>
+        <img src={n.image} />
+        <p>coast: {n.cost}</p>
+        <button data-art={n.name}>BUY</button>
+      </Block>
+    ))}
+  </div>
+);
+
+const App = ({ goods }) => {
+  const countries = React.useMemo(() => [...new Set(goods.map(n => n.country))], [ goods ]);
+  const sizes = React.useMemo(() => [...new Set(goods.map(n => n.size))], [ goods ]);
+
+  const [ country, setCountry ] = React.useState('');
+  const [ size, setSize ] = React.useState([]);
+  const [ price, setPrice ] = React.useState([ '', '' ]);
+
+  const onCountryChange = e => setCountry(e.target.value);
+  const onSizeChange = ({ target: { checked, value } }) => {
+    setSize((!size.includes(value) && checked)
+      ? [ ...size, value ]
+      : size.filter(n => n !== value)
+    );
+  };
+  const onPriceChange = ({ target: { value, dataset: { index } } }) => {
+    setPrice(price.map((n, i) => i === +index ? value : n));
+  };
+
+  const filteredGoods = goods.filter(n => (
+    (!country || n.country === country) &&
+    (!size.length || size.includes(n.size)) &&
+    (!price[0] || price[0] <= n.cost) &&
+    (!price[1] || price[1] >= n.cost)
+  ));
+
+  return (
+    <div>
+      <div className="filters">
+        <CountryFilter value={country} onChange={onCountryChange} countries={countries} />
+        <SizeFilter value={size} onChange={onSizeChange} sizes={sizes} />
+        <PriceFilter value={price} onChange={onPriceChange} />
+      </div>
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+}
+
+const DATA = [
+  {
+    "date" : "2016",
+    "name" : "Russian Ballet",
+    "cost" : 2000,
+    "country" : "Moscow",
+    "image" : "https://sun9-70.userapi.com/impf/c830509/v830509423/a6289/VaBBftKzg1U.jpg?size=960x724&quality=96&sign=8ea1a7487888f0d54800c4cb5c235180&type=album",
+    "size": "70*80"
+  },
+  {
+    "date" : "2019",
+    "name" : "Rabbit",
+    "cost" : 3000,
+    "country" : "Saint-Petersburg",
+    "image" : "https://sun9-55.userapi.com/impf/TG9uovop0hlfgbxZX0AvT0ik-guZ5ancnGiisA/4Z8Djwp_Tdk.jpg?size=1280x960&quality=96&sign=4385a557a19ba2638b3eb79eba8976e8&type=album",
+    "size": "60*70"
+  },
+  {
+    "date" : "2019",
+    "name" : "Burning car",
+    "cost" : 5700,
+    "country" : "Moscow",
+    "image" : "https://sun9-75.userapi.com/impf/c841033/v841033001/76927/X5z74hM2Dq4.jpg?size=1280x975&quality=96&sign=57da379b9ab38743029204e97eedc905&type=album",
+    "size": "40*60"
+  },
+  {
+    "date" : "2020",
+    "name" : "Seagull",
+    "cost" : 2000,
+    "country" : "Minsk",
+    "image" : "https://sun9-52.userapi.com/impf/c841130/v841130435/777a2/QEvTRNHFcig.jpg?size=1280x922&quality=96&sign=15dbdeceaa4d86fd7e2b24da679da085&type=album",
+     "size": "30*40"
+  },
+
+{
+"date" : "2021",
+    "name" : "Ultras",
+    "cost" : 2000,
+    "country" : "Dublin",
+    "image" : "https://sun9-9.userapi.com/impf/c824501/v824501510/d99cc/oXk63Q-BBAM.jpg?size=1280x746&quality=96&sign=4bf561191c46c83b0a40504f421c189f&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2021",
+    "name" : "Stork",
+    "cost" : 2000,
+    "country" : "Moscow",
+    "image" : "https://sun9-17.userapi.com/impf/c840637/v840637340/62c16/Qr8QRhEG5XE.jpg?size=960x672&quality=96&sign=9b78fdb269d55ab000aadd9100a41012&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2021",
+    "name" : "Kiss",
+    "cost" : 3500,
+    "country" : "Amsterdam",
+    "image" : "https://sun9-68.userapi.com/impf/c841420/v841420223/41412/06f8sck6eQE.jpg?size=1280x960&quality=96&sign=ec1ae211ff84d243a855c59ae10c443a&type=album",
+     "size": "40*60"
+},
+{
+"date" : "2017",
+    "name" : "Police",
+    "cost" : 3000,
+    "country" : "Cologne",
+    "image" : "https://sun9-68.userapi.com/impf/c841420/v841420223/413fe/XkFkY0wElPg.jpg?size=790x1080&quality=96&sign=8935a745ffdbbfbdab0032d7da9f3dae&type=album",
+     "size": "40*60"
+},
+{
+"date" : "2021",
+    "name" : "Pool Man",
+    "cost" : 5000,
+    "country" : "Moscow",
+    "image" : "https://sun9-18.userapi.com/impf/c837231/v837231113/503ad/4cB5-hQzkPo.jpg?size=960x960&quality=96&sign=ba4c3cdf327563c68e92952feb459b76&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2019",
+    "name" : "Explosion",
+    "cost" : 6000,
+    "country" : "Saint-Petersburg",
+    "image" : "https://sun9-4.userapi.com/impf/c636718/v636718776/3a2b5/6bniijJuZr4.jpg?size=1080x810&quality=96&sign=009c3345eb3b42a61bb47375f22dd903&type=album",
+     "size": "70*80"
+},
+{
+"date" : "2016",
+    "name" : "ACID BASK",
+    "cost" : 2000,
+    "country" : "Prague",
+    "image" : "https://sun9-9.userapi.com/impf/c636719/v636719776/40be3/AeLUudibFKI.jpg?size=1080x810&quality=96&sign=1931e6d65541eb0a44c7b7988493a80f&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2021",
+    "name" : "Book",
+    "cost" : 2500,
+    "country" : "India, GOA",
+    "image" : "https://sun9-10.userapi.com/impf/c837530/v837530776/3051/r4P-2uma8ws.jpg?size=1080x855&quality=96&sign=a1c66a5383cec8465fcaf612c681bbbd&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2018",
+    "name" : "Girl",
+    "cost" : 2000,
+    "country" : "Munich",
+    "image" : "https://sun9-5.userapi.com/impf/c631631/v631631776/425c9/0zs1Wu4HB-s.jpg?size=640x488&quality=96&sign=ad62d8e5c94549da395f3399ed6d87bd&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2021",
+    "name" : "Boy",
+    "cost" : 7000,
+    "country" : "Essen",
+    "image" : "https://sun9-68.userapi.com/impf/c633921/v633921776/2b6cf/bphGD7aIpmI.jpg?size=864x1080&quality=96&sign=bd65abb4f061cb42e662753272d9cda2&type=album",
+     "size": "70*80"
+},
+{
+"date" : "2019",
+    "name" : "Friendship",
+    "cost" : 3500,
+    "country" : "NY",
+    "image" : "https://sun9-26.userapi.com/impf/c631231/v631231776/160fd/YzNNid84zMY.jpg?size=1280x878&quality=96&sign=9dc14ffb0944f723c88ebb1d3d7b50d5&type=album",
+     "size": "60*70"
+},
+{
+"date" : "2017",
+    "name" : "Monkey",
+    "cost" : 3500,
+    "country" : "Berlin",
+    "image" : "https://sun9-8.userapi.com/impf/c628818/v628818776/45ced/Z7eGrXu3elQ.jpg?size=1080x792&quality=96&sign=722c1df0b349dbd95ab7498a1ae14d97&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2021",
+      "name" : "Garbage",
+    "cost" : 3500,
+    "country" : "Mexico",
+    "image" : "https://sun9-16.userapi.com/impf/c628818/v628818776/458f4/hQvkQ70-kpE.jpg?size=1080x810&quality=96&sign=2c04d46e9cc206e87e4b4b2ac75fbcfb&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2019",
+    "name" : "Something happens",
+    "cost" : 2500,
+    "country" : "Lion",
+    "image" : "https://sun9-44.userapi.com/impf/c627817/v627817776/21d99/qx0Zks7gxk0.jpg?size=1080x810&quality=96&sign=0122d0d3971da39a98da9978c1a54c91&type=album",
+     "size": "30*40"
+},
+{
+"date" : "2021",
+    "name" : "LOVE TIES",
+    "cost" : 3500,
+    "country" : "London",
+    "image" : "https://sun9-44.userapi.com/impf/c627325/v627325776/18e09/1YVC_25mpQw.jpg?size=640x506&quality=96&sign=8fbfce15079c5df74ae6036f5dfc33d0&type=album",
+     "size": "70*80"
+},
+{
+"date" : "2014",
+    "name" : "SELL_BUY",
+    "cost" : 2500,
+    "country" : "Moscow",
+    "image" : "https://sun9-9.userapi.com/impf/c624021/v624021776/1013f/OCd7XHkwUKk.jpg?size=640x640&quality=96&sign=5611ad4738caeb5958324fc1f94bb23a&type=album",
+     "size": "60*70"
+}
+].map((n, i) => ({ ...n, id: i + 1 }));
+
+ReactDOM.render(<App goods={DATA} />, document.getElementById('app'));
