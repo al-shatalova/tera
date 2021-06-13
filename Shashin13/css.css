@@ -1,0 +1,168 @@
+header{
+  
+  width: 100%;
+  background: #D8E3AB;
+  height: 160px;
+   border-radius: 40px;
+ background: BlueViolet
+   url(https://img.icons8.com/office/130/000000/goal--v1.png) no-repeat 10% 60%;
+   
+    
+ }
+ .head-img {
+   margin-top: -400px; 
+   margin-left: 1170px;}
+ 
+   
+   
+ 
+ 
+ 
+ .title{
+   
+  font-size: 90px;
+  margin-top: -10px;
+   padding-top:0px;
+   color : red ;
+   font-family: Verdana,sans-serif;
+   font-style:oblique ;
+          font-weight:bolder;
+  text-align: center;
+   text-shadow: 2px 2px 2px white,
+              2px 2px 2px white;
+ }
+ 
+ 
+ body {
+     
+   background-image: linear-gradient(to bottom left, purple, blue); 
+  
+   
+  
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;;
+   font-size: 25px;
+   line-height: 1.7;
+   margin: 0;
+   padding: 30px;
+ }
+ 
+ a {
+   color: blue;
+   text-decoration: none;
+           font-weight:bold;
+   text-shadow: 2px 1px 1px black,
+              2px 1px 1px black;
+   
+   font-size: 35px;
+ }
+ 
+ a:hover {
+   text-decoration: underline;
+   
+  
+ }
+ 
+ code {
+   background-color: #f8f8f8;
+   border: 1px solid #ddd;
+   border-radius: 3px;
+   font-family:  Verdana;
+   font-size: 12px;
+   margin: 0 2px;
+   padding: 0px 5px;
+ }
+ 
+ h1, h2, h3, h4 {
+   font-weight: bold;
+ 
+   margin: 0 0 15px;
+   padding: 0;
+ }
+ 
+ h1 {
+   border-bottom: 1px solid #ddd;
+   font-size: 2.5em;
+   font-weight: bold;
+   margin: 0 0 15px;
+   padding: 0;
+ }
+ 
+ h2 {
+   border-bottom: 1px solid #eee;
+   font-size: 2em;
+ }
+ 
+ h3 {
+   font-size: 1.5em;
+ }
+ 
+ h4 {
+   font-size: 1.2em;
+ }
+ 
+ 
+ ul {
+   padding-left: 0px;
+   
+ }
+ button  {
+  
+   width:30px;
+   height:25px;
+   color:red;
+   border-radius: 40px;
+   background:#9999FF;
+     font-weight:bolder;
+ }
+  .form-control{
+    border-radius: 5px;
+ 
+   width:400px;
+    height:40px;
+   background:DarkOrchid;
+    
+  
+     font-weight:bolder;
+ }
+ 
+ .btn{
+ border-radius: 40px;
+  background-image: linear-gradient(to bottom left, purple, blue);
+   width:170px;
+    height:70px;
+   color:red;
+   font-family: Verdana,sans-serif;
+   font-style:oblique ;
+   text-shadow: -1px -1px 0 #000,  
+      0px -1px 0 #000,
+     0px  1px 0 #000,
+      1px  1px 0 #000;
+ 
+ 
+   
+  
+     font-weight:bolder;
+ }
+ 
+ .col-xs-6{
+ font-size:30px;
+   
+   color:blue;
+   font-family: Verdana;
+   font-style:oblique ;
+   text-shadow: -1px -1px 0 #000,  
+      1px -1px 0 #000,
+     -2px  1px 0 #000,
+      2px  1px 0 #000;
+ 
+   
+  
+     font-weight:bolder;
+ }
+ 
+ 
+ 
+ 
+   
+ 
+ 
