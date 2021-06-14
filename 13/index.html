@@ -1,0 +1,39 @@
+<head>
+<meta charset="utf-8">
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="menu" class="default">
+            <ul class="tabs">
+    <li class="active">
+      <a href="#">Дом</a><img class="imgmenu" src="https://img.icons8.com/ios/150/000000/home--v1.png"/></li>
+    <li>
+      <a href="#">Работа</a><img class="imgmenu" src="https://img.icons8.com/ios/150/000000/job.png"/></li>
+    <li>
+      <a href="#">Учеба</a><img class="imgmenu" src="https://img.icons8.com/ios/150/000000/saving-book.png"/></li>
+                <li>
+      <a href="#">Отдых</a><img class="imgmenu" src="https://img.icons8.com/ios/150/000000/swimming-pool.png"/></li>
+            </ul>
+        </div>
+
+    <div class="tabs-container">
+  <div class="tabs-content">
+    <div class="tabs-panel active" data-index="0">
+        <div id="home"></div>
+    </div>
+    <div class="tabs-panel" data-index="1">
+      <div id="job"></div>
+    </div>
+    <div class="tabs-panel" data-index="2">
+   <div id="ed"></div>
+    </div>
+      <div class="tabs-panel" data-index="3">
+      <div id="chill"></div>
+    </div>
+  </div>
+</div> 
+<script type="text/babel" src="script.jsx"></script>
+</body>

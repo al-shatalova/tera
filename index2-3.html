@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      ReactDOM.render(
+          <div><h3>Hello, Denis!</h3></div>,
+        document.getElementById('example')
+      );
+    </script>
+    <div id="app"></div>
+   <script type="text/babel"> 
+    ReactDOM.render(
+        <h2>5 + 2 = {5 + 2}</h2>,
+        document.getElementById("app")
+    )
+    const userClassName = "user-info";
+    const styleObj = {
+        color:'green', 
+        fontFamily:'Verdana'
+    };
+    const user = {
+        id : 5,
+        age: 20,
+        firstName: 'Denis',
+        lastName: 'Topalu',
+        getFullName: function(){ 
+            return `${this.firstName} ${this.lastName}`;
+        }
+    };
+    ReactDOM.render(
+        <div className={userClassName}  style={styleObj}>
+                <p>Полное имя: {user.getFullName()}</p>
+                <p>Возраст: {user.age}</p>
+        </div>,
+        document.getElementById("app")
+    )
+
+   </script>
+
+  </body>
+</html>
