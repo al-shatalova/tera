@@ -1,0 +1,139 @@
+
+HTML файл
+
+<!DOCTYPE html>
+<html>
+<head>
+    <metahttp-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+    <title>Добавление React на сайт</title>
+</head>
+
+<body>
+
+<!-- We will put our React component inside this div. -->
+
+
+<div class="like_button_container" data-commentid="1"></div>
+<div class="like_button_container1" data-commentid="1"></div>
+<div class="like_button_container2" data-commentid="1"></div>
+
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+        crossorigin></script>
+
+<!-- Load our React component. -->
+
+<script src="nikita1.js"></script>
+
+</body>
+</html>
+
+
+
+Java файл
+
+'use strict';
+const e = React.createElement;
+
+class LikeButton extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { liked: false };
+    }
+
+    render() {
+        if (this.state.liked) {
+            return 'Nikita'+ this.props.commentID;
+        }
+
+        return e(
+            'button',
+            { onClick: () => this.setState({ liked: true }) },
+            'Name'
+        );
+    }
+
+
+}
+// Find all DOM containers, and render Like buttons into them.
+const domContainer = document.querySelectorAll('.like_button_container')
+    .forEach(domContainer => {
+        // Read the comment ID from a data-* attribute.
+        const commentID = parseInt(domContainer.dataset.commentid, 10);
+        ReactDOM.render(
+            e(LikeButton, {commentID:commentID}),
+            domContainer
+        );
+    })
+
+const c = React.createElement;
+
+class LikeButton1 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { liked: false };
+    }
+
+    render() {
+        if (this.state.liked) {
+            return 'Maskov'+ this.props.commentID;
+        }
+
+        return c(
+            'button',
+            { onClick: () => this.setState({ liked: true }) },
+            'Family'
+        );
+    }
+
+
+}
+// Find all DOM containers, and render Like buttons into them.
+
+const domContainer1 = document.querySelectorAll('.like_button_container1')
+    .forEach(domContainer1 => {
+        // Read the comment ID from a data-* attribute.
+        const commentID = parseInt(domContainer1.dataset.commentid, 10);
+        ReactDOM.render(
+            c(LikeButton1, {commentID:commentID}),
+            domContainer1
+        );
+    })
+
+const d = React.createElement;
+
+class LikeButton2 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { liked: false };
+    }
+
+    render() {
+        if (this.state.liked) {
+            return 'Yevgenyevich'+ this.props.commentID;
+        }
+
+        return d(
+            'button',
+            { onClick: () => this.setState({ liked: true }) },
+            'Patronymic'
+        );
+    }
+
+
+}
+const domContainer2 = document.querySelectorAll('.like_button_container2')
+    .forEach(domContainer2 => {
+        // Read the comment ID from a data-* attribute.
+        const commentID = parseInt(domContainer2.dataset.commentid, 10);
+        ReactDOM.render(
+            d(LikeButton2, {commentID:commentID}),
+            domContainer2
+        );
+    })
+
+
+
+
