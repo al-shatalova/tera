@@ -1,0 +1,102 @@
+HTML файл
+
+<!DOCTYPE html>
+<html>
+<head>
+Добавляем нужные библиотеки
+    <meta charset="utf-8" />
+    <title>Способы описания компонентов</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+</head>
+<body>
+<div id="app"></div>
+Добавляем второй контейнер 
+<div id="time"></div>
+<script type="text/babel">
+В первый помещаем фразу “Hello react”
+    ReactDOM.render(
+        <h1>Hello React</h1>,
+        document.getElementById("app")
+    )
+Все остальное добавляем в контейнер time
+    function Name() {
+        return <h2>Имя: НИКИТА</h2>;
+    }
+
+    var Age =() => {
+        return (<h3>Возраст: 22</h3>);
+    }
+
+
+    class Post extends React.Component {
+        render() {
+
+            return <h4>Должность: Студент</h4>;
+        }
+    }
+Шрифт для таймера
+    const styleObj = {
+        color: 'green',
+        fontFamily: 'Calibri1',
+        fontSize: 55,
+
+    }
+Шрифт для текста
+
+    const styleObjj = {
+        color: 'purple',
+        fontFamily: 'Century',
+        fontSize: 60,
+    }
+
+Добавляем сам таймер
+    class Timer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { seconds: 0 };
+        }
+
+        tick() {
+            this.setState(state => ({
+                seconds: state.seconds + 1
+            }));
+        }
+
+        componentDidMount() {
+            this.interval = setInterval(() => this.tick(), 1000);
+        }
+
+        componentWillUnmount() {
+            clearInterval(this.interval);
+        }
+
+        render() {
+
+            return (
+                <div style={styleObj}>
+                    Seconds: {this.state.seconds}
+
+                </div>
+            );
+
+        }
+
+    }
+Выводим все на экран
+    ReactDOM.render(
+        <div style={styleObjj}>
+            <Name />
+            <Age />
+            <Post />
+            <Timer />
+        </div>,
+        document.getElementById("time")
+    );
+
+
+</script>
+</body>
+</html>
