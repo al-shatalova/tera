@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="h1"> </div>
+    <div id="h2"> </div>
+    <div id="h3"> </div>
+    <div id="timer-example"> </div>
+
+    <script type="text/babel">
+        function Hello1() {
+            return ("hi function!");
+        }
+
+        var Hello2 =() => {
+            return ("hi coursor !");
+        }
+
+        class Hello3 extends React.Component {
+            render() {
+                return ("hi class !");
+            }
+        }
+
+        ReactDOM.render(
+            <Hello1 />,
+            document.getElementById("h1")
+        )
+        ReactDOM.render(
+            <Hello2 />,
+            document.getElementById("h2")
+        )
+        ReactDOM.render(
+            <Hello3 />,
+            document.getElementById("h3")
+        )
+
+
+
+
+
+        class Timer extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = { seconds: 0 };
+		  }
+
+		  tick() {
+		    this.setState(state => ({
+		      seconds: state.seconds + 1
+		    }));
+		  }
+
+		  componentDidMount() {
+		    this.interval = setInterval(() => this.tick(), 1000);
+		  }
+
+		  componentWillUnmount() {
+		    clearInterval(this.interval);
+		  }
+
+		  render() {
+		    return (
+		      <div>
+		        Seconds: {this.state.seconds}
+		      </div>
+		    );
+		  }
+		}
+
+		ReactDOM.render(
+			<Timer> {<Timer />}
+			</Timer>,
+		  document.getElementById('timer-example')
+		);
+    </script>
+</body>
+</html>
