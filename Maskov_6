@@ -1,0 +1,81 @@
+HTML файл
+<!DOCTYPE html>
+<html>
+<head>
+Загружаем нужные нам библиотеки
+    <meta charset="utf-8" />
+    <title>Props, State и состояния</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <style type="text/css">
+Добавляем кнопку 
+        button{
+            width : 100px;
+            height: 30px;
+            border-radius: 4px;
+            margin:50px;
+        }
+Когда кнопка включена цвет красный
+        .on{
+            color:#666;
+            background-color: red;
+        }
+Когда кнопка включена цвет фиолетовый
+        .off{
+            color:#888;
+            background-color: purple;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+<div id="app"> </div>
+<div id="app1"> </div>
+<script type="text/babel">
+Создаем класс и добавляем текст
+    class Hello extends React.Component {
+        render() {
+            return <div>
+                <p>Имя: {this.props.name}</p>
+                <p>Возраст: {this.props.age}</p>
+            </div>;
+        }
+    }
+    ReactDOM.render(
+        <Hello name="Никита" age="22" />,
+        document.getElementById("app")
+    )
+
+Добавляем класс для клика по кнопке, чтобы при нажатии меняла цвет
+    class ClickButton extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {class: "off", label: "Нажми"};
+
+            this.press = this.press.bind(this);
+        }
+        press(){
+            let className = (this.state.class==="off")?"on":"off";
+
+            this.setState({class: className});
+        }
+        render() {
+            return <button onClick={this.press}
+                           className={this.state.class}>{this.state.label}</button>;
+        }
+    }
+
+Выводим все на экран
+    ReactDOM.render(
+        <ClickButton />,
+        document.getElementById("app1")
+    )
+
+</script>
+</body>
+</html>
