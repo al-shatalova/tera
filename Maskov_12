@@ -1,0 +1,380 @@
+HTML файл:
+Создаем главную страницу
+<div id = "wrap">
+    <header>
+   <div class = "title">21Vek</div>
+Добавляем меню
+   <ul class = "menu">
+    <li><a href = "#">Контакты</a></li>
+    <li><a href = "#">Доставка</a></li>
+    <li><a href = "#">О нас</a></li>
+   </ul>
+    </header>
+   </div>
+
+
+   <div class="mySlides">
+   </div>
+   <div id="app"></div>
+
+JS файл:
+Оставляем как в методичке
+const Block = ({ HeaderTag = 'h2', headerText, className = '', children }) => (
+  <div className={className}>
+    <HeaderTag>{headerText}</HeaderTag>
+    {children}
+  </div>
+);
+
+const CountryFilter = ({ value, onChange, countries }) => (
+
+Меняем страну на бренды(так как у нас будут телефоны)
+  <Block headerText="Бренды">
+    <select onChange={onChange} value={value}>
+      <option value="">-- Бренды --</option>
+      {countries.map(n => <option key={n}>{n}</option>)}
+    </select>
+  </Block>
+);
+
+const SizeFilter = ({ value, onChange, sizes }) => (
+Размер соответственно на модель телефона
+  <Block headerText="Модель">
+    {sizes.map(n => (
+      <label className="Модель" key={n}>
+        <input
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+const PriceInput = ({ index, ...props }) => (
+  <input className="price-input" data-index={index} {...props} />
+);
+
+const PriceFilter = ({ value, onChange }) => (
+  <Block headerText="Price">
+    <PriceInput value={value[0]} onChange={onChange} index="0" />
+    &nbsp;-&nbsp;
+    <PriceInput value={value[1]} onChange={onChange} index="1" />
+    &nbsp;usd&nbsp;
+  </Block>
+);
+
+const GoodsList = ({ goods }) => (
+  <div>
+    {goods.map(n => (
+      <Block className="good" HeaderTag="h3" headerText={n.name} key={n.id}>
+        <img src={n.image} />
+        <p>Цена: {n.cost}</p>
+        <button data-art={n.name}>Купить</button>
+      </Block>
+    ))}
+  </div>
+);
+
+const App = ({ goods }) => {
+  const countries = React.useMemo(() => [...new Set(goods.map(n => n.country))], [ goods ]);
+  const sizes = React.useMemo(() => [...new Set(goods.map(n => n.size))], [ goods ]);
+
+  const [ country, setCountry ] = React.useState('');
+  const [ size, setSize ] = React.useState([]);
+  const [ price, setPrice ] = React.useState([ '', '' ]);
+
+  const onCountryChange = e => setCountry(e.target.value);
+  const onSizeChange = ({ target: { checked, value } }) => {
+    setSize((!size.includes(value) && checked)
+      ? [ ...size, value ]
+      : size.filter(n => n !== value)
+    );
+  };
+  const onPriceChange = ({ target: { value, dataset: { index } } }) => {
+    setPrice(price.map((n, i) => i === +index ? value : n));
+  };
+
+  const filteredGoods = goods.filter(n => (
+    (!country || n.country === country) &&
+    (!size.length || size.includes(n.size)) &&
+    (!price[0] || price[0] <= n.cost) &&
+    (!price[1] || price[1] >= n.cost)
+  ));
+
+  return (
+    <div>
+      <div className="filters">
+        <CountryFilter value={country} onChange={onCountryChange} countries={countries} />
+        <SizeFilter value={size} onChange={onSizeChange} sizes={sizes} />
+        <PriceFilter value={price} onChange={onPriceChange} />
+      </div>
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+}
+Добавляем 21 телефон разных брендов и моделей
+const DATA = [
+  {
+    "sex" : "male",
+    "name" : "iPhone 11 64 Gb черный",
+    "cost" : 48990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30052936b.jpg",
+    "size": "11"
+  },
+  {
+    "sex" : "male",
+    "name" : "iPhone 11 64 Gb белый ",
+    "cost" : 48990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30052937b.jpg",
+    "size": "11"
+  },
+  {
+    "sex" : "male",
+    "name" : "iPhone SE (2020) 128GB White",
+    "cost" : 40990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30049499b.jpg",
+    "size": "SE"
+  },
+   {
+    "sex" : "male",
+    "name" : "iPhone SE (2020) 128GB Black",
+    "cost" : 40990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30049498b.jpg",
+    "size": "SE"
+  },
+  {
+    "sex" : "male",
+    "name" : "iPhone 12 Pro 128 Gb Gold",
+    "cost" : 89990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30052902b.jpg",
+     "size": "12 Pro"
+  },
+  {
+    "sex" : "male",
+    "name" : "iPhone 12 Pro 256 Gb Red",
+    "cost" : 89990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30052897b.jpg",
+     "size": "12 Pro"
+   },
+  {
+    "sex" : "male",
+    "name" : "Apple iPhone 11 64GB Purple",
+    "cost" : 51990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30052940b.jpg",
+     "size": "11"
+   },
+  {
+    "sex" : "male",
+    "name" : "Apple iPhone XS 64GB Gold",
+    "cost" : 47990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30040016b.jpg",
+     "size": "XS"
+   },
+  {
+    "sex" : "male",
+    "name" : "Samsung Galaxy A12 64GB Black",
+    "cost" : 15990,
+    "country" : "Samsung",
+    "image" : "https://img.mvideo.ru/Pdb/30054732b.jpg",
+     "size": "A12"
+   },
+  {
+    "sex" : "male",
+    "name" : "Samsung Galaxy A32 64GB Awesome Black",
+    "cost" : 18990,
+    "country" : "iPhone",
+    "image" : "https://img.mvideo.ru/Pdb/30056050b.jpg",
+     "size": "A32"
+   },
+  {
+    "sex" : "male",
+    "name" : "Samsung Galaxy A52 128GB Awesome Black",
+    "cost" : 24990,
+    "country" : "Samsung",
+    "image" : "https://img.mvideo.ru/Pdb/30056203b.jpg",
+     "size": "A52"
+   },
+  {
+    "sex" : "male",
+    "name" : "Samsung Galaxy A51 128GB Black",
+    "cost" : 20990,
+    "country" : "Samsung",
+    "image" : "https://img.mvideo.ru/Pdb/30047891b.jpg",
+     "size": "A51"
+     },
+  {
+     "sex" : "male",
+    "name" : "Samsung Galaxy A51 128GB White",
+    "cost" : 20990,
+    "country" : "Samsung",
+    "image" : "https://img.mvideo.ru/Pdb/30047892b.jpg",
+     "size": "A51"
+    },
+  {
+     "sex" : "male",
+    "name" : "Xiaomi Redmi 9 4+64GB Carbon Grey",
+    "cost" : 13990,
+    "country" : "Xiaomi",
+    "image" : "https://img.mvideo.ru/Pdb/30050582b.jpg",
+     "size": "redmi 9"
+    },
+  {
+     "sex" : "male",
+    "name" : "Xiaomi Redmi 9 4+64GB Sunset Purple",
+    "cost" : 13990,
+    "country" : "Xiaomi",
+    "image" : "https://img.mvideo.ru/Pdb/30050580b.jpg",
+     "size": "redmi 9"
+    },
+  {
+     "sex" : "male",
+    "name" : "Xiaomi Redmi 9 4+64GB Ocean Green",
+    "cost" : 13990,
+    "country" : "Xiaomi",
+    "image" : "https://img.mvideo.ru/Pdb/30050581b.jpg",
+     "size": "redmi 9"
+      },
+  {
+     "sex" : "male",
+    "name" : "Xiaomi Redmi 9C NFC 3+64GB Midnight Gray",
+    "cost" : 9990,
+    "country" : "Xiaomi",
+    "image" : "https://img.mvideo.ru/Pdb/30052574b.jpg",
+     "size": "redmi 9c"
+   },
+  {
+     "sex" : "male",
+    "name" : "Huawei P Smart 2021 4+128GB Crush Green",
+    "cost" : 14990,
+    "country" : "Huawei",
+    "image" : "https://img.mvideo.ru/Pdb/30053815b.jpg",
+     "size": "P Smart"
+   },
+  {
+     "sex" : "male",
+    "name" : "Huawei P Smart 2021 4+128GB Midnight Black",
+    "cost" : 14990,
+    "country" : "Huawei",
+    "image" : "https://img.mvideo.ru/Pdb/30053814b.jpg",
+     "size": "P Smart"
+   },
+  {
+     "sex" : "male",
+    "name" : " Huawei P40 Lite Crush Green (JNY-LX1)",
+    "cost" : 19990,
+    "country" : "Huawei",
+    "image" : "https://img.mvideo.ru/Pdb/30048481b.jpg",
+     "size": "P40 Lite"
+   },
+  {
+     "sex" : "male",
+    "name" : "Huawei P40 Lite Midnight Black (JNY-LX1)",
+    "cost" : 19990,
+    "country" : "Huawei",
+    "image" : "https://img.mvideo.ru/Pdb/30048480b.jpg",
+     "size": "P40 Lite"
+  },
+  
+].map((n, i) => ({ ...n, id: i + 1 }));
+Выводим на экран
+ReactDOM.render(<App goods={DATA} />, document.getElementById('app'));
+
+CSS файл:
+Меняем дизайн главной страницы
+.filters {
+  border: 8px solid black;
+   padding-left: 10px;
+  border-radius: 20px;
+   background: #e6e6fa;
+  float: middle;
+  margin: 10;
+  height: 300px;
+  margin-top: 1%;
+  margin-right: 10;
+  font-family:Helvetica;
+  color: black;
+
+}
+
+
+Меняем дизайн Брендов
+.country {
+  width: 5zpx;
+  margin: 10;
+  font-family:Helvetica;
+}
+.price-input {
+  font-family:Helvetica;
+  width: 50px;
+  margin: 10;
+}
+
+.size {
+  display: block;
+}
+Меняем дизайн товаров(делаем красную обводку)
+.good {
+  margin: 20px;
+  float: left;
+  background-color: Red;
+  text-align: center;
+  border-radius: 40px;
+  width: 250px;
+  height: 370px;
+}
+.goodslist{
+  margin-left: 11%;
+}
+.good img {
+  width: 230px;
+  height: 230px;
+}
+Меняем шапку, добавляем фиолетовый фон, плюс загружаем логотип
+.header {
+   margin: 10px; 
+  margin-left: 500px;
+}
+
+header{
+ width: 100%;
+ background: #D8E3AB;
+ height: 90px;
+background: purple
+  url(https://image.winudf.com/v2/image/Y29tLmlwb2xoLnZlazIxX2ljb25fMTUzMzQzODgyNV8wMjc/icon.png?w=100&fakeurl=1) no-repeat 5% 50%;
+}
+	Вводим название компании и красим его в красно-черный цвет
+.title{
+ font-size: 70px;
+ padding-top: 0px;
+  color : black ;
+  font-family: Verdana,sans-serif;
+  font-style:oblique ;
+         font-weight:bolder;
+ text-align: center;
+  text-shadow: 2px 2px 2px red,
+             2px 2px 1px red;
+}
+Менюшка: контакты, доставка, о нас
+.menu{
+ list-style: none;
+ position: absolute;
+ top: 3px;
+  font-family: Verdana,sans-serif;
+   font-weight:bolder;
+   
+
+
+ right: 100px;
+}
