@@ -1,0 +1,43 @@
+HTML файл
+
+<!DOCTYPE html>
+<html 
+<head>
+    <meta charset="utf-8" />
+    <title>Hello React</title>
+Подключаем вспомогательные библиотеки
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body>
+<div id="app"> </div>
+Создаем сам текст
+<script type="text/babel">
+    const user = {
+        id : 5,
+        age: 22,
+        firstName: 'Maskov',
+        lastName: 'Nikita',
+        getFullName: function(){
+            return `${this.firstName} ${this.lastName}`;
+        }
+    };
+Выбираем цвет текста
+    const userClassName = "user-info";
+    const styleObj = {
+        color:'purple',
+        fontFamily:'Red'
+    };
+Выводим результат
+    ReactDOM.render(
+        <div className={userClassName} style={styleObj}>
+            <p>Полное имя: {user.getFullName()}</p>
+            <p>Возраст: {user.age}</p>
+            <h2>20 + 1 = {20 + 1}</h2>
+        </div>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
