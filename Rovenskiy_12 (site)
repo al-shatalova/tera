@@ -1,0 +1,488 @@
+/////////////HTML/////////////
+
+<div id="menu" class="default">
+            <ul>
+                <li><a title="Фиксированное меню" href="#">Главная</a></li>
+                <li><a title="Фиксированное меню" href="#">Контакты</a></li>
+                <li><a title="Фиксированное меню" href="#">Корзина</a></li>
+            </ul>
+        </div>
+
+
+<div class="slider">
+
+<div class="item">
+        <img src="https://i1.wp.com/popmec.hypotheses.org/files/2020/05/feat_sincity.png" alt="Второй слайд">
+        <div class="slideText"></div>
+    </div>
+    
+    
+    <div class="item">
+        <img src="https://cdn.kanobu.ru/r/18562ee41fa78d38bc623571f2604b46/1040x700/u.kanobu.ru/editor/images/67/7de0d55b-1937-4b20-9360-0e3ecf7b63c5.jpg" alt="Первый слайд">
+        <div class="slideText"></div>
+    </div>
+
+    
+
+    <div class="item">
+        <img src="https://i.frog.ink/gniehgdH/jojo6251-sample4.jpg?r=GdS9JMaxfwha" alt="Третий слайд">
+        <div class="slideText"></div>
+    </div>
+
+    <a class="prev" onclick="minusSlide()">&#10094;</a>
+    <a class="next" onclick="plusSlide()">&#10095;</a>
+</div>
+
+<div class="slider-dots">
+    <span class="slider-dots_item" onclick="currentSlide(1)"></span> 
+    <span class="slider-dots_item" onclick="currentSlide(2)"></span> 
+    <span class="slider-dots_item" onclick="currentSlide(3)"></span> 
+</div>
+
+
+
+<div id="app"></div>
+
+
+
+
+
+
+
+
+/////////////Babel + JSX + No-Library (pure JS)/////////////
+
+
+
+
+
+/* стандартные параметры слайдера*/
+
+/* Индекс слайда по умолчанию */
+var slideIndex = 1;
+showSlides(slideIndex);
+
+/* Функция увеличивает индекс на 1, показывает следующй слайд*/
+function plusSlide() {
+    showSlides(slideIndex += 1);
+}
+
+/* Функция уменьшяет индекс на 1, показывает предыдущий слайд*/
+function minusSlide() {
+    showSlides(slideIndex -= 1);  
+}
+
+/* Устанавливает текущий слайд */
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+/* Основная функция слайдера */
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("item");
+    var dots = document.getElementsByClassName("slider-dots_item");
+    if (n > slides.length) {
+      slideIndex = 1
+    }
+    if (n < 1) {
+        slideIndex = slides.length
+    }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+}
+
+
+const Block = ({ HeaderTag = 'h2', headerText, className = '', children }) => (
+  <div className={className}>
+    <HeaderTag>{headerText}</HeaderTag>
+    {children}
+  </div>
+);
+
+const AvtorFilter = ({ value, onChange, Avtors }) => (
+  <Block headerText="Автор">
+    <select onChange={onChange} value={value}>
+      <option value="">-- Автор --</option>
+      {Avtors.map(n => <option key={n}>{n}</option>)}
+    </select>
+  </Block>
+);
+
+const GenreFilter = ({ value, onChange, Genres }) => (
+  <Block headerText="Жанр">
+    {Genres.map(n => (
+      <label className="Genre" key={n}>
+        <input
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+
+const GeoFilter = ({ value, onChange, Geos }) => (
+  <Block headerText="Регион">
+    {Geos.map(n => (
+      <label className="Geo" key={n}>
+        <input
+          type="checkbox"
+          value={n}
+          checked={value.includes(n)}
+          onChange={onChange}
+        />
+        {n}
+      </label>
+    ))}
+  </Block>
+);
+
+
+
+const PriceInput = ({ index, ...props }) => (
+  <input className="price-input" data-index={index} {...props} />
+);
+
+const PriceFilter = ({ value, onChange }) => (
+  <Block headerText="Цена:">
+    <PriceInput value={value[0]} onChange={onChange} index="0" />
+    &nbsp;Руб. -&nbsp;
+    <PriceInput value={value[1]} onChange={onChange} index="1" />
+    &nbsp;Руб.&nbsp;
+  </Block>
+);
+
+const GoodsList = ({ goods }) => (
+  <div>
+    {goods.map(n => (
+      <Block className="good" HeaderTag="h3" headerText={n.name} key={n.id}>
+        <img src={n.image} />
+        <p>Цена: {n.cost}</p>
+        <button data-art={n.name}>Добавить в корзину</button>
+      </Block>
+    ))}
+  </div>
+);
+
+const App = ({ goods }) => {
+  const Avtors = React.useMemo(() => [...new Set(goods.map(n => n.avtor))], [ goods ]);
+  const Genres = React.useMemo(() => [...new Set(goods.map(n => n.Genre))], [ goods ]);
+  const Geos = React.useMemo(() => [...new Set(goods.map(n => n.Geo))], [ goods ]);
+
+  const [ avtor, setAvtor ] = React.useState('');
+  const [ Genre, setGenre ] = React.useState([]);
+  const [ Geo, setGeo ] = React.useState([]);
+  const [ price, setPrice ] = React.useState([ '', '' ]);
+
+  const onAvtorChange = e => setAvtor(e.target.value);
+  const onGenreChange = ({ target: { checked, value } }) => {
+    setGenre((!Genre.includes(value) && checked)
+      ? [ ...Genre, value ]
+      : Genre.filter(n => n !== value)
+    );
+  };
+  
+  const onGeoChange = ({ target: { checked, value } }) => {
+    setGeo((!Geo.includes(value) && checked)
+      ? [ ...Geo, value ]
+      : Geo.filter(n => n !== value)
+    );
+  };
+  
+  const onPriceChange = ({ target: { value, dataset: { index } } }) => {
+    setPrice(price.map((n, i) => i === +index ? value : n));
+  };
+
+  const filteredGoods = goods.filter(n => (
+    (!avtor || n.avtor === avtor) &&
+    (!Genre.length || Genre.includes(n.Genre)) &&
+    (!Geo.length || Geo.includes(n.Geo)) &&
+    (!price[0] || price[0] <= n.cost) &&
+    (!price[1] || price[1] >= n.cost)
+  ));
+
+  return (
+    <div>
+      <div className="filters">
+        
+        <GenreFilter value={Genre} onChange={onGenreChange} Genres={Genres} />
+        <GeoFilter value={Geo} onChange={onGeoChange} Geos={Geos} />
+        <AvtorFilter value={avtor} onChange={onAvtorChange} Avtors={Avtors} />
+        <PriceFilter value={price} onChange={onPriceChange} />
+      </div>
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+}
+
+const DATA = [
+  {
+    "name" : "Город Грехов-1",
+    "cost" : 300,
+    "avtor" : "Фрэнк Миллер",
+    "image" : "https://img4.labirint.ru/rc/d550146a7f4483fe30e8604a49a410a2/220x340/books40/393508/cover.jpg?1563716595",
+    "Genre": "Нуар",
+    "Geo": "CША"
+  },
+  {
+    "name" : "Город Грехов-3",
+    "cost" : 300,
+    "avtor" : "Фрэнк Миллер",
+    "image" : "https://img4.labirint.ru/rc/53eb3ae13a7fa6a8dfb9a78b757ea124/220x340/books41/406888/cover.jpg?1563727193",
+    "Genre": "Нуар",
+     "Geo": "CША"
+  },
+  {
+    "name" : "Город Грехов-5",
+    "cost" : 300,
+    "avtor" : "Фрэнк Миллер",
+    "image" : "https://img3.labirint.ru/rc/1d3c3f5b36add487df8ac6d84eeeadec/220x340/books43/428095/cover.jpg?1563766935",
+    "Genre": "Нуар",
+     "Geo": "CША"
+  },
+  
+   {
+
+    "name" : "Берсерк-1",
+    "cost" : 450,
+    "avtor" : "Миура",
+    "image" : "https://www.tfaw.com/media/catalog/product/1/0/10164.jpg?quality=60&bg-color=255%2C255%2C255&fit=bounds&height=&width=&canvas=%3A",
+    "Genre": "Фэнтези",
+     "Geo": "Япония"
+  },
+  
+     {
+    "name" : "Берсерк-3",
+    "cost" : 500,
+    "avtor" : "Миура",
+    "image" : "https://i.redd.it/7g6bw23xuzp31.png",
+    "Genre": "Фэнтези",
+     "Geo": "Япония"
+  },
+  
+      {
+    "name" : "Спираль",
+    "cost" : 700,
+    "avtor" : "Дзюндзи Ито",
+    "image" : " https://i.pinimg.com/originals/32/04/e3/3204e3db75b14a580248062611cdcf76.png",
+    "Genre": "Хоррор",
+     "Geo": "Япония"
+  },
+     {
+    "name" : "Раздавленный",
+    "cost" : 200,
+    "avtor" : "Дзюндзи Ито",
+    "image" : "  https://images-na.ssl-images-amazon.com/images/S/cmx-images-prod/Series/130109/130109._SX270_QL80_TTD_.jpg",
+    "Genre": "Хоррор",
+     "Geo": "Япония"
+  },
+  
+       {
+    "name" : "Dead Quest - 1",
+    "cost" : 300,
+    "avtor" : "Араки",
+    "image" : "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/172c13d8-fcd4-447f-83b1-6eb1073e7c92/ddl3qd4-aea4380a-b85d-4398-a12c-0253a61944a5.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzE3MmMxM2Q4LWZjZDQtNDQ3Zi04M2IxLTZlYjEwNzNlN2M5MlwvZGRsM3FkNC1hZWE0MzgwYS1iODVkLTQzOTgtYTEyYy0wMjUzYTYxOTQ0YTUuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.R3YWC-7bWsJXG4QNxEbi2owgBmfDqN1swPvUG9oQ7-4",
+    "Genre": "Мистика",
+     "Geo": "Япония"
+  },
+  
+     {
+    "name" : "Dead Quest - 2",
+    "cost" : 300,
+    "avtor" : "Араки",
+    "image" : "https://pbs.twimg.com/profile_images/791441457999515648/L0WoZhDV.jpg",
+    "Genre": "Мистика",
+     "Geo": "Япония"
+  },
+  
+].map((n, i) => ({ ...n, id: i + 1 }));
+
+ReactDOM.render(<App goods={DATA} />, document.getElementById('app'));
+
+
+
+
+
+/////////////CSS/////////////
+
+
+ body {background:url(https://image.freepik.com/free-vector/seamless-pattern-of-isometric-city-with-skyscrapers-and-office-buildings-at-night-purple-background-with-architecture-of-business-houses-and-apartments-cityscape-of-modern-downtown_107791-3907.jpg);
+}
+   
+   
+    #menu {
+        text-transform: uppercase;
+text-align: center;
+line-height: 40px; /*толщина*/
+background: #000; /*параметры заливки*/
+border: 1px solid #000; /*границы*/
+border-radius: 5px; /*закругление*/
+    }
+    #menu ul {padding:0; margin:0;} 
+   
+   #menu li{
+        display: inline; /*рассположение в строку*/
+        margin: 60px;  /*расстояние*/
+    font-size: 1.0em;  /*шрифт*/
+    }
+     
+    #menu li a {
+
+        color:#FFFFFF; /*цвет*/
+        text-decoration: none; /*убрать формат ссылкит*/
+       
+    }
+     
+     /*наведение на заголовок */
+    #menu li a:hover{
+        color: #5A009D; 
+    }
+    
+    
+
+.filters {
+  border-radius: 0.2em; 
+  background: url(https://image.freepik.com/free-vector/seamless-background-city-urban-cityscape_70347-3637.jpg);
+  padding: 1em;
+  height: 10000px;
+  float: right;
+}
+
+.price-input {
+  width: 50px;
+  border-radius: 3px;
+}
+
+.Genre {
+  display: block;
+}
+
+.Geo {
+  display: block;
+}
+
+.good {
+  background-color: #000;
+  margin: 20px;
+  float: left;
+  text-align: center;
+  padding:50px;
+  border-radius: 0em;
+  font-size: 1.0em;  /*шрифт*/
+  color: #FFF
+  
+}
+.good img {
+
+  width:140px;
+  height:140px;
+  border-radius: 10em;
+ 
+}
+
+/*слайдер */
+.slider{
+    max-width: 90%;
+    position: relative;
+    margin: auto;
+    height: auto;
+    margin-bottom: 15px;
+}
+ 
+.slider .item img {
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+    border: none !important;
+    box-shadow: none !important;
+}
+ 
+.slider .prev, .slider .next {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+.slider .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+ 
+.slider .prev:hover,
+.slider .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+ 
+.slideText {
+   position: absolute;
+color: rgba(255, 255, 255, 1);
+font-size: 35px;
+text-align: center;
+left: 32%;
+top: 16%;
+transform: translate(-50%, -50%);
+background-color: rgba(0, 0, 0, 0.2);
+box-shadow: 0 0 33px rgba(0, 0, 0, 0.46);
+}
+ 
+.slider-dots {
+    text-align: center;
+}
+.slider-dots_item{
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    margin: 0 2px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+.active,
+.slider-dots_item:hover {
+    background-color: #aaa;
+}
+/* Анимация слайдов */
+.slider .item {
+    padding-top: 11px;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+
+
