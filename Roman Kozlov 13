@@ -1,0 +1,539 @@
+html
+
+<DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="React ToDo"/>
+
+      <header>
+       <div class = "title">Goal list</div>
+
+           </ul>
+        </header>
+
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.16/browser.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+
+
+
+
+    </head>
+    <body>
+      <div class="header">  <img src="https://english-grammar.biz/dictionary/img/wlibrary/d/60095aa1132e77.17789941.jpg"class="head-img"> </div>
+
+
+    <div class="container" id="playground">
+
+                <div id="todo"></div>
+            </div>
+
+
+    <script type="text/babel">
+
+
+
+        var ToDoList = React.createClass({
+            Remove: function(e){
+               this.props.onDelete(e);
+            },
+            DragStart: function(e){
+                this.dragged = e.currentTarget;
+                e.dataTransfer.effectAllowed = 'move';
+            },
+            DragEnd: function(e){
+                this.dragged.style.display="";
+                var IshasNode = false
+
+                Array.prototype.forEach.call (this.dragged.parentNode.childNodes, function (node) {
+                    if(node.className=="placeholder")
+                                    IshasNode = true;
+
+                } );
+                if(!IshasNode)
+                return;
+                this.dragged.parentNode.removeChild(placeholder);
+                var data = this.props.items;
+                var from = Number(this.dragged.dataset.id);
+                var to = Number(this.over.dataset.id);
+                if(from < to) to--;
+                if(this.nodePlacement == "after") to++;
+                data.splice(to, 0, data.splice(from, 1)[0]);
+                this.setState({data: data});	
+            },
+            DragOver: function(e) {
+
+                e.preventDefault();
+                this.dragged.style.display = "none";
+
+                if(e.target.className == "placeholder") return;
+                this.over = e.target;
+                // Inside the dragOver method
+                var relY = e.clientY - this.over.offsetTop;
+                var height = this.over.offsetHeight / 2;
+                var parent = e.target.parentNode;
+
+                if(relY > height) {
+                  this.nodePlacement = "after";
+                  parent.insertBefore(placeholder, e.target.nextElementSibling);
+                }
+                else if(relY < height) {
+                  this.nodePlacement = "before"
+                  parent.insertBefore(placeholder, e.target);
+                }
+            },
+            render: function() {
+
+                var createItem = function(itemText,i) {
+
+                    return (
+                        <ToDoListItem key={i} value={i} onDragEnd={this.DragEnd}
+                onDragStart={this.DragStart} onRemove = {this.Remove}>{itemText}</ToDoListItem>
+                    );
+                };
+                var allitems = this.props.items;
+                // Here is the filter function 
+                var status = this.props.filter[0].Status;
+                switch (status){
+                    case 'false':
+                     allitems = allitems.filter(t => !t.isDone)
+                     break;
+                     case 'true':
+                     allitems = allitems.filter(t => t.isDone)
+                };
+                // Here is the search function 
+                var queryText = this.props.filter[0].keyword;
+
+                if(queryText){
+                    var queryResult=[];
+                    allitems.forEach(function(item){
+                        if(item.item.toLowerCase().indexOf(queryText)!=-1)
+                        queryResult.push(item);
+                    });
+                    return <ul onDragOver={this.DragOver}>{queryResult.map(createItem,this)}</ul>;
+                }
+
+                return <ul onDragOver={this.DragOver}>{allitems.map(createItem,this)}</ul>;
+            }
+        });
+
+        var ToDoListItem = React.createClass({
+            ChangeHandler: function(e){
+                this.setState({
+                  value: e.target.checked
+                });
+                this.props.children.isDone = e.target.checked;
+            },
+            RemoveHandler: function(){
+               this.props.onRemove(this.props.value);
+            },
+            DragEndHandler : function(e){
+                    this.props.onDragEnd(e);
+                },
+            DragStartHandler : function(e){
+                    this.props.onDragStart(e);
+            },
+            render: function(){
+
+                var _style = "line-through";
+                if(!this.props.children.isDone)
+                _style ="none";
+                return (
+                  <li data-id={this.props.value} 
+                            key={this.props.value} draggable="true" onDragEnd={this.DragEndHandler}
+                        onDragStart={this.DragStartHandler}><button type="button" className="close pull-right" aria-hidden="true" onClick={this.RemoveHandler}>&times;</button><input type="checkbox" onChange={this.ChangeHandler} defaultChecked={this.props.children.isDone} /><span style={{"textDecoration": _style}}>{this.props.children.item}</span></li>
+                );
+            }
+        });
+
+        var ToDoForm = React.createClass({
+            getInitialState: function() {
+                return {item: ''};
+            },
+            handleSubmit: function(e){
+                e.preventDefault();
+                this.props.onFormSubmit(this.state.item);
+                this.setState({item: ''});
+                ReactDOM.findDOMNode(this.refs.item).focus();
+                return;
+            },
+            onChange: function(e){
+                this.setState({
+                  item: e.target.value
+                });
+            },
+            render: function(){
+                return (
+                    <div className="row">
+                      <form  onSubmit={this.handleSubmit}>
+                        <div className="form-group col-sm-10">
+                            <input type='text' className="todoField form-control"  ref='item' onChange={this.onChange} value={this.state.item}/>
+                            <input type='submit' className="btn btn-default"  value='join goal'/>
+                        </div>
+                      </form>
+                    </div>
+                );
+            }
+        });
+
+        var ToDoFilter = React.createClass({
+            isActive:function(value){
+                return 'btn '+((value===this.props.filter[0].Status) ?'btn-primary':'default');
+            },
+            render: function(){
+             var onFilter1 = this.props.onFilter;
+             var onSearch1 = this.props.onSearch;
+                      return(
+                      <div className="row">
+                                <div className="col-xs-7">
+                                    <div id="todo-filter" className="input-group">
+                                        <span className="input-group-btn">
+
+                                        </span>
+                                        <input  type="search" className="form-control" ref='filter' onChange={onSearch1}  placeholder="Поиск" ></input>
+                                    </div>
+                                </div>
+                                <div className="col-xs-5">
+                                    <ul className="nav nav-pills todo-filter">
+                                      <li><a onClick={onFilter1} className={this.isActive('SHOW_ALL')} value="SHOW_ALL" href="#"> whole list</a></li>
+                                      <li><a onClick={onFilter1} className={this.isActive('false')} value="false"> Not done</a></li>
+                                      <li><a onClick={onFilter1} className={this.isActive('true')} value="true" >Done</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                      ); 
+            }
+        });
+        var ToDoCatalogForm = React.createClass({
+            getInitialState: function() {
+                return {item: ''};
+            },
+            handleSubmit: function(e){
+                e.preventDefault();
+                this.props.onFormSubmit(this.state.item);
+                this.setState({item: ''});
+                ReactDOM.findDOMNode(this.refs.item).focus();
+                return;
+            },
+            onChange: function(e){
+                this.setState({
+                  item: e.target.value
+                });
+            },
+            render: function(){
+                return (
+                    <div className="row">
+                      <form  onSubmit={this.handleSubmit}>
+                        <div className="form-group ">
+                            <input type='text' className="newTodoCatalogField form-control"  ref='item' onChange={this.onChange} value={this.state.item}/>
+                            <input type='submit' className="btn btn-default"  value='Create goal'/>
+                        </div>
+                      </form>
+                      </div>
+
+
+                );
+            }
+        });
+        var ToDoCatelog  = React.createClass({
+
+            changeTodo : function(e){
+                this.props.onSelected( e.currentTarget.dataset.id);
+            },
+            checkActive:function(i){
+
+                if (i == this.props.selectedID)
+                {
+                    return "list-group-item active";
+                }
+                else
+                {
+                    return "list-group-item ";
+                }
+            },
+            render: function(){	
+
+                var selectedID = this .props.selectedID;
+                var allitems =this.props.Todos;
+
+                return <div className="list-group">
+                {
+                    allitems.map(function(item,i){ 
+                    var _class = "";
+                    if (i == this.props.selectedID)
+                {
+                    _class =  "list-group-item active";
+                }
+                else
+                {
+                    _class =  "list-group-item ";
+                }
+                    return(
+
+                         <a href="#" key={i} data-id={i} className={_class} onClick={this.changeTodo} ><span className="badge" >  </span>{item.name}</a>
+                    )
+                },this)}</div>;
+            }
+        });
+
+        var TodoApp = React.createClass({
+            getInitialState : function(){
+                return {Todo:[{name:"Street art",items:[{item:'Do maps on AI',isDone:false},{item:'Send it to JC',isDone:false},{item:'Study',isDone:false}
+                ]},{name:"Study",items:[{item:'Work street art',isDone:false},{item:'Watch football',isDone:false},{item:'Time with girl friend',isDone:false}]},,{name:"go to blank",items:[{item:'go walking to the park',isDone:false},{item:'sleep',isDone:false},{item:'german language',isDone:false}]},{name:"personal",items:[{item:'sport',isDone:false},{item:'go home',isDone:false},{item:'go shopping',isDone:false}]},{name:"footbal",items:[{item:'do canvas',isDone:false},{item:'go to birthday party',isDone:false},{item:'finish art work',isDone:false}
+                ]}],filter:[{keyword:'',Status:"SHOW_ALL"}],selectedCatelog:"0"};
+            },
+            updateItems: function(newItem){
+
+                var item = {item:newItem,isDone:false};
+
+                var newtodo = this.state.Todo;
+                var allItems = this.state.Todo[this.state.selectedCatelog].items.concat([item]);
+                newtodo[this.state.selectedCatelog].items = allItems;
+                this.setState({
+                    Todo: newtodo
+                });
+            },
+            deleteItem : function(index){
+                var newtodo = this.state.Todo;
+                var allItems = this.state.Todo[this.state.selectedCatelog].items.slice(); //copy array
+                allItems.splice(index, 1); //remove element
+                newtodo[this.state.selectedCatelog].items = allItems;
+                this.setState({
+                    Todo: newtodo
+                });
+            },
+    filterItem : function(e){
+
+                this.state.filter[0].Status = e.target.value;
+                this.setState({
+                    filter: this.state.filter
+                });
+            },
+            searchItem : function(e){
+
+                this.state.filter[0].keyword = e.target.value;
+                this.setState({
+                    filter: this.state.filter
+                });
+            },
+            AddCatalog: function(newCatalog){
+                var Catalog = {name:newCatalog,items:[{item:'do everything',isDone:false}]};
+                var newtodo = this.state.Todo.concat([Catalog]);
+                this.setState({
+                    Todo: newtodo
+                });
+            },
+            setSelectedCatalog: function(index){
+                this.state.selectedCatelog = index;
+                this.setState({
+                    selectedCatelog: index
+                });
+            },
+            render: function(){
+                return (
+                    <div className="row">
+                        <div className="col-xs-3">
+                            <ToDoCatalogForm onFormSubmit = {this.AddCatalog} />
+                            <ToDoCatelog selectedID = {this.state.selectedCatelog} onSelected={this.setSelectedCatalog} Todos = {this.state.Todo} />
+                        </div>
+                        <div className="col-xs-6">
+
+                            <ToDoFilter onFilter = {this.filterItem} onSearch = {this.searchItem} filter={this.state.filter}/>
+                            <ToDoForm onFormSubmit = {this.updateItems} />
+                            <ToDoList  items = {this.state.Todo[this.state.selectedCatelog].items} filter = {this.state.filter} onDelete={this.deleteItem}/>
+                        </div>
+                    </div>
+                );
+            }
+        });
+
+        ReactDOM.render(
+            <TodoApp/>,
+            document.getElementById('todo')
+        );
+
+    </script>
+
+      <div class="logo2"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/ZUKCLUB_LOGO.png" style="margin-left: 850px; margin-top: -450px;position:absolute;"/></div>
+
+
+
+
+    </body>
+    </html>
+
+
+
+
+css
+
+
+header{
+
+  width: 100%;
+  background: #B22222;
+  height: 200px;
+   border-radius: 10px;
+ background: FireBrick
+   url(https://s3-us-west-2.amazonaws.com/api.starngage.media.profile/104800892_713048032828958_8773116606641264936_n.jpg) no-repeat 5% 40%;
+
+
+ }
+ .head-img {
+   margin-top: -400px; 
+   margin-left: 1170px;}
+
+
+
+
+
+
+ .title{
+
+  font-size: 150px;
+  margin-top: 10px;
+   padding-top:-10px;
+   color : Black ;
+   font-family: PLAYBILL;
+  font-weight:bolder;
+  text-align: center;
+   text-shadow: 2px 2px 2px white,
+              2px 2px 2px white;
+ }
+
+
+ body {
+
+   background-image: linear-gradient(to bottom left, black, white); 
+
+
+
+   font-family: "PLAYBILL", georgia, Arial, sans-serif;;
+   font-size: 25px;
+   line-height: 1.7;
+   margin: 0;
+   padding: 30px;
+ }
+
+ a {
+   color: Black;
+   text-decoration: none;
+           font-weight:bold;
+   text-shadow: 2px 1px 1px black,
+              2px 1px 1px black;
+
+   font-size: 35px;
+ }
+
+ a:hover {
+   text-decoration: underline;
+
+
+ }
+
+ code {
+   background-color: #FFFACD;
+   border: 1px solid #ddd;
+   border-radius: 3px;
+   font-family:  georgia;
+   font-size: 12px;
+   margin: 0 2px;
+   padding: 0px 5px;
+ }
+
+ h1, h2, h3, h4 {
+   font-weight: bold;
+
+   margin: 0 0 15px;
+   padding: 0;
+ }
+
+ h1 {
+   border-bottom: 1px solid #ddd;
+   font-size: 2.5em;
+   font-weight: bold;
+   margin: 0 0 15px;
+   padding: 0;
+ }
+
+ h2 {
+   border-bottom: 1px solid #eee;
+   font-size: 2em;
+ }
+
+ h3 {
+   font-size: 1.5em;
+ }
+
+ h4 {
+   font-size: 1.2em;
+ }
+
+
+ ul {
+   padding-left: 0px;
+
+ }
+ button  {
+
+   width:30px;
+   height:25px;
+   color:red;
+   border-radius: 40px;
+   background:#FFFACD;
+     font-weight:bolder;
+ }
+  .form-control{
+    border-radius: 5px;
+
+   width:400px;
+    height:40px;
+   background:DarkOrchid;
+
+
+     font-weight:bolder;
+ }
+
+ .btn{
+ border-radius: 40px;
+  background-image: linear-gradient(to bottom left, purple, white);
+   width:170px;
+    height:70px;
+   color:Black;
+   font-family: arial;
+   font-style:oblique ;
+   text-shadow: -1px -1px 0 #000,  
+      0px -1px 0 #000,
+     0px  1px 0 #000,
+      1px  1px 0 #000;
+
+
+
+
+     font-weight:bolder;
+ }
+
+ .col-xs-6{
+ font-size:30px;
+
+   color:black;
+   font-family: algerian;
+   font-style:oblique ;
+   text-shadow: -1px -1px 0 #000,  
+      1px -1px 0 #000,
+     -2px  1px 0 #000,
+      2px  1px 0 #000;
+
+
+
+     font-weight:bolder;
+ }
