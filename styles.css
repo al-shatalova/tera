@@ -1,0 +1,30 @@
+.Main {
+  font-family: Helvetica;
+  text-align: center;
+  background-color: #f6da9d;
+  padding: 10px;
+}
+.frame{
+  background-color: #05225f;
+  padding: 20px;
+
+}
+.App {
+  font-family: Helvetica;
+  text-align: center;
+  color: #05225f;
+}
+.App1 {
+  font-family: Helvetica;
+  text-align: justify;
+  color: #05225f;
+}
+.App2 {
+  font-family: Helvetica;
+  text-align: justify;
+  color: #05225f;
+}
+.btn {
+  font-family: Helvetica;
+  color: #05225f;
+} 
