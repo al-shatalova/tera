@@ -1,0 +1,33 @@
+.blog-post {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px;
+}
+.blog-post-preview {
+  display: block;
+  position: relative;
+  background-size: cover;
+  background-position: 50% 25%;
+}
+.blog-post-title {
+  font-size: 20px;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-weight: bolder;
+}
+img {
+  border: 0;
+  height: auto;
+  max-width: 100%;
+}
+.post-body {
+  color: #444;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  line-height: 24px;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.blog-post-link {
+  text-decoration: none;
+  color: #222;
+}
