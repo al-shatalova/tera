@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<title>Stepanov_15</title>
+	</head>
+	<body>
+		
+		<div id="app">
+		
+		</div>
+		
+		<script src="https://stepigor.ru/cdn/react.js"></script>
+		<script src="https://stepigor.ru/cdn/react-dom.js"></script>
+		<script src="https://stepigor.ru/cdn/babel.js"></script>
+		<script type="text/babel">
+		
+
+			//ПЕРЕПИСАННЫЙ В КЛАСС
+			class Comment extends React.Component {
+				constructor(props){
+					super(props);
+				}
+			
+				render (){
+					return (
+						<div>
+							<div>
+								<img src={this.props.author.avatarUrl} alt={this.props.author.name} />
+							<div>
+								{this.props.author.name}
+							</div>
+							</div>
+							<div>
+								{this.props.text}
+							</div>
+							<div>
+								{this.props.date.toLocaleDateString()}
+							</div>
+						</div>
+					)
+				}
+			}
+			
+			var author = {
+				avatarUrl:'https://picsum.photos/512/512',
+				name: 'Igor'
+			};
+			var text = 'Some text'
+			var myDate = new Date()
+			
+			ReactDOM.render(
+			  <Comment author={author} text={text} date={myDate} />,
+			  document.getElementById('app')
+			);
+		</script>
+	</body>
+</html>

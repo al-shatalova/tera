@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Stepanov lab 10</title>
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css">
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css">
+</head>
+
+<body class="grey lighten-2">
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div class="card grey lighten-5">
+          <div class="card-content center-align">
+            <span class="card-title left-align">Изучаем хуки - lab 10</span>
+            <div id="app">
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://stepigor.ru/cdn/react.js"></script>
+  <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+  <script src="https://stepigor.ru/cdn/babel.js"></script>
+  <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+  <script type="text/babel">
+    var fruits = ['Банан', 'Яблоко', 'Груша', 'Ананас', 'Манго', 'Апельсин', 'Мандарин']
+
+    function App() {
+    const [count, setCount] = React.useState(0);
+    const [age, setAge] = React.useState(18);
+    const [fruit, setFruit] = React.useState(fruits[0]);
+    const [todos, setTodos] = React.useState([{ text: 'Изучить хуки' }]);
+
+
+    return (
+      <div class="row">
+        <div class="col s12 m3 l3">
+          <h3 class="light green-text">{count}</h3>
+          <button class="btn green darken-3 white-text waves-effect waves-light" onClick={() => setCount(count + 1)}>
+            Счётчик +1
+          </button>
+        </div>
+        <div class="col s12 m3 l3">
+          <h3 class="light orange-text">{fruit}</h3>
+          <button class="btn orange white-text waves-effect waves-light" onClick={()=>setFruit(fruits[Math.floor(Math.random() * fruits.length)])}>
+            Получить
+          </button>
+        </div>
+        <div class="col s12 m3 l3">
+          <h3 class="light blue-text">{age}</h3>
+          <input type="number" max="35" min="0" onChange={(e)=>{if (e.target.value.length > 3 || e.target.value.length == 0) return; setAge(e.target.value)}}/>
+        </div>
+        <div class="col s12 m3 l3">
+          <h4 class="light pink-text">{todos[0].text}</h4>
+          <input type="text" maxlength="16" onChange={(e)=>setTodos([{text: e.target.value}])} />
+        </div>
+      </div>
+    );
+    }
+
+    ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>AI18-2 Stepanov | lab 7</title>
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css">
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row center-align">
+      <div class="col s12 m12 l12">
+        <div id="timer" class="green-text">
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div id="app" class="center-align">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://stepigor.ru/cdn/react.js"></script>
+  <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+  <script src="https://stepigor.ru/cdn/babel.js"></script>
+  <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+  <script type="text/babel">
+    class ClickButton extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          label: "Удаление таймера"
+        };
+        this.press = this.press.bind(this);
+      }
+      componentDidReceiveProps(nextProps) {
+        console.log('Кнопка получила Props');
+      }
+      render(){
+        return <button onClick={this.press} class="btn green white-text waves-effect waves-light">{this.state.label}</button>
+      }
+      press(){
+        ReactDOM.unmountComponentAtNode(document.getElementById('timer'))
+      }
+    }
+
+    const propsValues = {
+      title: "Список группы",
+      items: [
+        "Студент 1",
+        "Студент 2",
+        "Студент 3",
+        "Студент 4",
+        "Студент 5",
+        "Студент 6"
+      ]
+    };
+
+    class Item extends React.Component {
+      render() {
+        return <li > {
+          this.props.name
+        } < /li>;
+      }
+    }
+
+    class SearchPlugin extends React.Component {
+
+      constructor(props) {
+        super(props);
+        this.onTextChanged = this.onTextChanged.bind(this);
+      }
+
+      onTextChanged(e) {
+        var text = e.target.value.trim(); // удаляем пробелы
+        this.props.filter(text); // передаем введенный текст в родительский компонент
+      }
+
+      render() {
+        return <input placeholder = "Поиск"
+        onChange = {
+          this.onTextChanged
+        }
+        />;
+      }
+    }
+
+    class ItemsList extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            items: this.props.data.items
+          };
+
+          this.filterList = this.filterList.bind(this);
+        }
+
+        filterList(text) {
+          var filteredList = this.props.data.items.filter(function(item) {
+            return item.toLowerCase().search(text.toLowerCase()) !== -1;
+          });
+          this.setState({
+            items: filteredList
+          });
+        }
+
+        render() {
+          return ( <div>
+            <h2 class="light"> {this.props.data.title} </h2>
+            <SearchPlugin filter = {this.filterList}/>
+            <ul> {
+              this.state.items.map(function(item) {
+                return <Item key = {item}
+                name = {item}/>
+              })
+            } </ul></div>);
+          }
+        }
+
+
+      class Clock extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {date: new Date(), visible: true};
+        }
+
+      componentDidMount() {
+        console.log('Часы - componentDidMount()')
+        this.timerID = setInterval(
+          () => this.tick(),
+          1000
+        );
+      }
+
+      componentWillUnmount() {
+        console.log('Часы - componentWillUnmount()')
+        clearInterval(this.timerID);
+      }
+
+      componentDidUpdate(){
+        console.log('Часы обновились! componentDidUpdate()')
+      }
+
+      tick() {
+        this.setState({
+          date: new Date()
+        });
+      }
+
+      render() {
+        if (this.state.visible) {
+          return (
+            <div>
+              <h2 class="light">{this.state.date.toLocaleTimeString()}</h2>
+              <ClickButton/>
+            </div>
+          );
+        } else {
+          return 'hidden';
+        }
+      }
+    }
+
+    //place elements
+
+    ReactDOM.render(<ItemsList data = {propsValues}/>,
+      document.getElementById("app")
+    )
+
+    ReactDOM.render(
+      <Clock />,
+      document.getElementById('timer')
+    );
+  </script>
+</body>
+
+</html>

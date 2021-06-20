@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>ПИ18-2 Степанов</title>
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/materialize.min.css">
+  <link rel="stylesheet" href="https://stepigor.ru/cdn/icon.css">
+</head>
+
+<body class="green lighten-1">
+
+  <div class="container">
+    <div class="row" id="header">
+      <div id="header">
+
+      </div>
+    </div>
+    <div class="row" id="description">
+
+    </div>
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <div class="card grey lighten-5 hoverable">
+          <div class="card-content">
+            <span class="card-title"><i class="material-icons left green-text">timer</i>Таймер</span>
+            <div id="timer" class="center-align green-text" style="font-size:64px;">
+
+            </div>
+          </div>
+          <div class="card-action grey-text">
+            Эта карточка выведена через класс ES6
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stepigor.ru/cdn/react.js"></script>
+  <script src="https://stepigor.ru/cdn/react-dom.js"></script>
+  <script src="https://stepigor.ru/cdn/babel.js"></script>
+
+  <!-- для фреймворка css -->
+  <script src="https://stepigor.ru/cdn/jquery.js"></script>
+  <script src="https://stepigor.ru/cdn/materialize.min.js"></script>
+  <script type="text/babel">
+    // react code
+
+      //текстовое содержимое
+      let labtitle = 'Лабораторная работа №4';
+      let author = 'Степанов И. Е.';
+      let description = 'Цель этой работы - научиться выводить React-компоненты различными способами. Это можно делать как с помощью функций (в том числе стрелочных), так и с помощью классов ES6.';
+
+      //задаем компонент функционально
+      function Header(){
+        return <div class="col s12 m12 l12"><div class="card grey lighten-5 hoverable"><div class="card-content left-align"><h4 class="light">{labtitle}</h4><i class="material-icons left green-text">account_circle</i>{author}</div><div class="card-action grey-text">Эта карточка выведена через функцию.</div></div></div>;
+      }
+
+      //через стрелочную функцию
+      let DescribeBlock = () => {return <div class="col s12 m12 l12"><div class="card grey lighten-5 hoverable"><div class="card-content"><span class="card-title"><i class="material-icons left green-text">help</i>Зачем эта работа?</span>{description}</div><div class="card-action grey-text">Эта карточка выведена через стрелочную функцию</div></div></div>};
+
+      //через класс ES6
+      class Timer extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = { seconds: 0 };
+        }
+
+        tick() {
+          this.setState(state => ({
+            seconds: state.seconds + 1
+          }));
+        }
+
+        componentDidMount() {
+          this.interval = setInterval(() => this.tick(), 1000);
+        }
+
+        componentWillUnmount() {
+          clearInterval(this.interval);
+        }
+
+        render() {
+          return (
+            <span onClick={() => {this.setState({seconds:0}); showToast()}}>
+            {this.state.seconds}
+            </span>
+          );
+        }
+      }
+
+
+      //рендерим элементы
+      ReactDOM.render(<Header/>, document.getElementById('header'));
+      ReactDOM.render(<DescribeBlock/>, document.getElementById('description'));
+      ReactDOM.render(
+        <Timer />,
+        document.getElementById('timer')
+      );
+    </script>
+
+
+
+    // materialize framework
+    <script>
+      function showToast(){
+        M.toast({html: 'Счётчик сброшен!'})
+      }
+    </script>
+</body>
+
+</html>
