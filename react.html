@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <title>Hello React</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+<body style="background-image: url(bg.png)">
+
+<div id="app"></div>
+
+<script type="text/babel">
+    const userClassName = "user-info";
+    const styleObj = {
+        color: 'green',
+        fontFamily: 'Lobster',
+        fontSize: '36px',
+        textAlign: 'center',
+        backgroundColor: ''
+    };
+
+    const user = {
+        id: 12,
+        age: 21,
+        firstName: 'Владик',
+        lastName: 'Комарницкий',
+        getFullName: function () {
+            return `${this.firstName} ${this.lastName}`;
+        }
+    };
+
+    ReactDOM.render(
+        <div className={userClassName} style={styleObj}>
+            <p>Полное имя: {user.getFullName()}</p>
+            <p>Возраст: {user.age} годик</p>
+            <img height="400" src="https://sun9-54.userapi.com/impf/c636316/v636316253/318f9/qqRNnGEy-90.jpg?size=810x1080&quality=96&sign=6c988207b57351694778ce9d0b663a41&type=album" alt="Ну очень красивый мужик"/>
+        </div>,
+        document.getElementById("app")
+    )
+</script>
+</body>
+</html>
