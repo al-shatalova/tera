@@ -1,0 +1,48 @@
+import React from 'react';
+import { Text, View, Button } from 'react-native';
+
+const FirstApp = () => {
+  return (
+    <View style={{flex: 1}}>
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#08842e',
+          
+          
+        }}>
+        <Text style={{color:'white', fontFamily:'Tahoma',  fontSize: 10}}>
+          Маленькие белые букавки, там ниже по больше =)
+        </Text>
+      </View>
+      <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#f1d40a',
+          
+        }}>
+        <Text style={{color:'black', fontFamily:'Calibri', fontWeight:'bold', fontSize: 45}}>
+          БАЛЬШЫЕ
+          
+        </Text>
+      </View>
+      <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#c8131c'
+        }}>
+        <Button
+          title="Фиолетовая кнопка"
+          color="#841584"
+        />
+      </View>
+    </View>
+    
+  );
+}
+
+
+export default FirstApp;
