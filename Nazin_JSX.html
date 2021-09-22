@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Назин ПИ18-3. Лаб 3.</title>
+	<style>
+		body{
+			background:orange;
+			max-width: 300px;
+		}
+		.user-info{
+			padding: 8px;
+			border: 5px green solid;
+			background:yellow;
+		}
+
+		#app2{
+			fontFamily: Verdana;
+			border: 5px green solid;
+			background:yellow;
+		}
+	</style>
+</head>
+<body>
+	<div id="app1"> </div>
+	<div id="app2"> </div>
+
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+
+
+	<script type="text/babel"> 
+		ReactDOM.render(
+		<h2>2 * 2 = {2 * 2}</h2>,
+		document.getElementById("app2")
+		)
+	</script>
+
+	<script type="text/babel"> 
+		const user = {
+			id : 15,
+			age: 21,
+			firstName: 'Андрей',
+			lastName: 'Назин',
+			thirdName:'Алексеевич',
+			getFullName: function(){
+				return `${this.lastName} ${this.firstName} ${this.thirdName} `;
+			}
+		};
+
+		const userClassName = "user-info";
+		const styleObj = {
+			color:'black',
+			fontFamily:'Verdana'
+		};
+
+		ReactDOM.render(
+			<div className={userClassName} style={styleObj}>
+				<p>ФИО: {user.getFullName()}</p>
+				<p>Возраст: {user.age}</p>
+			</div>,
+			document.getElementById("app1")
+		)
+
+	</script>
+</body>
+</html> 
