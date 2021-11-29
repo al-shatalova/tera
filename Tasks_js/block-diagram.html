@@ -3,48 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <script>
-
-        alert("Добро пожаловать в угадай-игру!")
-        alert("Приготовьтесь разгадать первую загадку в нашей игре! Готовы?")
-
-        var guess = 0
-        let gu_1 = parseInt(prompt("В какой год был презентован первый айфон?"))
-
-        ans_1 = 2007
-
-        if (gu_1 == ans_1) {
-            guess = guess + 1
-            alert("Ответ оказался правильным! Поздравляю, переходим к следующей загадке.")
-        } else {
-            alert("Ответ оказался неправильным! Не унываем, а скорее переходим к следующей загадке.")
-        }
-
-        let gu_2 = prompt("Какая страна сейчас стоит на 1 месте по площади занимаемой территории?")
-
-        guess_2 = gu_2.toLowerCase()
-
-        if (guess_2 == "россия") {
-            guess = guess + 1
-            alert("Ответ оказался правильным! Поздравляю, игра окончена. Посмотрите ваш результат и правильные ответы ниже.")
-        } else {
-            alert("Ваш ответ оказался неправильным. Смотрим правильные ответы!")
-        }
-
-        alert("Правильные ответы к игре: 1 задание - " + Number(ans_1) + "; 2 задание - Россия.")
-
-        alert("Ваш результат в нашей игре: " + Number(guess) + " отгадок.")
-
-    </script>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>First task</title>
 </head>
 
 <body>
-
+    <script type="text/javascript" src="block-diagram.js"></script>
 </body>
 
 </html>
