@@ -30,7 +30,7 @@ class Clock {
             .replace('m', mins)
             .replace('s', secs);
 
-        console.log(output);
+        document.write(`<br/><br/>${"Время rightnow:"}<br/>${output}`);
     }
 
 
