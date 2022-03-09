@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Study JSX</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <div id="app"></div>
+
+        <script type="text/babel">
+
+            const x_1 = parseInt(prompt("Ваше первое число: "))
+            const x_2 = parseInt(prompt("Ваше второе число: "))
+
+            const styleObj = {
+                marginTop: '4px',
+                borderBottom: "3px solid blueviolet"
+            };
+
+            ReactDOM.render(
+                <div style={{display : 'flex', flexDirection: 'column'}}>
+                    <h2 style={styleObj}>↓↓↓ Калькулятор для чисел {x_1} и {x_2} ↓↓↓</h2>
+                    <h2 style={styleObj}>
+                        ({x_1} + {x_2}= {x_1 + x_2})
+                        ({x_1} - {x_2}= {x_1 - x_2})
+                    </h2>
+                    <h2 style={styleObj}>
+                        ({x_1} * {x_2}= {x_1 * x_2})
+                        ({x_1} / {x_2}= {x_1 / x_2})
+                    </h2>
+                </div>,
+                document.getElementById("app")
+            );
+        </script>
+
+        <div id="user-bio"></div>
+
+        <script type="text/babel">
+
+            const user_tag = "user-info";
+            const user = {
+                id: 206173,
+                age: 19,
+                firstName: 'Georgy',
+                lastName: 'Valyaev',
+                getFullName: function(){
+                    return `${this.firstName} ${this.lastName}`;
+                }
+            };
+
+            const rand_num = (min, max) => (
+                Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min))
+            );
+            const arrow = "Рандом =>"
+
+            const num_1 = rand_num(10, 100)
+            const num_2 = rand_num(10, 100)
+
+            ReactDOM.render(
+                <div className={user_tag}>
+                    <p class="user">Полное имя: {user.getFullName()}</p>
+                    <p class="user">Возраст: {user.age}</p>
+                    <p>{arrow} ({num_1} * {num_2} = {num_1 * num_2})</p>
+                </div>,
+                document.getElementById("user-bio")
+            );
+
+        </script>
+    </div>
+</body>
+
+</html>
