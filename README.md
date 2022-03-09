@@ -26,3 +26,6 @@
 [Arrow_functions](https://github.com/Valyaevgeorgiy/Web_apps_dev/tree/main/Arrow_functions) — плотная работа с интересной и очень полезной структурой данных в JavaScript — стрелочными функциями.
 
 [High_class_functions](https://github.com/Valyaevgeorgiy/Web_apps_dev/tree/main/High_class_functions) — взаимодействие с функциями высшего порядка и написание своей собственной функции высшего порядка.
+
+[Framework_React](https://github.com/Valyaevgeorgiy/tera/tree/Valyaev_Georgiy_PI20-6/Framework_React) — плотная работа с самым популярным и богатым фреймворком на JavaScript — React.
+
