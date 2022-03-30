@@ -1,0 +1,42 @@
+html {
+    background-color: bisque;
+}
+
+.name-app {
+    text-align: center;
+    font-family: "Trebuchet MS", "Lucida Sans", serif;
+}
+
+.name-themes, .tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-family: "Trebuchet MS", "Lucida Sans", serif;
+}
+
+.pict-lc {
+    border-radius: 15px;
+}
+
+.pict-clock {
+    width: 200px;
+    height: 200px;
+}
+
+.header {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.lc, .clock_pr, .tasks {
+    padding: 25px;
+    margin: 25px;
+}
+
+button {
+    width: 250px;
+    height: 30px;
+    border-radius: 4px;
+    margin: 50px;
+}
