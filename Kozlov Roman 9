@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>React Components</title>
+	<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+ <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+	<style>
+        header{
+
+  width: 100%;
+  background: #FFFFE0;
+  height: 160px;
+   border-radius: 40px;
+ background: Gold
+
+ }
+ .head-img {
+   margin-top: -400px; 
+   margin-left: 1170px;}
+
+ .title{
+
+  font-size: 90px;
+  margin-top: -10px;
+   padding-top:0px;
+   color : black ;
+   font-family: algerian,sans-serif;
+   font-style:oblique ;
+          font-weight:bolder;
+  text-align: center;
+   text-shadow: 2px 2px 2px white,
+              2px 2px 2px white;
+ }
+ body {
+
+    background:linear-gradient(to bottom right, red, black);  
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;;
+    font-size: 20px;
+    line-height: 1.7;
+    margin: 0;
+    padding: 30px;
+  }
+  #app{
+            color: black;
+			font-family: algerian;
+			font-size:8pt;
+  margin-left:990px;
+  margin-top:-180px;
+		}
+        #app1{
+            color : red ;
+   font-family: algerian,sans-serif;
+   font-style:oblique ;
+          font-weight:bolder;
+
+			font-size:30pt;
+  margin-left:450px;
+  margin-top:-150px;
+    padding:10px;
+
+          font-weight:bolder;
+
+   text-shadow: 1px 1px 1px white,
+              1px 0px 0px white;
+		}
+        #app2{
+            color: black;
+			font-family: algerian;
+			font-size:11pt;
+  margin-left:990px;
+  margin-top:-10px;
+  font-weight:bolder;
+		}     
+
+	</style>
+    <header>
+        <div class = "title">Clever notes</div>
+
+            </ul>
+         </header>
+</head>
+<body>
+    <form name="calculator" >
+        <input type="button" value="1" onClick="document.calculator.ans.value+='1'">
+        <input type="button" value="2" onClick="document.calculator.ans.value+='2'">
+        <input type="button" value="3" onClick="document.calculator.ans.value+='3'"><br>
+        <input type="button" value="4" onClick="document.calculator.ans.value+='4'">
+        <input type="button" value="5" onClick="document.calculator.ans.value+='5'">
+        <input type="button" value="6" onClick="document.calculator.ans.value+='6'">
+        <input type="button" value="7" onClick="document.calculator.ans.value+='7'"><br>
+        <input type="button" value="8" onClick="document.calculator.ans.value+='8'">
+        <input type="button" value="9" onClick="document.calculator.ans.value+='9'">
+        <input type="button" value="-" onClick="document.calculator.ans.value+='-'">
+        <input type="button" value="+" onClick="document.calculator.ans.value+='+'"><br>
+        <input type="button" value="*" onClick="document.calculator.ans.value+='*'">
+        <input type="button" value="/" onClick="document.calculator.ans.value+='/'">
+
+        <input type="button" value="0" onClick="document.calculator.ans.value+='0'">
+        <input type="reset" value="Delete">
+        <input type="button" value="=" onClick="document.calculator.ans.value=eval(document.calculator.ans.value)">
+        <br>Input sign: <input type="textfield" name="ans" value="">
+        </form>
+
+        <div id="app"> </div>
+        <div id="app2"> </div>
+<div id="app1"> </div>
+
+<script type="text/babel">
+
+   function App() {
+
+const [count, setCount] = React.useState(0);
+const [age, setAge] = React.useState(20);
+const [datte, setDatte] = React.useState('15.09.2000');
+
+function datte_ch(e){
+    if(e.code == "Enter"){
+        setDatte(e.target.value)
+        e.target.value = ""
+    }
+}
+
+return (
+<div>
+
+<div>
+<p>date:{datte}</p>
+<input onKeyPress ={datte_ch}/>
+</div>
+</div>);
+}
+ReactDOM.render(
+<App  />,
+document.getElementById("app2")
+)
+
+class Clock extends React.Component {
+            constructor(props) {
+              super(props);
+              this.state = {date: new Date()};
+              this.unmount = this.unmount.bind(this);
+            }
+            unmount(){
+                ReactDOM.unmountComponentAtNode(document.getElementById("app"));
+            }
+            componentDidMount() {
+              this.timerId = setInterval(
+                ()=> this.tick(),
+                1000
+              );
+              console.log("componentDidMount()");
+            }
+
+            componentWillUnmount() {
+              clearInterval(this.timerId);
+              console.log("componentWillUnmount()");
+            }
+
+            tick() {
+              this.setState({
+                date: new Date()
+              });
+            }
+
+            render() {
+              return (
+                <div>
+                  <h2>curent time: {this.state.date.toLocaleTimeString()}.</h2>
+
+                </div>
+              );
+            }
+          }
+          ReactDOM.render(
+              <Clock />,
+              document.getElementById("app")
+          )
+
+
+          class TodoApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { items: [], text: '' };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  render() {
+    return (
+      <div>
+        <h3>notes:</h3>
+        <TodoList items={this.state.items} />
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="new-todo">
+            new note:
+          </label>
+          <input
+            id="new-todo"
+            onChange={this.handleChange}
+            value={this.state.text}
+          />
+          <button>
+            confirm note №{this.state.items.length + 1}
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({ text: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    if (this.state.text.length === 0) {
+      return;
+    }
+    const newItem = {
+      text: this.state.text,
+      id: Date.now()
+    };
+    this.setState(state => ({
+      items: state.items.concat(newItem),
+      text: ''
+    }));
+  }
+}
+
+class TodoList extends React.Component {
+  render() {
+    return (
+      <ul>
+        {this.props.items.map(item => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    );
+  }
+}
+
+ReactDOM.render(
+  <TodoApp />,
+  document.getElementById('app1')
+);
+
+</script>
+</body>
+</html>
