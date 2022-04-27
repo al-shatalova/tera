@@ -1,0 +1,148 @@
+class ProductFilter extends React.Component {
+  constructor() {
+    super();
+    
+    this.handleFormInput = this.handleFormInput.bind(this);
+    
+    this.state = {
+      series: 0,
+      price: 0
+    }
+  }
+  
+  handleFormInput(series, price) {
+    this.setState({
+      series: series,
+      price: price
+    })
+  }
+  
+  render() {
+    const products = [
+      {name: 'Электроника', price:350, series:'Оборудование', uri: "https://avatars.mds.yandex.net/get-marketpic/1882989/pic75ed99090bef7da0db54ddcc1ef7c3fe/90x120"},
+      {name: 'Автомагнитолы', price:800, series:'Оборудование', uri: "https://avatars.mds.yandex.net/get-marketpic/1889471/pic909ac8c0ab1b652b5e3bf4e6af959e4b/240x320"},
+      {name: "Футболки и майки", price:150, series:'Одежда', uri: "https://avatars.mds.yandex.net/get-mpic/5321517/img_id2133804858426921388.jpeg/90x120"},
+      {name: "Розетки и выключатели", price:50, series:'Оборудование', uri: "https://avatars.mds.yandex.net/get-marketpic/1619730/pic76dc42cfbd217087109c4524b4ae6909/90x120"},
+      {name: 'Толстовки и свитшоты', price:300, series:'Одежда', uri: "https://avatars.mds.yandex.net/get-mpic/5222168/img_id5466113773713214850.jpeg/90x120"},
+      {name: 'Лампочки', price:200, series:'Оборудование', uri: "https://avatars.mds.yandex.net/get-mpic/4353087/img_id520556842959172964.jpeg/90x120"},
+      {name: 'ТВ-приставки', price:500, series:'Оборудование', uri: "https://avatars.mds.yandex.net/get-marketpic/5684686/pic4954015f09f8aa643098f881ace956d3/90x120"},
+      {name: 'Пульты ДУ', price:120, series:'Оборудование', uri: "https://avatars.mds.yandex.net/get-mpic/4742551/img_id7927375166212151456.png/150x150"},
+      {name: 'Картины, постеры', price:80, series:'Досуг и развлечения', uri: "https://avatars.mds.yandex.net/get-mpic/4120716/img_id4895430953199435379.jpeg/90x120"},
+      {name: 'Машинки и техника', price:50, series:'Досуг и развлечения', uri: "https://avatars.mds.yandex.net/get-mpic/5359986/img_id6420653638387338956.jpeg/90x120"},
+      {name: 'Головные уборы', price:40, series:'Одежда', uri: "https://avatars.mds.yandex.net/get-mpic/5376414/img_id734343909683789681.jpeg/90x120"}
+    ];
+    
+    return (
+      <div className="filter">
+      <a style={{textAlign: "right", fontSize: 32, fontFamily: "Montserrat"}}>Покупки на Маркете</a>
+        <ProductFilterMenu
+          series={this.state.series}
+          price={this.state.price}
+          onFormInput={this.handleFormInput}
+        />
+        <ProductFilterResults
+          products={products}
+          series={this.state.series}
+          price={this.state.price}
+        />
+      </div>
+    )
+  }
+}
+
+ class ProductFilterMenu extends React.Component {
+   constructor() {
+     super();
+     this.handleChange = this.handleChange.bind(this);
+   }
+   
+   handleChange() {
+     this.props.onFormInput (
+       this.refs['seriesInput'].getDOMNode().value,
+       this.refs['priceInput'].getDOMNode().checked
+     );
+   }
+   
+   render() {
+     return (
+       <form className="filter-menu">
+         <label for="priceInput" style={fontFamily: "Montserrat", margin: 20}>Отсортировать по кэшбэку</label>
+         <input id="priceInput" type="checkbox" checked={this.props.price} ref="priceInput" onChange={this.handleChange} />
+         <br/>
+         <label for="seriesInput">Отсортировать по категории:</label>
+         <br/>
+         <select id="seriesInput" ref="seriesInput" onChange={this.handleChange}>
+           <option value="All">Всё</option>
+           <option value="Оборудование">Оборудование</option>
+           <option value="Досуг и развлечения">Досуг и развлечения</option>
+           <option value="Одежда">Одежда</option>
+         </select>
+       </form>
+     );
+   }
+ }
+
+class ProductFilterResults extends React.Component {
+  constructor() {
+    super();
+  }
+  
+  render() {
+    var results = [];
+    
+    if (this.props.price === true) {
+      this.props.products.sort((a,b) => {
+        return b.price - a.price;
+      })
+    } 
+
+    this.props.products.map((product) => {
+      if (this.props.series === 0 || this.props.series === 'All') {
+        results.push(<Product product={product} />);
+      }
+      else if (product.series === this.props.series) {
+        results.push(<Product product={product} />);
+      }
+    });
+        
+    return (
+      <div className="filter-results">
+        <ul className="blocks blocks_3up">
+          {results}
+        </ul>
+      </div>
+    )
+  }
+}
+
+class Product extends React.Component {
+  constructor () {
+    super();
+  }
+  
+  render () {
+    return (
+      <li>
+        <div className="feature">
+          <div className="feature-hd">
+            <h2 class="hdg hdg_2">{this.props.product.name}</h2>
+          </div>
+          <div className="feature-bd">
+            <p>{this.props.product.series}</p>
+          </div>
+          <div className="feature-ft">
+            <p>Кэшбэк в {this.props.product.price} рублей</p>
+          </div>
+          <div className="feature-image">
+              <img 
+                src={this.props.product.uri}
+                alt="new"
+                />
+          </div>
+        </div>
+      </li>
+    )
+  }
+}                            
+
+React.render(<ProductFilter/>, document.getElementById('ProductFilter'));
