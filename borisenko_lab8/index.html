@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React Forms</title>
+
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+
+    <script type="text/babel" >
+        class NameField extends React.Component{
+            constructor(props) {
+                super(props);
+
+                var name = props.value;
+                var nameIsValid = this.validateName(name);
+                this.state = {name: name, nameValid: nameIsValid};
+
+                this.onNameChange = this.onNameChange.bind(this);
+            }
+
+            validateName(name){
+                return name.length>2;
+            }
+
+            onNameChange(e) {
+                var val = e.target.value;
+                console.log(val);
+                var valid = this.validateName(val);
+                this.setState({name: val, nameValid: valid});
+            }
+
+            render(){
+                // цвет границы для поля для ввода имени
+                var nameColor = this.state.nameValid===true?"green":"red";
+                return(
+                    <input type="text" value={this.state.name} onChange={this.onNameChange} style={{borderColor:nameColor}}/>
+                );
+            }
+        }
+
+        class AgeField extends React.Component{
+            constructor(props) {
+                super(props);
+
+                var age = props.value;
+                var ageIsValid = this.validateAge(age);
+
+                this.state = {age: age, ageValid: ageIsValid};
+                this.onAgeChange = this.onAgeChange.bind(this);
+            }
+
+            validateAge(age){
+                return age>=0;
+            }
+
+            onAgeChange(e) {
+                var val = e.target.value;
+                var valid = this.validateAge(val);
+                this.setState({age: val, ageValid: valid});
+            }
+
+            render(){
+                // цвет границы для поля для ввода возраста
+                var ageColor = this.state.ageValid===true?"green":"red";
+                return(
+                    <input type="number" value={this.state.age} onChange={this.onAgeChange} style={{borderColor:ageColor}}/>
+                );
+            }
+        }
+
+
+
+        class UserForm extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.nameref = React.createRef();
+                this.ageref = React.createRef();
+
+                this.handleSubmit = this.handleSubmit.bind(this);
+            }
+
+            handleSubmit(e) {
+                e.preventDefault();
+
+                var name = this.nameref.current.state.name;
+                var age = this.ageref.current.state.age;
+
+                if (this.nameref.current.state.nameValid && this.ageref.current.state.ageValid){
+                    alert("Name: " + name + "\nAge: " + age);
+                    // console.log("handle " + this.nameref.current.state.name);
+                    // console.log("handle " + this.ageref.current.state.age);
+                }
+                else{
+                    alert("your input should be \nName lenght [2, inf] \nAge [2, 110]")
+                }
+            }
+
+            render() {
+                return (
+                    <form onSubmit={this.handleSubmit}>
+                        <p>
+                            <label>Имя:</label><br />
+                            <NameField value="Nikita" ref={this.nameref}/>
+                        </p>
+                        <p>
+                            <label>Возраст:</label><br />
+                            <AgeField value="20" ref={this.ageref}/>
+                        </p>
+                        <input type="submit" value="Отправить" />
+                    </form>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <UserForm />,
+            document.getElementById("app")
+        )
+
+    </script>
+</body>
+</html>
