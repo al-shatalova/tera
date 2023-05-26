@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 48px;
+}
+
+.main {
+  width: 1450px;
+  height: 750px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  left: 15px;
+  overflow: visible;
+}
+
+.window_form {
+  width: 1450px;
+  height: 750px;
+  background: rgba(141,72,174,0.7699999809265137);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  left: 15px;
+  border-top-left-radius: 62px;
+  border-top-right-radius: 62px;
+  border-bottom-left-radius: 62px;
+  border-bottom-right-radius: 62px;
+  overflow: visible;
+}
+
+.heading {
+  width: 422px;
+  position: absolute;
+  top: 11px;
+  left: 514px;
+  font-family: Dangrek;
+  font-weight: Regular;
+  opacity: 1;
+  text-align: center;
+}
+
+
+.name_user {
+  width: 1050px;
+  height: 75px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 129px;
+  left: 200px;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  border-bottom-left-radius: 39px;
+  border-bottom-right-radius: 39px;
+  overflow: hidden;
+}
+
+.email_user { 
+  width: 1050px;
+  height: 75px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 235px;
+  left: 200px;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  border-bottom-left-radius: 39px;
+  border-bottom-right-radius: 39px;
+  overflow: hidden;
+}
+
+.phone_user {
+  width: 1050px;
+  height: 75px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 341px;
+  left: 200px;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  border-bottom-left-radius: 39px;
+  border-bottom-right-radius: 39px;
+  overflow: hidden;
+}
+
+.passw_user {
+  width: 1050px;
+  height: 75px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 447px;
+  left: 200px;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  border-bottom-left-radius: 39px;
+  border-bottom-right-radius: 39px;
+  overflow: hidden;
+}
+
+.repeat_passw {
+  width: 1050px;
+  height: 75px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: absolute;
+  top: 553px;
+  left: 200px;
+  font-size: 20px;
+  padding-left: 15px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  border-bottom-left-radius: 39px;
+  border-bottom-right-radius: 39px;
+  overflow: hidden;
+}
+
+.button_reg {
+  width: 320px;
+  height: 75px;
+  background: rgba(67,219,137,1);
+  opacity: 1;
+  position: absolute;
+  top: 660px; 
+  left: 565px;
+  font-size: 36px;
+  text-align: center;
+  color: rgba(255,255,255,1);
+  font-family: Dangrek;
+  font-weight: Regular;
+  border-top-left-radius: 39px;
+  border-top-right-radius: 39px;
+  border-bottom-left-radius: 39px;
+  border-bottom-right-radius: 39px;
+  overflow: visible;
+}
+
+
+
+/** Неиспользующийся условный текст на странице
+.v2_26 {
+  width: 300px;
+  color: rgba(255,255,255,1);
+  position: absolute;
+  top: 665px;
+  left: 565px;
+  font-family: Dangrek;
+  font-weight: Regular;
+  font-size: 36px;
+  opacity: 1;
+  text-align: center;
+}
+.v2_16 {
+  width: 115px;
+  color: rgba(129,129,129,1);
+  position: absolute;
+  top: 153px;
+  left: 189px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  font-size: 18px;
+  line-height: 24px;
+  opacity: 1;
+  text-align: left;
+}
+.v2_18 {
+  width: 135px;
+  color: rgba(128,128,128,1);
+  position: absolute;
+  top: 365px;
+  left: 192px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v2_17 {
+  width: 115px;
+  color: rgba(129,129,129,1);
+  position: absolute;
+  top: 255px;
+  left: 192px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v2_22 {
+  width: 195px;
+  color: rgba(129,129,129,1);
+  position: absolute;
+  top: 467px;
+  left: 192px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+.v2_24 {
+  width: 195px;
+  color: rgba(129,129,129,1);
+  position: absolute;
+  top: 573px;
+  left: 192px;
+  font-family: Roboto Slab;
+  font-weight: Regular;
+  font-size: 18px;
+  opacity: 1;
+  text-align: left;
+}
+  **/

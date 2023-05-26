@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./img/favicon.ico">
+    <link rel="stylesheet" href="main.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <title>Main page</title>
+</head>
+
+<body>
+    <div class="description">
+        <h4>Главная страница задания на взаимодействие с Babel</h4>
+        <h6 class="choice-task">Выберите задание из списка.</h6>
+    </div>
+
+    <div class="tasks">
+        <ol>
+            <li>
+                <a href="./new-timer.html" style="text-decoration: none;" target="_blank">Создать компонент таймера</a>
+            </li>
+            <li>
+                <a href="./index.html" style="text-decoration: none;" target="_blank">Эмулятор часов с точкой отсчёта в 00:00:00</a>
+            </li>
+        </ol>
+    </div>
+
+    <section class="half-3">
+        <article id="one" class="one-t"></article>
+        <article id="two" class="two-t"></article>
+        <article id="three" class="three-t"></article>
+    </section>
+
+    <script type="text/babel">
+
+        function MyName(){
+            return <h1 style={h1__Style}>Георгий</h1>
+        };
+
+        const h1__Style = {
+            fontFamily: 'Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif',
+            textAlign: 'center',
+            backgroundColor: '#7EC0EE',
+            margin: '0px 0px 0px 0px',
+            padding: '10px 10px 10px 10px',
+            border: '3px solid black'
+        }
+
+        ReactDOM.render(
+            MyName(),
+            document.getElementById('one')
+        );
+    </script>
+
+    <script type="text/babel">
+
+        let MySurname = () => {
+            return <h1 style={h1_Style}>Валяев</h1>
+        };
+
+        const h1_Style = {
+            fontFamily: 'Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif',
+            textAlign: 'center',
+            margin: '0px 0px 0px 0px',
+            padding: '10px 10px 10px 10px',
+            backgroundColor: '#7EC0EE',
+            border: '3px solid black'
+        }
+
+        ReactDOM.render(
+            MySurname(),
+            document.getElementById('three')
+        );
+    </script>
+
+    <script type="text/babel">
+
+        class HellWorld extends React.Component {
+
+            render() {
+                return <article>
+                    <h1 id="hello" style={h1Style}>Привет, React world!</h1>
+                    <a href="https://reactjs.org/" target="_blank">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThep10R3f7r9by2rBw2q34xTaXsMe2pxhBUiDEJdmGWlaHjsR5hH5vMO2nA4HgT4VohT0&usqp=CAU" alt="Hello, world!"/>
+                    </a>
+                </article>
+            }
+        };
+
+        const h1Style = {
+            fontFamily: 'Lucida Sans, Lucida Sans Regular, Lucida Grande, Lucida Sans Unicode, Geneva, Verdana, sans-serif',
+            textAlign: 'center',
+            margin: '0px 0px 10px 0px',
+            padding: '0px 0px 0px 0px',
+            backgroundColor: '#66CD00',
+            border: '3px solid black'
+        }
+
+        ReactDOM.render(
+            <HellWorld/>,
+            document.getElementById('two')
+        );
+    </script>
+</body>
+</html>

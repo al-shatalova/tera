@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Bable</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="icon" href="./img/favicon.ico">
+</head>
+
+<body>
+    <div align="center" class="header"><h1>Самостоятельно идущие часы created by Valyaev Georgy</h1></div>
+    <div id="app"></div>
+    <script type="text/babel">
+        class Timer extends React.Component {
+            constructor(props) {
+                super(props);
+                this.randNum = (min, max) => {
+                    return Math.floor(Math.random() * (max - min) + min)
+                };
+                this.state = {
+                    seconds: '00',
+                    minutes: '00',
+                    hours: this.randNum(10, 15)
+                };
+                this.more_10 = function(sentence) {
+                    if (sentence >= 9) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+            }
+
+            tick() {
+
+                let is_10_more_sec = this.more_10(parseInt(this.state.seconds));
+                let is_10_more_min = this.more_10(parseInt(this.state.minutes));
+                let is_10_more_hour = this.more_10(parseInt(this.state.hours));
+
+                if (this.state.seconds == 59) {
+                    this.setState( state => ({ seconds: '00',
+                        minutes: is_10_more_min ? (parseInt(state.minutes) + 1) : '0' + String(parseInt(state.minutes) + 1)}));
+                } else if (this.state.minutes == 60) {
+                    this.setState( state => ({ seconds: '00',
+                        minutes: '00',
+                        hours : is_10_more_hour ? (parseInt(state.hours) + 1) : '0' + String(parseInt(state.hours) + 1)}));
+                } else if (this.state.hours == 24) {
+                    this.setState( state => ({ seconds: '00', minutes : '00', hours : '00'}));
+                } else {
+                    this.setState( state => (
+                            {seconds: is_10_more_sec ? (parseInt(state.seconds) + 1) : '0' + String(parseInt(state.seconds) + 1)}  
+                        )
+                    );
+                }
+            }
+
+            componentDidMount() {
+                this.interval = setInterval(() => this.tick(), 1000);
+            }
+
+            componentWillUnmount () {
+                clearInterval(this.interval);
+            }
+
+            render() {
+                return (
+                    <div style={ClockStyle}>
+                        <h4>{this.state.hours} : {this.state.minutes} : {this.state.seconds}</h4>
+                    </div>
+                );
+            }
+        }
+
+        const ClockStyle = {
+            color: '#301B28',
+            fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif',
+            fontSize: '45px',
+            padding: '0px 0px 0px 0px',
+            margin: '0px 0px 0px 0px',
+        }
+
+        ReactDOM.render(
+            <Timer />,
+            document.getElementById('app')
+        );
+    </script>
+    <div align="center">
+        <a href="https://reactjs.org/" target="_blank">
+            <img class="Clock" style="margin-top: 60px; border: 3px solid black; height: 400px"
+                src="./img/clock.jpg" alt="Часики всё идут и идут">
+        </a>
+    </div>
+</body>
+
+</html>

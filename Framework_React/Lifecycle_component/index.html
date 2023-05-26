@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Life Cycle & Resources</title>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" src="index.js"></script>
+
+    <link href="style.css" rel="stylesheet"/>
+    <link href="img/favicon.ico" rel="icon"/>
+
+</head>
+<body>
+
+    <div class="name-app">
+        <h1>Жизненный цикл компонента</h1>
+    </div>
+
+    <div class="name-themes">
+        <h3 class="header">Описание жизненного цикла</h3>
+        <h3 class="header">Работа часов</h3>
+        <h3 class="header">Поиск среди имеющихся данных</h3>
+    </div>
+
+    <div class="tasks">
+        <div class="lc">
+            <img src="img/desc_lifec.png" alt="Description of lifecycle" class="pict-lc">
+            <div style="padding-left: 40px" id="lifecycle"></div>
+        </div>
+        <div class="clock_pr">
+            <img src="img/clock-removebg-preview.png" alt="Clock in Real Time" class="pict-clock">
+            <div id="clock"></div>
+        </div>
+        <div class="search-list">
+            <div id="search"></div>
+        </div>
+    </div>
+</body>
+</html>

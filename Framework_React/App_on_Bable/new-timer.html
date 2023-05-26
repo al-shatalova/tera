@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: #D2B48C;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Study Bable</title>
+    <link rel="icon" href="./img/favicon.ico">
+    <link rel="stylesheet" href="./index.css">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div align="center" class="header"><h1>Секундный таймер created by Valyaev Georgy</h1></div>
+    <div id="app"></div>
+    <script type="text/babel">
+        class TimerWrapper extends React.Component {
+            constructor(props) {
+                super(props);
+                this.startTimer = this.startTimer.bind(this);
+                this.state = {
+                    timeLeft: null,
+                    timer: null
+                };
+            }
+
+            startTimer(timeLeft) {
+                clearInterval(this.state.timer)
+                let timer = setInterval(() => {
+                    var timeLeft = this.state.timeLeft - 1
+                    if (timeLeft == 0) {
+                        clearInterval(timer)
+                    }
+                    this.setState({
+                        timeLeft: timeLeft
+                    })
+                }, 1000)
+
+                return this.setState({timeLeft: timeLeft, timer: timer})
+            }
+
+            render() {
+                return (
+                    <div>
+                        <div align="center">
+                            <Button time="5" startTimer={this.startTimer}/>
+                            <Button time="10" startTimer={this.startTimer}/>
+                            <Button time="15" startTimer={this.startTimer}/>
+                            <Button time="30" startTimer={this.startTimer}/>
+                            <Button time="60" startTimer={this.startTimer}/>
+                        </div>
+                        <TimerDisplay timeLeft={this.state.timeLeft}/>
+                        <audio id="end" preload="auto" src="./res/kolyan_classic.mp3"></audio>
+                    </div>
+                )
+            }
+        }
+        
+        class Button extends React.Component {
+            handleStartTimer(){
+                return this.props.startTimer(this.props.time)
+            }
+            render() {
+                return (
+                    <button onClick={this.handleStartTimer.bind(this)}
+                        style={StyleButton}>{this.props.time} секунд</button>
+                )
+            }
+        }
+
+        const StyleButton = {
+            width: '150px',
+            height: '55px',
+            background: 'rgba(255, 255, 255, 1)',
+            flexDirection: 'row',
+            marginLeft: '100px',
+            margingRight: '100px',
+            fontSize: '20px',
+            textAlign: 'center',
+            fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif',
+            borderTopLeftRadius: '39px',
+            borderTopRightRadius: '39px',
+            borderBottomLeftRadius: '39px',
+            borderBottomRightRadius: '39px'
+        }
+
+        class TimerDisplay extends React.Component {
+            render() {
+                if (this.props.timeLeft === 0) {
+                    document.getElementById('end').play()
+                }
+                if (this.props.timeLeft === 0 || this.props.timeLeft === null) {
+                    <div></div>
+                }
+                return (
+                    <div>
+                        <h1 style={h1Style}>↓↓↓ Осталось времени до конца ↓↓↓</h1>
+                        <h1 style={h1Style}>{this.props.timeLeft} seconds!</h1>
+                    </div>
+                )
+            }
+        }
+
+        const h1Style = {
+            marginTop: '50px',
+            fontFamily: 'Gill Sans, Gill Sans MT, Calibri, Trebuchet MS, sans-serif',
+            textAlign: 'center'
+        }
+
+        ReactDOM.render(
+            <TimerWrapper/>,
+            document.getElementById('app')
+        );
+    </script>
+    <div align="center">
+        <a href="https://reactjs.org/" target="_blank">
+            <img src="./img/значок-таймераjpg.jpg" alt="Картинка таймера"/>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Work with React</title>
+</head>
+
+<body>
+    <h1>Первая публикация</h1>
+    <div class="like_button_container" data-commentid="1"></div>
+
+    <h1>Вторая публикация</h1>
+    <div class="like_button_container" data-commentid="2"></div>
+    
+    <h1>Третья публикация</h1>
+    <div class="like_button_container" data-commentid="3"></div>
+    <!-- Примечание: при деплое на продакшен замените «development.js» на «production.min.js». -->
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+
+    <!-- Загрузим наш React-компонент. -->
+    <script src="like_button.js"></script>
+</body>
+
+</html>

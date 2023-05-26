@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Work with React</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        ReactDOM.render(
+            <h1>Hello, React world!</h1>,
+            document.getElementById('root')
+        );
+
+    </script>
+
+    <div id="beautiful_world"></div>
+    <script type="text/babel">
+
+        ReactDOM.render(
+            <img src="./img/обои_пляж_закат.jpg" alt="Красивый закат"/>,
+            document.getElementById('beautiful_world')
+        );
+
+    </script>
+
+    <div id="my_comment"></div>
+    <script type="text/babel">
+
+        ReactDOM.render(
+            <h2>My comments</h2>,
+            document.getElementById('my_comment')
+        );
+
+    </script>
+    
+    <div id="sev_comments"></div>
+    <script src="./render_react.js"></script>
+    
+</body>
+
+</html>
